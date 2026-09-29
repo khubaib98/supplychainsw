@@ -100,8 +100,9 @@ def count_users(home):
 def open_browser(url):
     if sys.platform.startswith(("linux", "freebsd")) and not (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
         return  # no desktop: a text-mode browser would take over this window
+    bundled = FROZEN and sys.platform.startswith("linux")
     saved = os.environ.get("LD_LIBRARY_PATH")
-    if FROZEN and sys.platform.startswith("linux"):
+    if bundled:
         # The browser must not load this bundle's libraries.
         original = os.environ.get("LD_LIBRARY_PATH_ORIG")
         if original is None:
@@ -113,8 +114,11 @@ def open_browser(url):
     except Exception:  # noqa: BLE001 - opening the browser is a convenience only
         pass
     finally:
-        if saved is not None:
-            os.environ["LD_LIBRARY_PATH"] = saved
+        if bundled:
+            if saved is None:
+                os.environ.pop("LD_LIBRARY_PATH", None)
+            else:
+                os.environ["LD_LIBRARY_PATH"] = saved
 
 
 def pause_before_closing():
@@ -233,7 +237,7 @@ def print_banner(home, values, token, demo):
     for entry in urls:
         lines.append(f"  {labels[entry['kind']] + ':':20}{entry['url']}")
     lines += ["", f"  Data folder:        {home}"]
-    if not values["network_access"]:
+    if not values["network_access"] and not values["public_url"]:
         lines.append("  Only this computer can open the portal (start with --network to allow the office network).")
     if token:
         lines += ["", "  FIRST START: open this link to set up the portal (it works only once):",
@@ -296,15 +300,17 @@ def start(args, home):
             raise LauncherError(f"{home} holds real data. The demo needs a folder of its own.")
         marker.write_text("This folder holds the practice copy of the portal with demo data. It can be deleted.\n",
                           encoding="utf-8")
-    values = apply_command_line_settings(args, home)
     lock = InstanceLock(home)
     if not lock.acquire():
-        url = lock.read_info().get("url") or f"http://127.0.0.1:{values['port']}"
+        url = lock.read_info().get("url") or f"http://127.0.0.1:{desktop.load_settings(home, demo=args.demo)['port']}"
         print(f"The portal is already running: {url}")
+        if args.port or args.network or args.local or args.fresh:
+            print("It keeps its current settings. Stop it first (close its window) to start it differently.")
         if not args.no_browser:
             open_browser(url)
         return 0
     try:
+        values = apply_command_line_settings(args, home)
         if args.fresh:
             if not args.demo:
                 raise LauncherError("--fresh only works together with --demo (it deletes the demo data).")
@@ -352,8 +358,10 @@ def supervise(args, home, lock, values):
         if code == CONFIG_ERROR:
             raise LauncherError("The portal could not start (see the message above).")
         if code == desktop.RESTART_EXIT_CODE:
-            values = desktop.load_settings(home)
-            token = ""
+            values = desktop.load_settings(home, demo=args.demo)
+            port, token = values["port"], ""
+            local_url = f"http://127.0.0.1:{port}"
+            lock.write_info(pid=os.getpid(), port=port, url=local_url, version=VERSION)
             print("\nRestarting with the new settings. The portal can now be opened at:", flush=True)
             for entry in desktop.access_urls(values):
                 print(f"  {entry['url']}", flush=True)
