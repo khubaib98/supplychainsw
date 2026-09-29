@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Set up the portal" %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{% icon "logo" %} {% trans "Set up the portal" %}</h1>
+    <div class="sub">{% trans "Two short steps. Everything can be changed later." %}</div></div>
+  {% get_current_language as LANG %}{% get_available_languages as LANGUAGES %}
+  <form class="lang-switch" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}">
+    {% for code, name in LANGUAGES %}<button type="submit" name="language" value="{{ code }}"{% if code == LANG %} aria-current="true" style="font-weight:700"{% endif %}>{{ name }}</button>{% endfor %}
+  </form>
+</div>
+<form method="post" novalidate>{% csrf_token %}
+  <div class="grid grid-2">
+    <section class="card">
+      <h2>{% trans "1. Your administrator account" %}</h2>
+      <p class="muted">{% trans "For the person who looks after the portal: adds people, changes settings and keeps the backups." %}</p>
+      <div class="form-grid">{% for field in form.admin_fields %}{% include "_field.html" %}{% endfor %}</div>
+    </section>
+    <section class="card">
+      <h2>{% trans "2. The organisations" %}</h2>
+      <p class="muted">{% trans "The companies that work together in the portal. More can be added later in system administration." %}</p>
+      <div class="form-grid">{% for field in form.organization_fields %}{% include "_field.html" %}{% endfor %}</div>
+    </section>
+  </div>
+  <div class="form-actions"><button class="btn primary" type="submit">{% icon "check" %}{% trans "Finish set-up" %}</button></div>
+</form>
+{% endblock %}

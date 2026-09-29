@@ -125,6 +125,15 @@ ACTION_LABELS = {
     "auth.2fa_enabled": _("turned on two-factor authentication"),
     "auth.2fa_disabled": _("turned off two-factor authentication"),
     "auth.password_changed": _("changed password"),
+    "setup.completed": _("set up the portal"),
+    "people.created": _("created an account"),
+    "people.updated": _("updated an account"),
+    "people.password_reset": _("reset a password"),
+    "people.2fa_reset": _("reset two-factor authentication"),
+    "people.deactivated": _("deactivated an account"),
+    "people.reactivated": _("reactivated an account"),
+    "settings.computer": _("changed the settings of the portal computer"),
+    "settings.backup": _("made a backup"),
 }
 
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: consignment-portal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 17:23+0000\n"
+"POT-Creation-Date: 2026-09-29 21:52+0000\n"
 "PO-Revision-Date: 2026-09-29 18:00+0000\n"
 "Last-Translator: Initial machine-assisted draft - to be reviewed by native speakers\n"
 "Language-Team: Urdu\n"
@@ -34,6 +34,82 @@ msgstr "یاد دہانیوں کے لیے ای میل"
 
 msgid "Phone"
 msgstr "فون"
+
+msgid "Username"
+msgstr "یوزر نیم"
+
+msgid "Used to sign in, for example li.wei or ahmed.raza."
+msgstr "سائن ان کے لیے استعمال ہوتا ہے، مثلاً li.wei یا ahmed.raza۔"
+
+msgid "Your name"
+msgstr "آپ کا نام"
+
+msgid "Password"
+msgstr "پاس ورڈ"
+
+msgid "Password again"
+msgstr "پاس ورڈ دوبارہ"
+
+msgid "Shipper (company in China)"
+msgstr "شپر (چین کی کمپنی)"
+
+msgid "Shipper's name in Chinese"
+msgstr "شپر کا نام چینی میں"
+
+msgid "Receiver (company in Pakistan)"
+msgstr "ریسیور (پاکستان کی کمپنی)"
+
+msgid "Receiver's name in Urdu"
+msgstr "ریسیور کا نام اردو میں"
+
+msgid "Oversight (top management)"
+msgstr "نگران (اعلیٰ انتظامیہ)"
+
+msgid "Top management"
+msgstr "اعلیٰ انتظامیہ"
+
+msgid "The two passwords are not the same."
+msgstr "دونوں پاس ورڈ ایک جیسے نہیں ہیں۔"
+
+msgid "First name"
+msgstr "پہلا نام"
+
+msgid "Last name"
+msgstr "خاندانی نام"
+
+msgid "Organisation"
+msgstr "ادارہ"
+
+msgid "Access level"
+msgstr "رسائی کی سطح"
+
+msgid "The organisation's language"
+msgstr "ادارے کی زبان"
+
+msgid "From the organisation's country"
+msgstr "ادارے کے ملک کے مطابق"
+
+msgid "This username is already taken."
+msgstr "یہ یوزر نیم پہلے سے استعمال میں ہے۔"
+
+msgid "Other computers in the office network may open the portal"
+msgstr "دفتر کے نیٹ ورک کے دوسرے کمپیوٹر بھی پورٹل کھول سکیں"
+
+msgid "Public address (HTTPS tunnel)"
+msgstr "عوامی پتا (HTTPS ٹنل)"
+
+msgid ""
+"Only if the portal is published through a tunnel, e.g. "
+"https://portal.example.com"
+msgstr ""
+"صرف اس صورت میں جب پورٹل ٹنل کے ذریعے شائع کیا گیا ہو، مثلاً "
+"https://portal.example.com"
+
+msgid "Everyone must use an authenticator app to sign in"
+msgstr "سب کے لیے سائن ان کرتے وقت آتھنٹیکیٹر ایپ استعمال کرنا لازمی ہو"
+
+msgid "Enter an address like https://portal.example.com (without a path)."
+msgstr "https://portal.example.com جیسا پتا درج کریں (بغیر پاتھ کے)۔"
 
 msgid "China (Asia/Shanghai, UTC+8)"
 msgstr "چین (Asia/Shanghai، UTC+8)"
@@ -124,11 +200,82 @@ msgstr "فون"
 msgid "two-factor authentication"
 msgstr "دو مرحلہ تصدیق"
 
+msgid "must choose a new password"
+msgstr "نیا پاس ورڈ منتخب کرنا لازمی"
+
+msgid "Set when an administrator creates the account or resets its password."
+msgstr ""
+"جب ایڈمنسٹریٹر اکاؤنٹ بنائے یا اس کا پاس ورڈ ری سیٹ کرے تو یہ لگ جاتا ہے۔"
+
 msgid "user profile"
 msgstr "صارف پروفائل"
 
 msgid "user profiles"
 msgstr "صارف پروفائلز"
+
+#, python-format
+msgid "Hello %(name)s,"
+msgstr "السلام علیکم %(name)s،"
+
+#, python-format
+msgid "you now have an account on %(portal)s."
+msgstr "%(portal)s پر آپ کا اکاؤنٹ بن گیا ہے۔"
+
+#, python-format
+msgid "Address: %(url)s"
+msgstr "پتا: %(url)s"
+
+#, python-format
+msgid "Username: %(username)s"
+msgstr "یوزر نیم: %(username)s"
+
+#, python-format
+msgid "Temporary password: %(password)s"
+msgstr "عارضی پاس ورڈ: %(password)s"
+
+msgid "You will be asked to choose your own password when you first sign in."
+msgstr ""
+"پہلی بار سائن ان کرنے پر آپ سے اپنا پاس ورڈ منتخب کرنے کو کہا جائے گا۔"
+
+msgid "On this computer"
+msgstr "اسی کمپیوٹر پر"
+
+msgid "In the office network"
+msgstr "دفتر کے نیٹ ورک میں"
+
+msgid "From anywhere (internet)"
+msgstr "کہیں سے بھی (انٹرنیٹ)"
+
+msgid "The portal is ready. Now add the people who will use it."
+msgstr "پورٹل تیار ہے۔ اب ان لوگوں کو شامل کریں جو اسے استعمال کریں گے۔"
+
+msgid "Saved."
+msgstr "محفوظ ہو گیا۔"
+
+msgid "You cannot do this to your own account."
+msgstr "آپ اپنے اکاؤنٹ پر یہ نہیں کر سکتے۔"
+
+#, python-format
+msgid "Two-factor authentication was reset for %(name)s."
+msgstr "%(name)s کی دو مرحلہ تصدیق ری سیٹ ہو گئی۔"
+
+#, python-format
+msgid "%(name)s can no longer sign in. Their history is kept."
+msgstr "%(name)s اب سائن ان نہیں کر سکتے۔ ان کی ہسٹری محفوظ رہے گی۔"
+
+#, python-format
+msgid "%(name)s can sign in again."
+msgstr "%(name)s دوبارہ سائن ان کر سکتے ہیں۔"
+
+msgid "This action is not available."
+msgstr "یہ عمل دستیاب نہیں۔"
+
+msgid "Saved. Restart the portal to use the new settings."
+msgstr "محفوظ ہو گیا۔ نئی سیٹنگز کے لیے پورٹل دوبارہ شروع کریں۔"
+
+#, python-format
+msgid "Backup saved: %(file)s"
+msgstr "بیک اپ محفوظ ہو گیا: %(file)s"
 
 msgid "Too many failed attempts. Please wait 15 minutes and try again."
 msgstr ""
@@ -307,6 +454,33 @@ msgstr "نے دو مرحلہ تصدیق بند کی"
 
 msgid "changed password"
 msgstr "نے پاس ورڈ تبدیل کیا"
+
+msgid "set up the portal"
+msgstr "نے پورٹل سیٹ اپ کیا"
+
+msgid "created an account"
+msgstr "نے ایک اکاؤنٹ بنایا"
+
+msgid "updated an account"
+msgstr "نے ایک اکاؤنٹ میں ترمیم کی"
+
+msgid "reset a password"
+msgstr "نے پاس ورڈ ری سیٹ کیا"
+
+msgid "reset two-factor authentication"
+msgstr "نے دو مرحلہ تصدیق ری سیٹ کی"
+
+msgid "deactivated an account"
+msgstr "نے ایک اکاؤنٹ غیر فعال کیا"
+
+msgid "reactivated an account"
+msgstr "نے ایک اکاؤنٹ دوبارہ فعال کیا"
+
+msgid "changed the settings of the portal computer"
+msgstr "نے پورٹل والے کمپیوٹر کی سیٹنگز تبدیل کیں"
+
+msgid "made a backup"
+msgstr "نے بیک اپ بنایا"
 
 msgid "Consignments"
 msgstr "کنسائنمنٹس"
@@ -940,9 +1114,6 @@ msgstr "پیغام لازمی ہے۔"
 msgid "Only the party that raised this can mark it resolved."
 msgstr "صرف درج کرنے والا فریق اسے حل شدہ قرار دے سکتا ہے۔"
 
-msgid "Saved."
-msgstr "محفوظ ہو گیا۔"
-
 #, python-format
 msgid "Consignment %(code)s created."
 msgstr "کنسائنمنٹ %(code)s بن گئی۔"
@@ -1095,9 +1266,6 @@ msgstr "آڈٹ لاگ"
 msgid "User"
 msgstr "صارف"
 
-msgid "Organisation"
-msgstr "ادارہ"
-
 msgid "Object"
 msgstr "آبجیکٹ"
 
@@ -1245,12 +1413,6 @@ msgstr ""
 msgid "Please enter a correct username and password."
 msgstr "براہ کرم درست یوزر نیم اور پاس ورڈ درج کریں۔"
 
-msgid "Username"
-msgstr "یوزر نیم"
-
-msgid "Password"
-msgstr "پاس ورڈ"
-
 msgid "Enter your code"
 msgstr "اپنا کوڈ درج کریں"
 
@@ -1264,8 +1426,244 @@ msgstr "تصدیق کریں"
 msgid "Back"
 msgstr "واپس"
 
+msgid "Choose your own password"
+msgstr "اپنا پاس ورڈ منتخب کریں"
+
+msgid ""
+"You signed in with a temporary password. Please choose your own password to "
+"continue."
+msgstr ""
+"آپ نے عارضی پاس ورڈ سے سائن ان کیا ہے۔ جاری رکھنے کے لیے اپنا پاس ورڈ منتخب "
+"کریں۔"
+
 msgid "Cancel"
 msgstr "منسوخ"
+
+msgid "People"
+msgstr "افراد"
+
+msgid ""
+"Accounts for the Shipper, the Receiver and Oversight. Nobody is deleted: "
+"deactivate people who leave, so their history stays readable."
+msgstr ""
+"شپر، ریسیور اور نگران کے اکاؤنٹس۔ کوئی اکاؤنٹ حذف نہیں ہوتا: جانے والے افراد"
+" کا اکاؤنٹ غیر فعال کریں تاکہ ان کی ہسٹری پڑھی جا سکے۔"
+
+msgid "Add a person"
+msgstr "فرد شامل کریں"
+
+msgid "Add"
+msgstr "شامل کریں"
+
+msgid "Name"
+msgstr "نام"
+
+msgid "Last sign-in"
+msgstr "آخری سائن ان"
+
+msgid "Deactivated"
+msgstr "غیر فعال"
+
+msgid "Temporary password"
+msgstr "عارضی پاس ورڈ"
+
+msgid "Never"
+msgstr "کبھی نہیں"
+
+msgid "Edit"
+msgstr "ترمیم"
+
+msgid "Nobody yet."
+msgstr "ابھی کوئی نہیں۔"
+
+msgid ""
+"There are no organisations yet. Create them in system administration first."
+msgstr "ابھی کوئی ادارہ نہیں۔ پہلے سسٹم ایڈمنسٹریشن میں ادارے بنائیں۔"
+
+msgid "Accounts without an organisation"
+msgstr "بغیر ادارے کے اکاؤنٹس"
+
+msgid ""
+"These accounts cannot see any consignments. Give them an organisation in "
+"system administration."
+msgstr ""
+"یہ اکاؤنٹس کوئی کنسائنمنٹ نہیں دیکھ سکتے۔ سسٹم ایڈمنسٹریشن میں انہیں کوئی "
+"ادارہ دیں۔"
+
+msgid "How people connect"
+msgstr "لوگ پورٹل تک کیسے پہنچیں"
+
+msgid "Scan with a phone to open the portal"
+msgstr "پورٹل کھولنے کے لیے فون سے اسکین کریں"
+
+msgid ""
+"At the moment only this computer can open the portal. Allow other computers "
+"in the office network below, or publish the portal through a tunnel for "
+"people in other places (see the guide)."
+msgstr ""
+"اس وقت صرف یہی کمپیوٹر پورٹل کھول سکتا ہے۔ نیچے دفتر کے نیٹ ورک کے دوسرے "
+"کمپیوٹرز کو اجازت دیں، یا دوسری جگہوں کے لوگوں کے لیے پورٹل کو ٹنل کے ذریعے "
+"شائع کریں (گائیڈ دیکھیں)۔"
+
+msgid "This computer"
+msgstr "یہ کمپیوٹر"
+
+msgid "Data folder"
+msgstr "ڈیٹا فولڈر"
+
+msgid "Last backup"
+msgstr "آخری بیک اپ"
+
+msgid "None yet"
+msgstr "ابھی کوئی نہیں"
+
+msgid "Backups folder"
+msgstr "بیک اپ فولڈر"
+
+msgid "Back up now"
+msgstr "ابھی بیک اپ لیں"
+
+msgid ""
+"The portal restarts to apply the settings; people who are working need to "
+"reload their page. Continue?"
+msgstr ""
+"سیٹنگز لاگو کرنے کے لیے پورٹل دوبارہ شروع ہوگا؛ کام کرنے والوں کو اپنا صفحہ "
+"دوبارہ لوڈ کرنا ہوگا۔ جاری رکھیں؟"
+
+msgid "Save and restart"
+msgstr "محفوظ کریں اور دوبارہ شروع کریں"
+
+msgid "Administrators"
+msgstr "ایڈمنسٹریٹرز"
+
+msgid ""
+"Administrators manage people and settings and can see everything, but they "
+"do not work on consignments. If you also ship or receive, give yourself a "
+"separate everyday account."
+msgstr ""
+"ایڈمنسٹریٹر افراد اور سیٹنگز کا انتظام کرتے ہیں اور سب کچھ دیکھ سکتے ہیں، "
+"لیکن کنسائنمنٹس پر کام نہیں کرتے۔ اگر آپ مال بھیجتے یا وصول بھی کرتے ہیں تو "
+"روزمرہ کام کے لیے اپنا الگ اکاؤنٹ بنائیں۔"
+
+msgid ""
+"Organisations, document types and other settings: system administration"
+msgstr "ادارے، دستاویزات کی اقسام اور دیگر سیٹنگز: سسٹم ایڈمنسٹریشن"
+
+msgid ""
+"The portal creates a temporary password. You see it once, together with a "
+"message you can send to the person."
+msgstr ""
+"پورٹل ایک عارضی پاس ورڈ بناتا ہے۔ یہ آپ کو صرف ایک بار دکھایا جاتا ہے، ساتھ "
+"ایک پیغام بھی جو آپ اس فرد کو بھیج سکتے ہیں۔"
+
+msgid "Create account"
+msgstr "اکاؤنٹ بنائیں"
+
+msgid "Account"
+msgstr "اکاؤنٹ"
+
+msgid "Can sign in"
+msgstr "سائن ان کر سکتا ہے"
+
+msgid ""
+"Create a new temporary password? The current password stops working "
+"immediately."
+msgstr "نیا عارضی پاس ورڈ بنائیں؟ موجودہ پاس ورڈ فوراً کام کرنا بند کر دے گا۔"
+
+msgid "Reset password"
+msgstr "پاس ورڈ ری سیٹ کریں"
+
+msgid ""
+"Reset two-factor authentication? Use this when the person lost or replaced "
+"their phone; they can then set it up again."
+msgstr ""
+"دو مرحلہ تصدیق ری سیٹ کریں؟ یہ تب استعمال کریں جب فرد کا فون گم ہو گیا ہو یا"
+" بدل گیا ہو؛ اس کے بعد وہ اسے دوبارہ سیٹ کر سکتے ہیں۔"
+
+msgid "Reset two-factor authentication"
+msgstr "دو مرحلہ تصدیق ری سیٹ کریں"
+
+msgid ""
+"Deactivate this account? The person can no longer sign in; everything they "
+"did stays in the records."
+msgstr ""
+"یہ اکاؤنٹ غیر فعال کریں؟ یہ فرد اب سائن ان نہیں کر سکے گا؛ اس کا کیا ہوا سب "
+"کچھ ریکارڈ میں رہے گا۔"
+
+msgid "Deactivate"
+msgstr "غیر فعال کریں"
+
+msgid "Reactivate"
+msgstr "دوبارہ فعال کریں"
+
+msgid "Sign-in details"
+msgstr "سائن ان کی تفصیلات"
+
+msgid "Send these details to the person"
+msgstr "یہ تفصیلات اس فرد کو بھیجیں"
+
+msgid "Address"
+msgstr "پتا"
+
+msgid ""
+"This password is shown only once. At the first sign-in the person chooses "
+"their own password."
+msgstr ""
+"یہ پاس ورڈ صرف ایک بار دکھایا جاتا ہے۔ پہلی بار سائن ان پر یہ فرد اپنا پاس "
+"ورڈ منتخب کرے گا۔"
+
+msgid ""
+"At the moment only this computer can open the portal. Allow other computers "
+"in the office network on the People page, or publish the portal through a "
+"tunnel for people in other places (see the guide)."
+msgstr ""
+"اس وقت صرف یہی کمپیوٹر پورٹل کھول سکتا ہے۔ \"افراد\" کے صفحے پر دفتر کے نیٹ "
+"ورک کے دوسرے کمپیوٹرز کو اجازت دیں، یا دوسری جگہوں کے لوگوں کے لیے پورٹل کو "
+"ٹنل کے ذریعے شائع کریں (گائیڈ دیکھیں)۔"
+
+msgid "Ready-to-send message"
+msgstr "بھیجنے کے لیے تیار پیغام"
+
+#, python-format
+msgid ""
+"In %(language)s, the person's language. Copy it into WeChat, WhatsApp or an "
+"e-mail."
+msgstr ""
+"اس فرد کی زبان (%(language)s) میں۔ اسے WeChat، WhatsApp یا ای میل میں کاپی "
+"کریں۔"
+
+msgid ""
+"The temporary password is shown only once. If it was not passed on, reset "
+"the password to get a new one."
+msgstr ""
+"عارضی پاس ورڈ صرف ایک بار دکھایا جاتا ہے۔ اگر یہ آگے نہیں پہنچایا گیا تو نیا"
+" پاس ورڈ حاصل کرنے کے لیے پاس ورڈ ری سیٹ کریں۔"
+
+msgid "Back to People"
+msgstr "افراد پر واپس"
+
+msgid "Add another person"
+msgstr "ایک اور فرد شامل کریں"
+
+msgid "Restarting…"
+msgstr "دوبارہ شروع ہو رہا ہے…"
+
+msgid ""
+"The portal is restarting with the new settings. This page continues by "
+"itself in a few seconds."
+msgstr ""
+"پورٹل نئی سیٹنگز کے ساتھ دوبارہ شروع ہو رہا ہے۔ چند سیکنڈ میں یہ صفحہ خود "
+"آگے بڑھ جائے گا۔"
+
+msgid ""
+"If nothing happens, close the portal window on this computer and start the "
+"portal again."
+msgstr ""
+"اگر کچھ نہ ہو تو اس کمپیوٹر پر پورٹل کی ونڈو بند کریں اور پورٹل دوبارہ شروع "
+"کریں۔"
+
+msgid "Continue"
+msgstr "جاری رکھیں"
 
 msgid ""
 "A code from your phone is needed at every sign-in, so a stolen password "
@@ -1306,6 +1704,44 @@ msgstr "2. ایپ میں دکھایا گیا کوڈ درج کریں"
 
 msgid "Turn on"
 msgstr "آن کریں"
+
+msgid "Set up the portal"
+msgstr "پورٹل سیٹ اپ کریں"
+
+msgid "Two short steps. Everything can be changed later."
+msgstr "صرف دو مختصر مراحل۔ بعد میں سب کچھ تبدیل کیا جا سکتا ہے۔"
+
+msgid "1. Your administrator account"
+msgstr "1. آپ کا ایڈمنسٹریٹر اکاؤنٹ"
+
+msgid ""
+"For the person who looks after the portal: adds people, changes settings and"
+" keeps the backups."
+msgstr ""
+"اس فرد کے لیے جو پورٹل کی دیکھ بھال کرتا ہے: افراد شامل کرنا، سیٹنگز بدلنا "
+"اور بیک اپ سنبھالنا۔"
+
+msgid "2. The organisations"
+msgstr "2. ادارے"
+
+msgid ""
+"The companies that work together in the portal. More can be added later in "
+"system administration."
+msgstr ""
+"وہ کمپنیاں جو پورٹل میں مل کر کام کرتی ہیں۔ مزید بعد میں سسٹم ایڈمنسٹریشن "
+"میں شامل کی جا سکتی ہیں۔"
+
+msgid "Finish set-up"
+msgstr "سیٹ اپ مکمل کریں"
+
+msgid ""
+"Open the set-up link shown in the portal window on the computer where the "
+"portal runs. The link contains a one-time key, so only someone at that "
+"computer can set up the portal."
+msgstr ""
+"جس کمپیوٹر پر پورٹل چل رہا ہے، اس پر پورٹل کی ونڈو میں دکھایا گیا سیٹ اپ لنک"
+" کھولیں۔ لنک میں ایک بار استعمال ہونے والی کلید ہے، اس لیے صرف اسی کمپیوٹر "
+"پر موجود شخص پورٹل سیٹ اپ کر سکتا ہے۔"
 
 msgid "Main"
 msgstr "مرکزی"
@@ -1488,9 +1924,6 @@ msgstr "کنٹرولڈ"
 
 msgid "Yes"
 msgstr "ہاں"
-
-msgid "Edit"
-msgstr "ترمیم"
 
 msgid "No item types yet."
 msgstr "ابھی کوئی آئٹم قسم نہیں۔"
@@ -1929,9 +2362,6 @@ msgstr ""
 "مثلاً چین–پاکستان FTA کی ڈیوٹی رعایت کے لیے سرٹیفکیٹ آف اوریجن (فارم P)، یا "
 "اینڈ یوزر این او سی۔"
 
-msgid "Add"
-msgstr "شامل کریں"
-
 msgid "How files are protected"
 msgstr "فائلیں کیسے محفوظ ہیں"
 
@@ -2010,9 +2440,6 @@ msgstr "لیبل پرنٹ کریں"
 
 msgid "Raise a remark"
 msgstr "ریمارک درج کریں"
-
-msgid "Name"
-msgstr "نام"
 
 msgid "Currently in"
 msgstr "فی الحال اندر"

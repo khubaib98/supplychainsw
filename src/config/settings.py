@@ -3,14 +3,18 @@ Settings for the China–Pakistan consignment portal.
 
 Everything that differs between a laptop demo and production is read from
 environment variables (see deploy/.env.example). Defaults are safe for local
-development only.
+development only. The desktop edition's launcher sets these variables from
+its settings.ini (see core/desktop.py).
 """
+import json
 import os
 import sys
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 from django.core.exceptions import ImproperlyConfigured
+
+from config import VERSION
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,6 +36,8 @@ def env_list(name, default=""):
 
 TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
 DEBUG = env_bool("DJANGO_DEBUG", False)
+# Set by the desktop launcher (launcher/portal_launcher.py): the data folder on this computer.
+DESKTOP_HOME = env("PORTAL_DESKTOP_HOME", "")
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 if not SECRET_KEY:
@@ -65,7 +71,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "core.middleware.UserPreferencesMiddleware",
-    "accounts.middleware.EnforceTwoFactorMiddleware",
+    "accounts.middleware.AccountGateMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -91,6 +97,17 @@ TEMPLATES = [
 ]
 
 
+# SQLite (desktop edition, development): wait for a busy database instead of failing,
+# let people read while someone writes (WAL), take the write lock when a transaction
+# starts (avoids "database is locked" between writers) and sync every commit to disk,
+# because office PCs lose power.
+SQLITE_OPTIONS = {
+    "timeout": 20,
+    "transaction_mode": "IMMEDIATE",
+    "init_command": "PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL",
+}
+
+
 def database_from_url(url):
     """Minimal DATABASE_URL parser: postgres://user:pass@host:port/name or sqlite:///path."""
     parsed = urlparse(url)
@@ -105,7 +122,11 @@ def database_from_url(url):
             "CONN_MAX_AGE": 60,
         }
     if parsed.scheme == "sqlite":
-        return {"ENGINE": "django.db.backends.sqlite3", "NAME": unquote(parsed.path) or ":memory:"}
+        return {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": unquote(parsed.path) or ":memory:",
+            "OPTIONS": SQLITE_OPTIONS,
+        }
     raise ImproperlyConfigured(f"Unsupported DATABASE_URL scheme: {parsed.scheme}")
 
 
@@ -115,7 +136,9 @@ if DATABASE_URL:
     DATABASES = {"default": database_from_url(DATABASE_URL)}
 else:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": DATA_DIR / "db.sqlite3"}}
+    DATABASES = {
+        "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": DATA_DIR / "db.sqlite3", "OPTIONS": SQLITE_OPTIONS}
+    }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -150,8 +173,10 @@ USE_TZ = True
 
 # --- Static & uploaded files ----------------------------------------------
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# The desktop edition has no collectstatic step: files are served from the source folders.
+STATIC_ROOT = None if DESKTOP_HOME else BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+WHITENOISE_USE_FINDERS = DEBUG or bool(DESKTOP_HOME)
 # Uploaded documents are never served directly: they go through an
 # authenticated, audited download view (logistics.views.documents).
 MEDIA_ROOT = Path(env("PORTAL_MEDIA_ROOT", str(DATA_DIR / "media")))
@@ -174,6 +199,12 @@ SESSION_COOKIE_SECURE = env_bool("DJANGO_SECURE_COOKIES", not DEBUG)
 CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_AGE = int(env("DJANGO_SESSION_SECONDS", str(12 * 60 * 60)))
+# Cookies ignore the port, so a second portal on the same computer (the desktop demo)
+# needs its own cookie names or the two would sign each other out.
+COOKIE_PREFIX = env("DJANGO_COOKIE_PREFIX", "")
+SESSION_COOKIE_NAME = f"{COOKIE_PREFIX}sessionid"
+CSRF_COOKIE_NAME = f"{COOKIE_PREFIX}csrftoken"
+LANGUAGE_COOKIE_NAME = f"{COOKIE_PREFIX}django_language"
 SECURE_SSL_REDIRECT = env_bool("DJANGO_SSL_REDIRECT", False)
 SECURE_HSTS_SECONDS = int(env("DJANGO_HSTS_SECONDS", "0"))
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
@@ -192,6 +223,7 @@ EMAIL_HOST_USER = env("SMTP_USER", "")
 EMAIL_HOST_PASSWORD = env("SMTP_PASSWORD", "")
 EMAIL_USE_TLS = env_bool("SMTP_TLS", True)
 EMAIL_TIMEOUT = 15
+EMAIL_FILE_PATH = env("DJANGO_EMAIL_FILE_PATH", str(DATA_DIR / "outbox"))
 DEFAULT_FROM_EMAIL = env("PORTAL_FROM_EMAIL", "portal@localhost")
 
 CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
@@ -220,6 +252,14 @@ PORTAL = {
     "LOGIN_LOCK_MINUTES": 15,
     # Optional ClamAV daemon (host:port) used to scan uploads before they are accepted.
     "CLAMAV": env("PORTAL_CLAMAV", ""),
+    "VERSION": VERSION,
+    # Desktop edition only (set by the launcher):
+    "DESKTOP": bool(DESKTOP_HOME),
+    # one-time token for the first-run setup page (/setup/), printed in the launcher window
+    "SETUP_TOKEN": env("PORTAL_SETUP_TOKEN", ""),
+    # how people reach this computer: [{"kind": "local" | "network" | "public", "url": ...}]
+    "ACCESS_URLS": json.loads(env("PORTAL_ACCESS_URLS", "") or "[]"),
+    "INSTANCE": env("PORTAL_INSTANCE", ""),
 }
 
 # Machine translation of free text (comments/remarks). The user interface

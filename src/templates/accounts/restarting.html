@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head %}<meta http-equiv="refresh" content="30;url={{ next }}">{% endblock %}
+{% block title %}{% trans "Restarting…" %}{% endblock %}
+{% block content %}
+<div class="card" style="max-width:560px" data-wait-restart="{{ next }}" data-boot="{{ boot }}" data-health-url="{% url 'healthz' %}">
+  <h1>{% trans "Restarting…" %}</h1>
+  <p>{% trans "The portal is restarting with the new settings. This page continues by itself in a few seconds." %}</p>
+  <p class="muted">{% trans "If nothing happens, close the portal window on this computer and start the portal again." %}</p>
+  <p><a class="btn" href="{{ next }}">{% trans "Continue" %}</a></p>
+</div>
+{% endblock %}

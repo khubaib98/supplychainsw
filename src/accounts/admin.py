@@ -15,7 +15,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
-    fields = ("organization", "level", "language", "timezone", "phone", "totp_enabled")
+    fields = ("organization", "level", "language", "timezone", "phone", "totp_enabled", "must_change_password")
     readonly_fields = ("totp_enabled",)
 
 

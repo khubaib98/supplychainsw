@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, SetPasswordForm
 from django.contrib.auth.views import PasswordChangeView
 from django.core.cache import cache
 from django.shortcuts import redirect, render
@@ -203,8 +203,28 @@ class PortalPasswordChangeView(PasswordChangeView):
     template_name = "accounts/password.html"
     success_url = reverse_lazy("accounts:account")
 
+    def forced(self):
+        """The account was just created or reset by an administrator (temporary password)."""
+        profile = getattr(self.request.user, "profile", None)
+        return bool(profile and profile.must_change_password)
+
+    def get_form_class(self):
+        # The person typed the temporary password a moment ago; asking for it again adds nothing.
+        return SetPasswordForm if self.forced() else PasswordChangeForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["forced"] = self.forced()
+        return context
+
     def form_valid(self, form):
+        forced = self.forced()
         response = super().form_valid(form)
+        if forced:
+            profile = self.request.user.profile
+            profile.must_change_password = False
+            profile.save(update_fields=["must_change_password"])
+            response = redirect(settings.LOGIN_REDIRECT_URL)
         audit.log(self.request.user, "auth.password_changed", self.request.user, request=self.request,
                   label=self.request.user.get_username())
         messages.success(self.request, _("Password changed."))

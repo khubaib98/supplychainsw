@@ -70,6 +70,11 @@ class Profile(models.Model):
     totp_secret = models.CharField(max_length=64, blank=True)
     totp_enabled = models.BooleanField(_("two-factor authentication"), default=False)
     totp_last_step = models.BigIntegerField(default=0)
+    must_change_password = models.BooleanField(
+        _("must choose a new password"),
+        default=False,
+        help_text=_("Set when an administrator creates the account or resets its password."),
+    )
 
     class Meta:
         verbose_name = _("user profile")

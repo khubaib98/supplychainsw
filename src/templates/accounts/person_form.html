@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% if person %}{{ person.get_full_name|default:person.username }}{% else %}{% trans "Add a person" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{% icon "user" %} {% if person %}{{ person.get_full_name|default:person.username }}{% else %}{% trans "Add a person" %}{% endif %}</h1>
+    {% if not person %}<div class="sub">{% trans "The portal creates a temporary password. You see it once, together with a message you can send to the person." %}</div>{% endif %}</div>
+</div>
+<div class="grid grid-main">
+  <div class="card">
+    <form method="post" novalidate>{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" %}</div>
+      <div class="form-actions">
+        <button class="btn primary" type="submit">{% if person %}{% trans "Save" %}{% else %}{% icon "plus" %}{% trans "Create account" %}{% endif %}</button>
+        <a class="btn" href="{% url 'accounts:people' %}">{% trans "Cancel" %}</a>
+      </div>
+    </form>
+  </div>
+  {% if person %}
+  <div class="card">
+    <h2>{% trans "Account" %}</h2>
+    <dl class="kv">
+      <dt>{% trans "Status" %}</dt><dd>{% if person.is_active %}<span class="pill state-good">{% icon "check" %}{% trans "Can sign in" %}</span>{% else %}<span class="pill state-neutral">{% trans "Deactivated" %}</span>{% endif %}</dd>
+      <dt>{% trans "Last sign-in" %}</dt><dd>{% if person.last_login %}{{ person.last_login|when }}{% else %}{% trans "Never" %}{% endif %}</dd>
+      <dt>{% trans "Two-factor authentication" %}</dt><dd>{% if profile.totp_enabled %}{% trans "On" %}{% else %}{% trans "Off" %}{% endif %}</dd>
+      {% if profile.must_change_password %}<dt>{% trans "Password" %}</dt><dd><span class="pill state-warning">{% trans "Temporary password" %}</span></dd>{% endif %}
+    </dl>
+    {% if person != user %}
+    <div class="actions" style="margin-top:1rem">
+      <form method="post" action="{% url 'accounts:person_action' person.pk %}" data-confirm="{% trans 'Create a new temporary password? The current password stops working immediately.' %}">{% csrf_token %}
+        <input type="hidden" name="action" value="reset_password"><button class="btn" type="submit">{% icon "lock" %}{% trans "Reset password" %}</button></form>
+      {% if profile.totp_enabled %}
+      <form method="post" action="{% url 'accounts:person_action' person.pk %}" data-confirm="{% trans 'Reset two-factor authentication? Use this when the person lost or replaced their phone; they can then set it up again.' %}">{% csrf_token %}
+        <input type="hidden" name="action" value="reset_2fa"><button class="btn" type="submit">{% trans "Reset two-factor authentication" %}</button></form>
+      {% endif %}
+      {% if person.is_active %}
+      <form method="post" action="{% url 'accounts:person_action' person.pk %}" data-confirm="{% trans 'Deactivate this account? The person can no longer sign in; everything they did stays in the records.' %}">{% csrf_token %}
+        <input type="hidden" name="action" value="deactivate"><button class="btn danger" type="submit">{% icon "x" %}{% trans "Deactivate" %}</button></form>
+      {% else %}
+      <form method="post" action="{% url 'accounts:person_action' person.pk %}">{% csrf_token %}
+        <input type="hidden" name="action" value="reactivate"><button class="btn" type="submit">{% icon "check" %}{% trans "Reactivate" %}</button></form>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

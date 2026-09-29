@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Set up the portal" %}{% endblock %}
+{% block content %}
+<div class="login-wrap">
+  <div class="card login-card">
+    <div class="brand">{% icon "logo" %}<span>{{ PORTAL_NAME }}</span></div>
+    <h1>{% trans "Set up the portal" %}</h1>
+    <p>{% trans "Open the set-up link shown in the portal window on the computer where the portal runs. The link contains a one-time key, so only someone at that computer can set up the portal." %}</p>
+  </div>
+</div>
+{% endblock %}

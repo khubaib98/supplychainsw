@@ -11,3 +11,7 @@ src/staticfiles/
 deploy/.env
 deploy/backups/
 deploy/rclone/
+
+# desktop program builds (python launcher/build.py)
+build/
+dist/

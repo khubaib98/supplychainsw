@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: consignment-portal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 17:23+0000\n"
+"POT-Creation-Date: 2026-09-29 21:52+0000\n"
 "PO-Revision-Date: 2026-09-29 18:00+0000\n"
 "Last-Translator: Initial machine-assisted draft - to be reviewed by native speakers\n"
 "Language-Team: Simplified Chinese\n"
@@ -34,6 +34,80 @@ msgstr "接收提醒的邮箱"
 
 msgid "Phone"
 msgstr "电话"
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "Used to sign in, for example li.wei or ahmed.raza."
+msgstr "用于登录，例如 li.wei 或 ahmed.raza。"
+
+msgid "Your name"
+msgstr "您的姓名"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Password again"
+msgstr "再次输入密码"
+
+msgid "Shipper (company in China)"
+msgstr "发货方（中国公司）"
+
+msgid "Shipper's name in Chinese"
+msgstr "发货方的中文名称"
+
+msgid "Receiver (company in Pakistan)"
+msgstr "收货方（巴基斯坦公司）"
+
+msgid "Receiver's name in Urdu"
+msgstr "收货方的乌尔都语名称"
+
+msgid "Oversight (top management)"
+msgstr "监管方（高层管理）"
+
+msgid "Top management"
+msgstr "高层管理"
+
+msgid "The two passwords are not the same."
+msgstr "两次输入的密码不一致。"
+
+msgid "First name"
+msgstr "名"
+
+msgid "Last name"
+msgstr "姓"
+
+msgid "Organisation"
+msgstr "组织"
+
+msgid "Access level"
+msgstr "权限级别"
+
+msgid "The organisation's language"
+msgstr "与组织语言相同"
+
+msgid "From the organisation's country"
+msgstr "按组织所在国家"
+
+msgid "This username is already taken."
+msgstr "该用户名已被使用。"
+
+msgid "Other computers in the office network may open the portal"
+msgstr "允许办公网络中的其他电脑打开平台"
+
+msgid "Public address (HTTPS tunnel)"
+msgstr "公网地址（HTTPS 隧道）"
+
+msgid ""
+"Only if the portal is published through a tunnel, e.g. "
+"https://portal.example.com"
+msgstr "仅在通过隧道对外发布平台时填写，例如 https://portal.example.com"
+
+msgid "Everyone must use an authenticator app to sign in"
+msgstr "所有人登录时都必须使用验证器应用"
+
+msgid "Enter an address like https://portal.example.com (without a path)."
+msgstr "请输入类似 https://portal.example.com 的地址（不带路径）。"
 
 msgid "China (Asia/Shanghai, UTC+8)"
 msgstr "中国（Asia/Shanghai，UTC+8）"
@@ -121,11 +195,80 @@ msgstr "电话"
 msgid "two-factor authentication"
 msgstr "双重验证"
 
+msgid "must choose a new password"
+msgstr "须设置新密码"
+
+msgid "Set when an administrator creates the account or resets its password."
+msgstr "管理员创建账号或重置密码时自动设置。"
+
 msgid "user profile"
 msgstr "用户资料"
 
 msgid "user profiles"
 msgstr "用户资料"
+
+#, python-format
+msgid "Hello %(name)s,"
+msgstr "%(name)s，您好："
+
+#, python-format
+msgid "you now have an account on %(portal)s."
+msgstr "您已开通 %(portal)s 的账号。"
+
+#, python-format
+msgid "Address: %(url)s"
+msgstr "网址：%(url)s"
+
+#, python-format
+msgid "Username: %(username)s"
+msgstr "用户名：%(username)s"
+
+#, python-format
+msgid "Temporary password: %(password)s"
+msgstr "临时密码：%(password)s"
+
+msgid "You will be asked to choose your own password when you first sign in."
+msgstr "首次登录时，系统会要求您设置自己的密码。"
+
+msgid "On this computer"
+msgstr "在本机上"
+
+msgid "In the office network"
+msgstr "在办公网络中"
+
+msgid "From anywhere (internet)"
+msgstr "任何地方（互联网）"
+
+msgid "The portal is ready. Now add the people who will use it."
+msgstr "平台已准备就绪。现在请添加将使用平台的人员。"
+
+msgid "Saved."
+msgstr "已保存。"
+
+msgid "You cannot do this to your own account."
+msgstr "不能对自己的账号执行此操作。"
+
+#, python-format
+msgid "Two-factor authentication was reset for %(name)s."
+msgstr "已为 %(name)s 重置双重验证。"
+
+#, python-format
+msgid "%(name)s can no longer sign in. Their history is kept."
+msgstr "%(name)s 已无法登录，其历史记录仍会保留。"
+
+#, python-format
+msgid "%(name)s can sign in again."
+msgstr "%(name)s 可以再次登录。"
+
+msgid "This action is not available."
+msgstr "无法执行此操作。"
+
+msgid "Saved. Restart the portal to use the new settings."
+msgstr "已保存。请重新启动平台以使用新设置。"
+
+#, python-format
+msgid "Backup saved: %(file)s"
+msgstr "备份已保存：%(file)s"
 
 msgid "Too many failed attempts. Please wait 15 minutes and try again."
 msgstr "失败次数过多，请 15 分钟后再试。"
@@ -299,6 +442,33 @@ msgstr "关闭了双重验证"
 
 msgid "changed password"
 msgstr "修改了密码"
+
+msgid "set up the portal"
+msgstr "完成了平台初始设置"
+
+msgid "created an account"
+msgstr "创建了一个账号"
+
+msgid "updated an account"
+msgstr "更新了一个账号"
+
+msgid "reset a password"
+msgstr "重置了密码"
+
+msgid "reset two-factor authentication"
+msgstr "重置了双重验证"
+
+msgid "deactivated an account"
+msgstr "停用了一个账号"
+
+msgid "reactivated an account"
+msgstr "重新启用了一个账号"
+
+msgid "changed the settings of the portal computer"
+msgstr "修改了平台所在电脑的设置"
+
+msgid "made a backup"
+msgstr "进行了备份"
 
 msgid "Consignments"
 msgstr "货运批次"
@@ -928,9 +1098,6 @@ msgstr "内容为必填项。"
 msgid "Only the party that raised this can mark it resolved."
 msgstr "只有提出方可以将其标记为已解决。"
 
-msgid "Saved."
-msgstr "已保存。"
-
 #, python-format
 msgid "Consignment %(code)s created."
 msgstr "货运批次 %(code)s 已创建。"
@@ -1082,9 +1249,6 @@ msgstr "审计日志"
 msgid "User"
 msgstr "用户"
 
-msgid "Organisation"
-msgstr "组织"
-
 msgid "Object"
 msgstr "对象"
 
@@ -1225,12 +1389,6 @@ msgstr "发货方、收货方和监管方共享货运批次、单据及单件级
 msgid "Please enter a correct username and password."
 msgstr "请输入正确的用户名和密码。"
 
-msgid "Username"
-msgstr "用户名"
-
-msgid "Password"
-msgstr "密码"
-
 msgid "Enter your code"
 msgstr "输入验证码"
 
@@ -1244,8 +1402,211 @@ msgstr "验证"
 msgid "Back"
 msgstr "返回"
 
+msgid "Choose your own password"
+msgstr "设置您自己的密码"
+
+msgid ""
+"You signed in with a temporary password. Please choose your own password to "
+"continue."
+msgstr "您使用临时密码登录。请设置您自己的密码后继续。"
+
 msgid "Cancel"
 msgstr "取消"
+
+msgid "People"
+msgstr "人员"
+
+msgid ""
+"Accounts for the Shipper, the Receiver and Oversight. Nobody is deleted: "
+"deactivate people who leave, so their history stays readable."
+msgstr "发货方、收货方和监管方的账号。账号不会被删除：人员离开时请停用其账号，以便其历史记录仍可查阅。"
+
+msgid "Add a person"
+msgstr "添加人员"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Last sign-in"
+msgstr "最近登录"
+
+msgid "Deactivated"
+msgstr "已停用"
+
+msgid "Temporary password"
+msgstr "临时密码"
+
+msgid "Never"
+msgstr "从未"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Nobody yet."
+msgstr "暂无人员。"
+
+msgid ""
+"There are no organisations yet. Create them in system administration first."
+msgstr "尚无组织。请先在系统管理后台中创建。"
+
+msgid "Accounts without an organisation"
+msgstr "未分配组织的账号"
+
+msgid ""
+"These accounts cannot see any consignments. Give them an organisation in "
+"system administration."
+msgstr "这些账号看不到任何货运批次。请在系统管理后台中为其指定组织。"
+
+msgid "How people connect"
+msgstr "如何访问平台"
+
+msgid "Scan with a phone to open the portal"
+msgstr "用手机扫码打开平台"
+
+msgid ""
+"At the moment only this computer can open the portal. Allow other computers "
+"in the office network below, or publish the portal through a tunnel for "
+"people in other places (see the guide)."
+msgstr "目前只有这台电脑可以打开平台。可在下方允许办公网络中的其他电脑访问，或通过隧道对外发布平台，供其他地点的人员使用（见使用指南）。"
+
+msgid "This computer"
+msgstr "本机"
+
+msgid "Data folder"
+msgstr "数据文件夹"
+
+msgid "Last backup"
+msgstr "最近备份"
+
+msgid "None yet"
+msgstr "暂无"
+
+msgid "Backups folder"
+msgstr "备份文件夹"
+
+msgid "Back up now"
+msgstr "立即备份"
+
+msgid ""
+"The portal restarts to apply the settings; people who are working need to "
+"reload their page. Continue?"
+msgstr "平台将重新启动以应用设置，正在使用的人员需要刷新页面。是否继续？"
+
+msgid "Save and restart"
+msgstr "保存并重新启动"
+
+msgid "Administrators"
+msgstr "管理员"
+
+msgid ""
+"Administrators manage people and settings and can see everything, but they "
+"do not work on consignments. If you also ship or receive, give yourself a "
+"separate everyday account."
+msgstr "管理员负责管理人员和设置，可以查看所有内容，但不处理货运批次。如果您同时负责发货或收货，请为自己另建一个日常使用的账号。"
+
+msgid ""
+"Organisations, document types and other settings: system administration"
+msgstr "组织、单据类型及其他设置：系统管理后台"
+
+msgid ""
+"The portal creates a temporary password. You see it once, together with a "
+"message you can send to the person."
+msgstr "平台会生成一个临时密码。该密码只显示一次，并附有一条可直接发送给对方的消息。"
+
+msgid "Create account"
+msgstr "创建账号"
+
+msgid "Account"
+msgstr "账号"
+
+msgid "Can sign in"
+msgstr "可以登录"
+
+msgid ""
+"Create a new temporary password? The current password stops working "
+"immediately."
+msgstr "生成新的临时密码？当前密码将立即失效。"
+
+msgid "Reset password"
+msgstr "重置密码"
+
+msgid ""
+"Reset two-factor authentication? Use this when the person lost or replaced "
+"their phone; they can then set it up again."
+msgstr "重置双重验证？适用于对方丢失或更换手机的情况，之后对方可以重新设置。"
+
+msgid "Reset two-factor authentication"
+msgstr "重置双重验证"
+
+msgid ""
+"Deactivate this account? The person can no longer sign in; everything they "
+"did stays in the records."
+msgstr "停用此账号？对方将无法登录，其所有操作仍保留在记录中。"
+
+msgid "Deactivate"
+msgstr "停用"
+
+msgid "Reactivate"
+msgstr "重新启用"
+
+msgid "Sign-in details"
+msgstr "登录信息"
+
+msgid "Send these details to the person"
+msgstr "将以下信息发送给对方"
+
+msgid "Address"
+msgstr "网址"
+
+msgid ""
+"This password is shown only once. At the first sign-in the person chooses "
+"their own password."
+msgstr "此密码只显示一次。对方首次登录时将设置自己的密码。"
+
+msgid ""
+"At the moment only this computer can open the portal. Allow other computers "
+"in the office network on the People page, or publish the portal through a "
+"tunnel for people in other places (see the guide)."
+msgstr "目前只有这台电脑可以打开平台。可在“人员”页面允许办公网络中的其他电脑访问，或通过隧道对外发布平台，供其他地点的人员使用（见使用指南）。"
+
+msgid "Ready-to-send message"
+msgstr "可直接发送的消息"
+
+#, python-format
+msgid ""
+"In %(language)s, the person's language. Copy it into WeChat, WhatsApp or an "
+"e-mail."
+msgstr "使用对方的语言（%(language)s）。可复制到微信、WhatsApp 或电子邮件中。"
+
+msgid ""
+"The temporary password is shown only once. If it was not passed on, reset "
+"the password to get a new one."
+msgstr "临时密码只显示一次。如果尚未转交给对方，请重置密码以生成新密码。"
+
+msgid "Back to People"
+msgstr "返回人员列表"
+
+msgid "Add another person"
+msgstr "继续添加人员"
+
+msgid "Restarting…"
+msgstr "正在重新启动…"
+
+msgid ""
+"The portal is restarting with the new settings. This page continues by "
+"itself in a few seconds."
+msgstr "平台正在以新设置重新启动。几秒钟后本页面会自动继续。"
+
+msgid ""
+"If nothing happens, close the portal window on this computer and start the "
+"portal again."
+msgstr "如果没有反应，请关闭这台电脑上的平台窗口，然后重新启动平台。"
+
+msgid "Continue"
+msgstr "继续"
 
 msgid ""
 "A code from your phone is needed at every sign-in, so a stolen password "
@@ -1285,6 +1646,37 @@ msgstr "2. 输入应用显示的验证码"
 
 msgid "Turn on"
 msgstr "开启"
+
+msgid "Set up the portal"
+msgstr "设置平台"
+
+msgid "Two short steps. Everything can be changed later."
+msgstr "只需两步，之后所有内容都可以修改。"
+
+msgid "1. Your administrator account"
+msgstr "1. 您的管理员账号"
+
+msgid ""
+"For the person who looks after the portal: adds people, changes settings and"
+" keeps the backups."
+msgstr "供负责维护平台的人员使用：添加人员、修改设置并保管备份。"
+
+msgid "2. The organisations"
+msgstr "2. 组织"
+
+msgid ""
+"The companies that work together in the portal. More can be added later in "
+"system administration."
+msgstr "在平台上协作的公司。之后可在系统管理后台中添加更多。"
+
+msgid "Finish set-up"
+msgstr "完成设置"
+
+msgid ""
+"Open the set-up link shown in the portal window on the computer where the "
+"portal runs. The link contains a one-time key, so only someone at that "
+"computer can set up the portal."
+msgstr "请打开运行平台的电脑上平台窗口中显示的设置链接。该链接包含一次性密钥，因此只有在那台电脑前的人才能设置平台。"
 
 msgid "Main"
 msgstr "主导航"
@@ -1461,9 +1853,6 @@ msgstr "管制"
 
 msgid "Yes"
 msgstr "是"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "No item types yet."
 msgstr "暂无货物类型。"
@@ -1877,9 +2266,6 @@ msgid ""
 "preference, or an end-user NOC."
 msgstr "例如：用于中巴自贸协定关税优惠的原产地证书（Form P），或最终用户无异议证书（NOC）。"
 
-msgid "Add"
-msgstr "添加"
-
 msgid "How files are protected"
 msgstr "文件如何受到保护"
 
@@ -1955,9 +2341,6 @@ msgstr "打印标签"
 
 msgid "Raise a remark"
 msgstr "提出备注"
-
-msgid "Name"
-msgstr "名称"
 
 msgid "Currently in"
 msgstr "当前位置"

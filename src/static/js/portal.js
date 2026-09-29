@@ -33,6 +33,25 @@
     button.addEventListener("click", function () { window.print(); });
   });
 
+  // Select the whole ready-to-send message with one click, ready to copy.
+  document.querySelectorAll("textarea[data-select-all]").forEach(function (area) {
+    area.addEventListener("focus", function () { area.select(); });
+  });
+
+  // Desktop edition: after "Save and restart", wait until the new portal process answers.
+  var waiting = document.querySelector("[data-wait-restart]");
+  if (waiting) {
+    var next = waiting.getAttribute("data-wait-restart");
+    var oldBoot = waiting.getAttribute("data-boot");
+    var check = function () {
+      fetch(waiting.getAttribute("data-health-url"), { cache: "no-store" })
+        .then(function (response) { return response.ok ? response.json() : null; })
+        .then(function (data) { if (data && data.boot !== oldBoot) { window.location.assign(next); } })
+        .catch(function () { /* still restarting */ });
+    };
+    window.setInterval(check, 1500);
+  }
+
   // Bring a highlighted unit/item into view (packing page ?hl=…).
   var highlighted = document.querySelector(".hl");
   if (highlighted && highlighted.scrollIntoView) {

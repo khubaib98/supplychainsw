@@ -1,3 +1,4 @@
 -r requirements.txt
 polib==1.2.0   # translation-catalogue checks in the test-suite
 ruff==0.16.9
+waitress==3.0.2  # desktop edition web server (launcher/)
