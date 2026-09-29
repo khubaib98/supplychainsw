@@ -10,7 +10,7 @@
   <section class="card">
     <h2>{% trans "Send these details to the person" %}</h2>
     <dl class="kv">
-      <dt>{% trans "Address" %}</dt><dd class="code" dir="ltr">{{ url|default:"—" }}</dd>
+      <dt>{% trans "Address" %}</dt><dd class="code wrap" dir="ltr">{{ url|default:"—" }}</dd>
       <dt>{% trans "Username" %}</dt><dd class="code" dir="ltr">{{ person.username }}</dd>
       <dt>{% trans "Temporary password" %}</dt><dd class="code" dir="ltr" id="temp-password">{{ password }}</dd>
     </dl>

@@ -14,6 +14,9 @@ This repository contains:
    [docs/03-delivery-plan.md](docs/03-delivery-plan.md)
 4. **A tested deployment kit and runbook** (HTTPS, backups, restore):
    [docs/04-deployment-guide.md](docs/04-deployment-guide.md)
+5. **A one-click desktop program** (Windows, macOS, Linux) that runs the whole portal on one
+   computer, and a guide to giving the Shipper and Receiver access to it:
+   [docs/05-run-on-your-computer.md](docs/05-run-on-your-computer.md)
 
 ![Oversight dashboard](docs/img/dashboard-oversight.png)
 
@@ -44,7 +47,33 @@ This repository contains:
 - **Security.** Organisation × access-level roles with ownership and custody rules, two-factor login,
   lock-out, strict security headers, and no third-party CDNs (important for access from China).
 
-## Try it in two minutes
+## Run it on your own computer
+
+1. Download the ready-made program:
+   - on GitHub, open **Actions › Desktop app**, pick the latest green run, and download the artifact
+     for your system from **Artifacts**;
+   - or, once a version tag exists, download it from **Releases**.
+2. Unzip it and double-click **`CNPK-Portal.exe`** (Windows) or **`CNPK-Portal`** (macOS and Linux).
+   You need no Python, Docker or installer.
+
+The browser opens a one-time set-up page. There you create your administrator account and
+name the three organisations. On the **People** page you then add people; each one gets a
+ready-to-send sign-in message in their own language.
+
+- **Colleagues in the same office:** tick one box to let them connect.
+- **The Shipper and Receiver elsewhere:** connect them through Cloudflare Tunnel.
+- **The demo:** `Start demo` opens the 57-carton example on a separate practice copy.
+
+The steps, backups, security checklist and the limits of hosting on a PC are in
+[docs/05-run-on-your-computer.md](docs/05-run-on-your-computer.md).
+
+From the source code:
+
+- Windows: `Start-Portal.bat`.
+- macOS and Linux: `./start-portal.sh`.
+- Both need Python 3.11 or newer.
+
+## Try the demo from the source code (developers)
 
 ```bash
 python -m venv .venv && . .venv/bin/activate
@@ -53,6 +82,8 @@ cd src && export DJANGO_DEBUG=1
 python manage.py migrate && python manage.py seed_demo
 python manage.py runserver        # open http://127.0.0.1:8000
 ```
+
+The desktop program's demo is `CNPK-Portal --demo`.
 
 Demo users (password `Demo-Portal-2026`):
 
@@ -82,20 +113,25 @@ docker compose exec web python manage.py createsuperuser
 
 ```
 src/                 Django project
-  core/              IDs, audit chain, translation, notifications
-  accounts/          organisations, profiles, login + 2FA
+  core/              IDs, audit chain, translation, notifications, desktop settings and backups
+  accounts/          organisations, profiles, login + 2FA, set-up page, People page
   logistics/         consignments, packing, documents, remarks, scanner, dashboard
   templates/ static/ locale/   UI, CSS/JS (no CDNs), EN / 中文 / اردو catalogues
+launcher/            one-click desktop program: launcher, PyInstaller recipe, build script, smoke test
 deploy/              docker-compose, Caddy (HTTPS), backup job, .env template
-docs/                evaluation, design, delivery plan, deployment guide
+docs/                evaluation, design, delivery plan, deployment guide, desktop guide
 ```
 
 ## Development
 
 ```bash
-cd src && python manage.py test      # 64 tests
-ruff check src deploy
+cd src && python manage.py test      # 101 tests
+ruff check src deploy launcher
 python ../deploy/compile_po.py locale   # after editing translations in locale/*/django.po
+python launcher/build.py && python launcher/smoke_test.py dist/CNPK-Portal/CNPK-Portal   # desktop program
 ```
 
-CI (`.github/workflows/ci.yml`) runs lint, migration checks, the tests and a Docker build on every push.
+CI (`.github/workflows/ci.yml`) runs lint, migration checks, the tests and a Docker build on every
+push. The **Desktop app** workflow (`.github/workflows/desktop.yml`) builds the program for
+Windows and Linux (macOS for version tags) and tests each build end to end. A `v*` tag publishes
+the zips as a GitHub release.

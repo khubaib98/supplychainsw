@@ -2,7 +2,8 @@
 
 The prototype in `src/` implements the recommendations from the
 [critical evaluation](01-critical-evaluation.md). It is a working system, not a mock-up. Everything
-below runs and is covered by 64 automated tests.
+below runs and is covered by 101 automated tests. A desktop edition runs the same portal on one
+computer ([05-run-on-your-computer.md](05-run-on-your-computer.md)).
 
 ## Architecture
 

@@ -100,6 +100,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 1rem 0; }
   unicode-bidi: isolate;
   white-space: nowrap;
 }
+/* Long values such as folder paths and addresses may break anywhere. */
+.code.wrap { white-space: normal; overflow-wrap: anywhere; }
 .num { font-variant-numeric: tabular-nums; }
 .nowrap { white-space: nowrap; }
 .visually-hidden {

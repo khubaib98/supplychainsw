@@ -52,18 +52,12 @@ class SetupForm(forms.Form):
     receiver_name_local = forms.CharField(label=_("Receiver's name in Urdu"), max_length=200, required=False)
     oversight_name = forms.CharField(label=_("Oversight (top management)"), max_length=200, initial=_("Top management"))
 
-    ADMIN_FIELDS = ("name", "username", "email", "password1", "password2")
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].initial = "admin"
-        self.fields["password1"].help_text = password_validation.password_validators_help_text_html()
 
-    def admin_fields(self):
-        return [self[name] for name in self.ADMIN_FIELDS]
-
-    def organization_fields(self):
-        return [self[name] for name in self.fields if name not in self.ADMIN_FIELDS]
+    def password_help(self):
+        return password_validation.password_validators_help_text_html()
 
     def clean(self):
         data = super().clean()

@@ -10,7 +10,9 @@
 - **Why not mainland China:** hosting there requires ICP filing by a Chinese entity and puts the data
   under Chinese jurisdiction.
 - **Why not a PC in the office:** power cuts, no public IP, no redundancy
-  (see [evaluation §5](01-critical-evaluation.md#5-hosting-a-local-computer)).
+  (see [evaluation §5](01-critical-evaluation.md#5-hosting-a-local-computer)). For a pilot, or for
+  people in one office, the desktop edition does run on a PC; see
+  [05-run-on-your-computer.md](05-run-on-your-computer.md).
 - **Local copy:** the nightly encrypted backup is also copied to a NAS at the Oversight office in
   Pakistan.
 
@@ -165,7 +167,7 @@ export DJANGO_DEBUG=1
 python manage.py migrate
 python manage.py seed_demo          # demo organisations, users and 5 consignments
 python manage.py runserver          # http://127.0.0.1:8000  – users listed by seed_demo
-python manage.py test               # 64 tests
+python manage.py test               # 101 tests
 ```
 
 ## China-specific notes

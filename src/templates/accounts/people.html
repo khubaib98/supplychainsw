@@ -52,7 +52,7 @@
       <ul class="list">
         {% for entry in urls %}
         <li>
-          <div class="main"><div class="meta">{{ entry.label }}</div><a class="code" href="{{ entry.url }}" dir="ltr">{{ entry.url }}</a></div>
+          <div class="main"><div class="meta">{{ entry.label }}</div><a class="code wrap" href="{{ entry.url }}" dir="ltr">{{ entry.url }}</a></div>
           {% if entry.qr %}<div style="width:92px;flex:none" title="{% trans 'Scan with a phone to open the portal' %}">{{ entry.qr }}</div>{% endif %}
         </li>
         {% endfor %}
@@ -66,9 +66,9 @@
     <section class="card" style="margin-bottom:16px">
       <h2>{% trans "This computer" %}</h2>
       <dl class="kv">
-        <dt>{% trans "Data folder" %}</dt><dd class="code" dir="ltr">{{ home }}</dd>
+        <dt>{% trans "Data folder" %}</dt><dd class="code wrap" dir="ltr">{{ home }}</dd>
         <dt>{% trans "Last backup" %}</dt><dd>{% if latest_backup %}<bdi dir="ltr" class="dt">{{ latest_backup|date:"Y-m-d H:i" }}</bdi>{% else %}{% trans "None yet" %}{% endif %}</dd>
-        <dt>{% trans "Backups folder" %}</dt><dd class="code" dir="ltr">{{ backups_folder }}</dd>
+        <dt>{% trans "Backups folder" %}</dt><dd class="code wrap" dir="ltr">{{ backups_folder }}</dd>
       </dl>
       <form method="post" action="{% url 'accounts:backup_now' %}" style="margin-top:.6rem">{% csrf_token %}
         <button class="btn small" type="submit">{% icon "archive" %}{% trans "Back up now" %}</button>
