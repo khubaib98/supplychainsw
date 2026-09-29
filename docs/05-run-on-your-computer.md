@@ -39,13 +39,19 @@ The program is built automatically by GitHub every time the code changes:
    green tick.
 2. Under **Artifacts**, download **`CNPK-Portal-1.1.0-windows-x64`**. On a Mac or Linux PC,
    download the matching `package-…` file instead.
-3. Unzip it to a simple place, for example `C:\CNPK-Portal`.
+3. On Windows, first right-click the downloaded zip, choose **Properties**, tick **Unblock** and
+   click **OK**. This avoids a security prompt for every file.
+4. Unzip it to a simple place, for example `C:\CNPK-Portal`.
 
-For a permanent download page, publish a release:
+Artifacts are deleted after 30 days. For a permanent download page, publish a release:
 
-- create a tag such as `v1.1.0`, or run the **Desktop app** workflow by hand with **Run workflow**;
-- GitHub then also builds the macOS version;
-- for a tag, the zips appear under **Releases**.
+1. On GitHub, open **Releases › Draft a new release**.
+2. Under **Choose a tag**, type `v1.1.0` and pick **Create new tag**.
+3. Click **Publish release**.
+
+A few minutes later, zips for Windows, macOS and Linux are attached to the release. The macOS
+version is only built for releases, or when you start the **Desktop app** workflow by hand
+(**Run workflow**).
 
 ### First start
 
