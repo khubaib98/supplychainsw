@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Receiving" %} · {{ consignment.code }}{% endblock %}
+{% block content %}
+{% include "logistics/_c_header.html" %}
+{% if not arrived %}
+<div class="callout">{% icon "info" %} {% trans "Receiving opens when the consignment has arrived. Until then this page shows what is expected." %}</div>
+{% endif %}
+<div class="kpis">
+  <div class="kpi"><span class="label">{% trans "Packages / units received" %}</span>
+    <span class="value">{{ rec.units_received }}<small> / {{ rec.units_total }}</small></span>
+    <div class="meter"><span style="width: {% widthratio rec.units_received rec.units_total|default:1 100 %}%"></span></div></div>
+  <div class="kpi"><span class="label">{% trans "Item IDs verified" %}</span>
+    <span class="value">{{ rec.items_received }}<small> / {{ rec.items_total }}</small></span>
+    <div class="meter"><span style="width: {% widthratio rec.items_received rec.items_total|default:1 100 %}%"></span></div></div>
+  <div class="kpi{% if rec.units_damaged or rec.items_damaged %} alert{% endif %}"><span class="label">{% trans "Damaged" %}</span>
+    <span class="value">{{ rec.damaged_total }}</span>
+    <span class="detail">{% if rec.units_damaged or rec.items_damaged %}{% icon "alert" %}{% endif %}{% trans "units and items" %}</span></div>
+</div>
+<div class="grid grid-2">
+  <section class="card">
+    <div class="card-head"><h2>{% trans "Not yet received" %}</h2>
+      {% if can_receive %}<a class="btn primary" href="{% url 'logistics:scan' %}?mode=receive&c={{ consignment.code }}">{% icon "scan" %}{% trans "Scan to receive" %}</a>{% endif %}</div>
+    {% if rec.units_missing %}
+    <h3>{% trans "Units" %}</h3>
+    <div class="chips" style="margin-bottom:.75rem">{% for u in rec.units_missing %}<a class="chip" href="{% url 'logistics:unit' u.code %}">{{ u.short }}</a>{% endfor %}</div>
+    {% endif %}
+    {% if rec.items_missing %}
+    <h3>{% trans "Item IDs" %}</h3>
+    <div class="chips">{% for i in rec.items_missing|slice:":300" %}<a class="chip" href="{% url 'logistics:item' i.uid %}">{{ i.short }}</a>{% endfor %}{% if rec.items_missing|length > 300 %}<span class="muted">+{{ rec.items_missing|length|add:"-300" }}</span>{% endif %}</div>
+    {% endif %}
+    {% if not rec.units_missing and not rec.items_missing %}<p class="empty">{% icon "check" %} {% trans "Everything has been received." %}</p>{% endif %}
+  </section>
+  <section class="card">
+    <h2>{% trans "Damaged" %}</h2>
+    {% if rec.units_damaged or rec.items_damaged %}
+    <div class="chips">
+      {% for u in rec.units_damaged %}<a class="chip damaged" href="{% url 'logistics:unit' u.code %}">{{ u.short }}</a>{% endfor %}
+      {% for i in rec.items_damaged %}<a class="chip damaged" href="{% url 'logistics:item' i.uid %}">{{ i.short }}</a>{% endfor %}
+    </div>
+    {% if can_comment %}<p class="muted" style="margin-top:.75rem">{% trans "Raise a “Damage” remark from the unit or item page so the Shipper can respond (and claim insurance)." %}</p>{% endif %}
+    {% else %}<p class="empty">{% trans "No damage recorded." %}</p>{% endif %}
+  </section>
+</div>
+{% endblock %}

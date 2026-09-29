@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Remarks & queries" %} · {{ consignment.code }}{% endblock %}
+{% block content %}
+{% include "logistics/_c_header.html" %}
+<div class="grid grid-main">
+  <section class="card">
+    <div class="card-head"><h2>{% trans "Remarks & queries" %}</h2>
+      <div class="actions">
+        <a class="btn small{% if state == 'open' %} primary{% endif %}" href="?state=open">{% trans "Open" %}</a>
+        <a class="btn small{% if state != 'open' %} primary{% endif %}" href="?state=all">{% trans "All" %}</a>
+      </div></div>
+    <ul class="list">
+      {% for t in threads %}
+      <li>
+        <div class="main">
+          <a href="{% url 'logistics:thread' t.pk %}"><strong>{% free_text t.subject t.subject_lang as s %}{{ s.text }}</strong></a>
+          <div class="meta">{{ t.get_category_display }} · {% trans "raised by" %} {{ t.raised_by_party|party }} ({{ t.raised_by.get_username }}) · {{ t.created_at|when }}
+            {% if t.unit %} · <a class="code" href="{% url 'logistics:unit' t.unit.code %}">{{ t.unit.short }}</a>{% endif %}
+            {% if t.item %} · <a class="code" href="{% url 'logistics:item' t.item.uid %}">{{ t.item.short }}</a>{% endif %}</div>
+        </div>
+        <span class="pill {% if t.state == 'resolved' %}state-good{% elif t.state == 'answered' %}state-neutral{% else %}state-warning{% endif %}">{{ t.get_state_display }}</span>
+      </li>
+      {% empty %}<li class="empty">{% trans "Nothing here." %}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% if form %}
+  <section class="card">
+    <h2>{% icon "chat" %} {% trans "Raise a remark or query" %}</h2>
+    <p class="muted">{% trans "Write in your own language. The other side reads it in theirs; the original is always kept." %}</p>
+    <form method="post">{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" %}</div>
+      <div class="form-actions"><button class="btn primary" type="submit">{% trans "Post" %}</button></div>
+    </form>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

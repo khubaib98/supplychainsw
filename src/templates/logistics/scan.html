@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n static portal %}
+{% block title %}{% trans "Scan" %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{% icon "scan" %} {% trans "Scan" %}</h1>
+    <div class="sub">{% trans "Use the phone camera, a USB/Bluetooth barcode scanner, or type an ID. The QR label contains the full ID; a manufacturer serial no. also works." %}</div></div>
+  {% if context_code %}<div class="pill">{% blocktrans with c=context_code %}Short IDs (CTN-017, DCJM-017) are looked up in {{ c }}{% endblocktrans %}</div>{% endif %}
+</div>
+<div id="scanner" class="grid grid-main"
+     data-api="{% url 'logistics:scan_api' %}"
+     data-jsqr="{% static 'vendor/jsqr/jsQR.js' %}"
+     data-msg-target-none="{% trans 'No destination yet: scan the container, pallet or carton to move things into.' %}"
+     data-msg-target="{% trans 'Destination' %}"
+     data-msg-open="{% trans 'Open' %}"
+     data-msg-camera-error="{% trans 'The camera could not be started. Check the browser permission, or type/scan the ID instead.' %}"
+     data-msg-insecure="{% trans 'The camera needs a secure (https) connection.' %}"
+     data-msg-network="{% trans 'Connection problem: the scan was not saved. Try again.' %}"
+     data-initial-mode="{{ request.GET.mode|default:'lookup' }}"
+     data-consignment="{{ context_code }}">
+  <section class="card">
+    <fieldset style="border:0;padding:0;margin:0">
+      <legend class="visually-hidden">{% trans "What do you want to do?" %}</legend>
+      <div class="scan-modes">
+        <label><input type="radio" name="mode" value="lookup" checked>{% icon "info" %}{% trans "Look up" %}</label>
+        {% if can_edit %}
+        <label><input type="radio" name="mode" value="move">{% icon "move" %}{% trans "Move / repack" %}</label>
+        <label><input type="radio" name="mode" value="receive">{% icon "check" %}{% trans "Receive" %}</label>
+        {% endif %}
+      </div>
+    </fieldset>
+
+    <div data-show-mode="move" hidden>
+      <div id="scan-target" class="scan-target"></div>
+      <div class="form-grid" style="margin-bottom:.75rem">
+        <div class="field"><label for="scan-reason">{% trans "Reason" %}</label><input id="scan-reason" type="text" maxlength="300" placeholder="{% trans 'e.g. repacked after customs inspection' %}"></div>
+        <div class="field"><label for="scan-place-move">{% trans "Location" %}</label><input id="scan-place-move" type="text" maxlength="120"></div>
+      </div>
+      <button class="btn small" type="button" id="scan-clear-target">{% trans "Change destination" %}</button>
+      <hr>
+    </div>
+
+    <div data-show-mode="receive" hidden>
+      <div class="form-grid" style="margin-bottom:.75rem">
+        <div class="field"><label for="scan-condition">{% trans "Condition" %}</label>
+          <select id="scan-condition"><option value="good">{% trans "Good" %}</option><option value="damaged">{% trans "Damaged" %}</option></select></div>
+        <div class="field"><label for="scan-place-receive">{% trans "Location" %}</label><input id="scan-place-receive" type="text" maxlength="120"></div>
+        <div class="field checkbox"><input id="scan-contents" type="checkbox"><label for="scan-contents">{% trans "Also mark everything inside as received" %}</label></div>
+      </div>
+      <hr>
+    </div>
+
+    <div class="field">
+      <label for="scan-code">{% trans "Scan or type an ID, then press Enter" %}</label>
+      <input id="scan-code" class="scan-input" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" autofocus placeholder="CSG-2026-0002-CTN-017">
+    </div>
+    <div class="form-actions">
+      <button class="btn primary" type="button" id="scan-camera">{% icon "camera" %}{% trans "Use camera" %}</button>
+    </div>
+    <div class="camera" id="scan-camera-view"><video id="scan-video" playsinline muted></video><div class="frame"></div></div>
+    <canvas id="scan-canvas" hidden></canvas>
+  </section>
+
+  <section class="card">
+    <h2>{% trans "Results" %}</h2>
+    <ul class="scan-log" id="scan-log" aria-live="polite"></ul>
+    <p class="muted" id="scan-empty">{% trans "Scanned IDs appear here." %}</p>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/scan.js' %}"></script>{% endblock %}

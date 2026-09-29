@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{{ thread.subject }} · {{ consignment.code }}{% endblock %}
+{% block content %}
+{% include "logistics/_c_header.html" %}
+<div class="grid grid-main">
+  <section>
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head">
+        <div>
+          <span class="pill">{{ thread.get_category_display }}</span>
+          <span class="pill {% if thread.state == 'resolved' %}state-good{% elif thread.state == 'answered' %}state-neutral{% else %}state-warning{% endif %}">{{ thread.get_state_display }}</span>
+        </div>
+        <div class="actions">
+          {% if can_resolve %}<form method="post" action="{% url 'logistics:thread_state' thread.pk %}">{% csrf_token %}<input type="hidden" name="state" value="resolved"><button class="btn small primary" type="submit">{% icon "check" %}{% trans "Mark resolved" %}</button></form>{% endif %}
+          {% if can_reopen %}<form method="post" action="{% url 'logistics:thread_state' thread.pk %}">{% csrf_token %}<input type="hidden" name="state" value="open"><button class="btn small" type="submit">{% trans "Reopen" %}</button></form>{% endif %}
+        </div>
+      </div>
+      <div style="font-size:1.2rem;font-weight:650" role="heading" aria-level="1">{% include "logistics/_free_text.html" with text=thread.subject lang=thread.subject_lang uid="subject" %}</div>
+      <div class="muted">
+        {% if about_unit %}{% trans "About" %} <a class="code" href="{% url 'logistics:unit' about_unit.code %}">{{ about_unit.short }}</a> · {% endif %}
+        {% if about_item %}{% trans "About" %} <a class="code" href="{% url 'logistics:item' about_item.uid %}">{{ about_item.short }}</a> · {% endif %}
+        {% if thread.awaiting_party %}{% blocktrans with p=thread.awaiting_party|party %}Waiting for: {{ p }}{% endblocktrans %}{% endif %}
+      </div>
+    </div>
+    {% for m in messages_list %}
+    <article class="msg{% if m.author_id == user.pk %} mine{% endif %}">
+      <div class="msg-head"><strong>{{ m.author.get_full_name|default:m.author.get_username }}</strong><span>{{ m.author_party|party }}</span><span>· {{ m.created_at|when }}</span></div>
+      {% include "logistics/_free_text.html" with text=m.body lang=m.lang uid=m.pk %}
+    </article>
+    {% endfor %}
+    {% if form %}
+    <div class="card">
+      <form method="post">{% csrf_token %}
+        <div class="form-grid">{% include "_fields.html" %}</div>
+        <div class="form-actions"><button class="btn primary" type="submit">{% trans "Reply" %}</button></div>
+      </form>
+    </div>
+    {% endif %}
+  </section>
+  <aside class="card" style="align-self:start">
+    <h2>{% trans "How it works" %}</h2>
+    <ul class="list">
+      <li>{% trans "Open: waiting for the other party to answer." %}</li>
+      <li>{% trans "Answered: waiting for the party who raised it to accept or follow up." %}</li>
+      <li>{% trans "Resolved: closed by the party who raised it. Anyone can reopen it." %}</li>
+      <li>{% trans "Machine translations help reading; the original text is what counts." %}</li>
+    </ul>
+  </aside>
+</div>
+{% endblock %}

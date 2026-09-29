@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Two-factor authentication" %}{% endblock %}
+{% block content %}
+<div class="login-wrap">
+  <div class="card login-card">
+    <div class="brand">{% icon "logo" %}<span>{{ PORTAL_NAME }}</span></div>
+    <h1>{% trans "Enter your code" %}</h1>
+    <p class="muted">{% trans "Open your authenticator app and enter the 6-digit code for this portal." %}</p>
+    <form method="post" novalidate>{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" %}</div>
+      <div class="form-actions"><button class="btn primary" type="submit">{% trans "Verify" %}</button>
+        <a class="btn" href="{% url 'accounts:login' %}">{% trans "Back" %}</a></div>
+    </form>
+  </div>
+</div>
+{% endblock %}

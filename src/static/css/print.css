@@ -1,0 +1,91 @@
+/* Printable documents: packing list (A4) and thermal labels (100×150 mm, 50×30 mm). */
+
+.doc, .labels-page { background: #e9e9e6; }
+.doc-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---- packing list (A4) ---- */
+.sheet {
+  background: #fff;
+  width: 100%;
+  max-width: 297mm;
+  margin: 16px auto;
+  padding: 14mm 12mm;
+  color: #000;
+  font-size: 10.5pt;
+}
+.doc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; border-bottom: 2px solid #000; padding-bottom: 6mm; margin-bottom: 5mm; }
+.doc-head h1 { font-size: 18pt; margin: 0 0 2mm; }
+.doc-head .big { font-size: 16pt; font-weight: 700; }
+.doc-qr { width: 28mm; }
+table.doc-meta, table.doc-lines { width: 100%; border-collapse: collapse; margin-bottom: 5mm; }
+table.doc-meta th, table.doc-meta td { text-align: start; padding: 1.5mm 2mm; border: 1px solid #999; vertical-align: top; }
+table.doc-meta th { background: #f2f2f2; width: 17%; font-weight: 600; }
+table.doc-lines th, table.doc-lines td { border: 1px solid #999; padding: 1.5mm 2mm; text-align: start; vertical-align: top; }
+table.doc-lines thead th { background: #f2f2f2; font-size: 9pt; }
+table.doc-lines td.num, table.doc-lines th.num { text-align: end; font-variant-numeric: tabular-nums; }
+table.doc-lines .ids { white-space: normal; font-size: 9pt; }
+table.doc-lines tfoot th { background: #f2f2f2; }
+.doc-foot { font-size: 8.5pt; color: #444; }
+.zh { color: #333; }
+
+/* ---- labels ---- */
+.label-sheet { display: flex; flex-wrap: wrap; gap: 10px; padding: 16px; justify-content: center; }
+.label { background: #fff; color: #000; overflow: hidden; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); }
+.label .code { white-space: nowrap; }
+.label-unit {
+  width: 100mm;
+  height: 150mm;
+  padding: 5mm;
+  display: flex;
+  flex-direction: column;
+  border-top: 5mm solid var(--k, #000);
+}
+.lu-top { display: flex; justify-content: space-between; font-size: 11pt; font-weight: 700; }
+.lu-qr { width: 58mm; margin: 3mm auto 1mm; }
+.lu-short { text-align: center; font-size: 30pt; font-weight: 800; line-height: 1.05; }
+.lu-count { text-align: center; font-size: 12pt; font-weight: 600; margin-top: 1mm; }
+.lu-full { text-align: center; font-size: 10pt; margin: 1mm 0 2mm; }
+.lu-meta { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.6mm 2.5mm; font-size: 8.5pt; margin: auto 0 0; border-top: 0.4mm solid #000; padding-top: 2mm; }
+.lu-meta dt { font-weight: 700; }
+.lu-meta dd { margin: 0; overflow-wrap: anywhere; }
+.label-item {
+  width: 50mm;
+  height: 30mm;
+  padding: 1.5mm;
+  display: grid;
+  grid-template-columns: 19mm minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 0 1.5mm;
+}
+.li-qr { width: 19mm; align-self: center; }
+.li-text { min-width: 0; font-size: 6.5pt; line-height: 1.2; overflow: hidden; }
+.li-short { font-size: 10pt; font-weight: 800; }
+.li-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.li-sn { font-size: 6.5pt; font-weight: 600; }
+.li-full { grid-column: 1 / -1; font-size: 6.3pt; text-align: center; }
+
+@page { margin: 0; }
+@page package { size: 100mm 150mm; margin: 0; }
+@page itemlabel { size: 50mm 30mm; margin: 0; }
+@page a4 { size: A4 landscape; margin: 10mm; }
+
+@media print {
+  .doc, .labels-page { background: #fff; }
+  .no-print { display: none !important; }
+  .sheet { page: a4; margin: 0; padding: 0; max-width: none; }
+  .label-sheet { display: block; padding: 0; }
+  .label { box-shadow: none; break-after: page; page-break-after: always; }
+  .label-unit { page: package; }
+  .label-item { page: itemlabel; }
+}

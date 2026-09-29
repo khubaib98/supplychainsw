@@ -1,0 +1,56 @@
+{% load i18n static portal %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Packing List {{ consignment.code }}</title>
+  <link rel="stylesheet" href="{% static 'css/portal.css' %}">
+  <link rel="stylesheet" href="{% static 'css/print.css' %}">
+</head>
+<body class="doc">
+{% include "_icons.html" %}
+<div class="doc-toolbar no-print">
+  <button class="btn primary" type="button" data-print>{% icon "print" %}Print / Save as PDF · 打印</button>
+  <a class="btn" href="?format=csv">{% icon "download" %}CSV</a>
+</div>
+<article class="sheet">
+  <header class="doc-head">
+    <div>
+      <h1>PACKING LIST · 装箱单</h1>
+      <div class="code big">{{ consignment.code }}</div>
+    </div>
+    <div class="doc-qr">{% qr_svg consignment.code 3 %}</div>
+  </header>
+  <table class="doc-meta">
+    <tr><th>Shipper · 发货人</th><td>{{ consignment.shipper.name }}{% if consignment.shipper.name_local %}<br>{{ consignment.shipper.name_local }}{% endif %}</td>
+        <th>Receiver · 收货人</th><td>{{ consignment.receiver.name }}</td></tr>
+    <tr><th>PO / Contract · 合同号</th><td>{{ consignment.reference|default:"—" }}</td>
+        <th>Mode · 运输方式</th><td>{{ consignment.transport_mode|upper }}{% if consignment.incoterm %} · {{ consignment.incoterm }}{% endif %}</td></tr>
+    <tr><th>From · 起运地</th><td>{{ consignment.origin }}</td><th>To · 目的地</th><td>{{ consignment.destination }}</td></tr>
+    <tr><th>B/L · AWB · 提单号</th><td>{{ consignment.transport_ref|default:"—" }}</td><th>ETD / ETA</th><td>{{ consignment.etd|day|default:"—" }} / {{ consignment.eta|day|default:"—" }}</td></tr>
+  </table>
+  <table class="doc-lines">
+    <thead><tr>
+      <th>Container · 集装箱</th><th>Pallet · 托盘</th><th>Package · 箱号</th><th>Item · 品名</th><th class="num">Qty · 数量</th><th>Item IDs · 单件编号</th><th class="num">G.W. kg · 毛重</th>
+    </tr></thead>
+    <tbody>
+    {% for row in rows %}
+      <tr>
+        <td class="code">{% if row.container %}{{ row.container.short }}{% if row.container.container_no %}<br>{{ row.container.container_no }}{% endif %}{% else %}—{% endif %}</td>
+        <td class="code">{{ row.pallet.short|default:"—" }}</td>
+        <td class="code">{{ row.unit.short|default:"—" }}</td>
+        <td><strong>{{ row.item_type.code }}</strong> {{ row.item_type.name_en }}{% if row.item_type.name_zh %}<br><span class="zh">{{ row.item_type.name_zh }}</span>{% endif %}</td>
+        <td class="num">{{ row.quantity }} {{ row.item_type.uom }}</td>
+        <td class="code ids">{{ row.ids }}{% if row.serials %}<br><small>S/N: {{ row.serials|join:", " }}</small>{% endif %}</td>
+        <td class="num">{% ifchanged row.unit.pk %}{{ row.unit.gross_kg|default:"" }}{% endifchanged %}</td>
+      </tr>
+    {% empty %}<tr><td colspan="7">Nothing packed yet · 尚未装箱</td></tr>
+    {% endfor %}
+    </tbody>
+    <tfoot><tr><th colspan="4">Total · 合计: {{ totals.packages }} packages · 件</th><th class="num">{{ totals.quantity }}</th><th></th><th class="num">{{ totals.gross }}</th></tr></tfoot>
+  </table>
+  <p class="doc-foot">Generated from the consignment portal on {{ printed_at|when }} · 系统生成. Item IDs are permanent; current locations can be checked by scanning the QR codes.</p>
+</article>
+<script src="{% static 'js/portal.js' %}"></script>
+</body>
+</html>

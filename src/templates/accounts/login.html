@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Sign in" %}{% endblock %}
+{% block content %}
+<div class="login-wrap">
+  <div class="card login-card">
+    <div class="brand">{% icon "logo" %}<span>{{ PORTAL_NAME }}</span></div>
+    <h1>{% trans "Sign in" %}</h1>
+    <p class="muted">{% trans "Shipper, Receiver and Oversight access to consignments, documents and item-level traceability." %}</p>
+    <form method="post" novalidate>{% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {% if form.non_field_errors %}<ul class="messages"><li class="error">{% icon "x" %}<span>{% trans "Please enter a correct username and password." %}</span></li></ul>{% endif %}
+      <div class="field"><label for="id_username">{% trans "Username" %}</label><input type="text" name="username" id="id_username" autocomplete="username" autofocus required value="{{ form.username.value|default:'' }}"></div>
+      <div class="field" style="margin-top:.75rem"><label for="id_password">{% trans "Password" %}</label><input type="password" name="password" id="id_password" autocomplete="current-password" required></div>
+      <div class="form-actions"><button class="btn primary" type="submit">{% icon "lock" %}{% trans "Sign in" %}</button></div>
+    </form>
+    {% get_current_language as LANG %}{% get_available_languages as LANGUAGES %}
+    <form class="lang-switch" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+      {% for code, name in LANGUAGES %}<button type="submit" name="language" value="{{ code }}"{% if code == LANG %} aria-current="true" style="font-weight:700"{% endif %}>{{ name }}</button>{% endfor %}
+    </form>
+  </div>
+</div>
+{% endblock %}

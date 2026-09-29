@@ -1,0 +1,51 @@
+{% load i18n static portal %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Labels {{ consignment.code }}</title>
+  <link rel="stylesheet" href="{% static 'css/portal.css' %}">
+  <link rel="stylesheet" href="{% static 'css/print.css' %}">
+</head>
+<body class="labels-page">
+{% include "_icons.html" %}
+<div class="doc-toolbar no-print">
+  <button class="btn primary" type="button" data-print>{% icon "print" %}Print · 打印</button>
+  <span class="muted">{% trans "In the print dialog choose the label printer, paper 100 × 150 mm (packages) or 50 × 30 mm (items), margins “None”, scale 100 %." %}</span>
+  {% if units %}{% if show_contents %}<a class="btn small" href="?{% for k, v in request.GET.items %}{% if k != 'contents' %}{{ k }}={{ v|urlencode }}&{% endif %}{% endfor %}">{% trans "Hide contents" %}</a>{% else %}<a class="btn small" href="?{{ request.GET.urlencode }}&contents=1">{% trans "Show contents on label" %}</a>{% endif %}{% endif %}
+  <span class="muted">{% blocktrans with n=units|length m=items|length %}{{ n }} package labels, {{ m }} item labels{% endblocktrans %}</span>
+</div>
+<div class="label-sheet">
+{% for unit in units %}
+  <section class="label label-unit k-{{ unit.kind }}">
+    <div class="lu-top"><span class="code">{{ consignment.code }}</span><span>{{ consignment.transport_mode|upper }}</span></div>
+    <div class="lu-qr">{% qr_svg unit.code 5 1 %}</div>
+    <div class="lu-short code">{{ unit.short }}</div>
+    <div class="lu-count">{% if unit.kind == "container" %}{{ unit.container_no|default:"CONTAINER · 集装箱" }}{% else %}No. {{ unit.seq }} / {{ unit.total_of_kind }} · 第 {{ unit.seq }} / {{ unit.total_of_kind }} 件{% endif %}</div>
+    <div class="lu-full code">{{ unit.code }}</div>
+    <dl class="lu-meta">
+      <dt>FROM 发货</dt><dd>{{ consignment.shipper.name }}</dd>
+      <dt>TO 收货</dt><dd>{{ consignment.receiver.name }}</dd>
+      <dt>DEST 目的地</dt><dd>{{ consignment.destination }}</dd>
+      {% if unit.gross_kg or unit.length_cm %}<dt>G.W. 毛重</dt><dd>{% if unit.gross_kg %}{{ unit.gross_kg }} kg{% endif %}{% if unit.length_cm %} · {{ unit.length_cm|floatformat:0 }}×{{ unit.width_cm|floatformat:0 }}×{{ unit.height_cm|floatformat:0 }} cm{% endif %}</dd>{% endif %}
+      {% if show_contents %}<dt>CONTENTS 内容</dt><dd>{% for item in unit.items.all %}{{ item.short }}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</dd>{% endif %}
+    </dl>
+  </section>
+{% endfor %}
+{% for item in items %}
+  <section class="label label-item">
+    <div class="li-qr">{% qr_svg item.uid 3 1 %}</div>
+    <div class="li-text">
+      <div class="li-short code">{{ item.short }}</div>
+      <div class="li-name">{{ item.item_type.name_en }}</div>
+      {% if item.item_type.name_zh %}<div class="li-name">{{ item.item_type.name_zh }}</div>{% endif %}
+      {% if item.oem_serial %}<div class="li-sn code">S/N {{ item.oem_serial }}</div>{% endif %}
+      {% if item.quantity > 1 %}<div class="li-sn">× {{ item.quantity }} {{ item.item_type.uom }}</div>{% endif %}
+    </div>
+    <div class="li-full code">{{ item.uid }}</div>
+  </section>
+{% endfor %}
+</div>
+<script src="{% static 'js/portal.js' %}"></script>
+</body>
+</html>

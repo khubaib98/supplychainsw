@@ -1,0 +1,24 @@
+# Caddy obtains and renews the HTTPS certificate automatically (Let's Encrypt).
+# For a local test set PORTAL_DOMAIN=localhost: Caddy then uses its own internal CA.
+# Port 80 is only used for the ACME challenge and the redirect to HTTPS.
+
+{$PORTAL_DOMAIN} {
+	encode zstd gzip
+
+	# Documents up to 25 MB plus form overhead.
+	request_body {
+		max_size 30MB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		-Server
+	}
+
+	reverse_proxy web:8000
+
+	log {
+		output stdout
+		format console
+	}
+}

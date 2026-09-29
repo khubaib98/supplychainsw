@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{{ item.short }} · {{ consignment.code }}{% endblock %}
+{% block content %}
+{% include "logistics/_c_header.html" %}
+<div class="page-head">
+  <div>
+    <h1>{% icon "item" %} <span class="code">{{ item.uid }}</span></h1>
+    <div class="sub">{{ item.item_type|localname }}{% if item.quantity > 1 %} · × {{ item.quantity }} {{ item.item_type.uom }}{% else %} · {% blocktrans with n=position total=of_total %}unit {{ n }} of {{ total }} in this consignment{% endblocktrans %}{% endif %}
+      {% if item.received_at %} · <span class="pill state-good">{% icon "check" %}{% trans "Received" %} {{ item.received_at|day }}</span>{% endif %}
+      {% if item.condition == "damaged" %} <span class="pill state-critical">{% icon "alert" %}{% trans "Damaged" %}</span>{% endif %}
+      {% if item.item_type.controlled %} <span class="pill state-warning">{% icon "lock" %}{% trans "Controlled item" %}</span>{% endif %}</div>
+  </div>
+  <div class="actions">
+    <a class="btn" href="{% url 'logistics:labels' consignment.code %}?id={{ item.uid }}" target="_blank" rel="noopener">{% icon "print" %}{% trans "Print label" %}</a>
+    {% if can_comment %}<a class="btn" href="{% url 'logistics:threads' consignment.code %}?about={{ item.short }}">{% icon "chat" %}{% trans "Raise a remark" %}</a>{% endif %}
+  </div>
+</div>
+
+<div class="grid grid-main">
+  <div class="grid" style="align-content:start">
+    {% include "logistics/_layers.html" with current_code=item.uid %}
+    {% include "logistics/_history.html" with current_code=item.uid %}
+  </div>
+  <div class="grid" style="align-content:start">
+    <section class="card">
+      <div style="max-width:200px;margin:0 auto">{% qr_svg item.uid 4 %}</div>
+      <p class="code" style="text-align:center;margin-top:.5rem">{{ item.uid }}</p>
+      <dl class="kv">
+        <dt>{% trans "Item code" %}</dt><dd><span class="code">{{ item.item_type.code }}</span></dd>
+        <dt>{% trans "Name" %}</dt><dd>{{ item.item_type.name_en }}{% if item.item_type.name_zh %}<br>{{ item.item_type.name_zh }}{% endif %}{% if item.item_type.name_ur %}<br><span lang="ur" dir="rtl">{{ item.item_type.name_ur }}</span>{% endif %}</dd>
+        <dt>{% trans "Manufacturer serial no." %}</dt><dd><span class="code">{{ item.oem_serial|default:"—" }}</span></dd>
+        <dt>{% trans "Batch / lot no." %}</dt><dd>{{ item.batch_no|default:"—" }}</dd>
+        <dt>{% trans "Currently in" %}</dt><dd>{% if item.unit %}<a class="code" href="{% url 'logistics:unit' item.unit.code %}">{{ item.unit.short }}</a>{% else %}—{% endif %}</dd>
+      </dl>
+    </section>
+    {% if receive_form %}
+    <section class="card">
+      <h2>{% icon "check" %} {% trans "Record receipt" %}</h2>
+      <form method="post" action="{% url 'logistics:receive_item' item.uid %}">{% csrf_token %}
+        <div class="form-grid">{% include "_fields.html" with form=receive_form %}</div>
+        <div class="form-actions"><button class="btn primary" type="submit">{% trans "Confirm received" %}</button></div>
+      </form>
+    </section>
+    {% endif %}
+    {% if move_form %}
+    <section class="card">
+      <h2>{% icon "move" %} {% trans "Move to another unit" %}</h2>
+      <p class="muted">{% trans "The ID stays the same; the move is recorded in the history." %}</p>
+      <form method="post" action="{% url 'logistics:move_item' item.uid %}">{% csrf_token %}
+        <div class="form-grid">{% include "_fields.html" with form=move_form %}</div>
+        <div class="form-actions"><button class="btn primary" type="submit">{% trans "Move" %}</button></div>
+      </form>
+    </section>
+    {% endif %}
+    {% if edit_form %}
+    <details class="card">
+      <summary style="cursor:pointer"><strong>{% icon "edit" %} {% trans "Edit serial / batch" %}</strong></summary>
+      <form method="post" action="{% url 'logistics:edit_item' item.uid %}" style="margin-top:.75rem">{% csrf_token %}
+        <div class="form-grid">{% include "_fields.html" with form=edit_form %}</div>
+        <div class="form-actions"><button class="btn primary" type="submit">{% trans "Save" %}</button></div>
+      </form>
+    </details>
+    {% endif %}
+    {% if threads %}
+    <section class="card">
+      <h2>{% trans "Remarks about this item" %}</h2>
+      <ul class="list">{% for t in threads %}<li><a href="{% url 'logistics:thread' t.pk %}">{% free_text t.subject t.subject_lang as s %}{{ s.text }}</a><span class="pill">{{ t.get_state_display }}</span></li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

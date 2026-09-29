@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Import packing list" %} · {{ consignment.code }}{% endblock %}
+{% block content %}
+{% include "logistics/_c_header.html" %}
+<div class="grid grid-main">
+  <section class="card">
+    <h2>{% icon "upload" %} {% trans "Import packing list (CSV)" %}</h2>
+    <p>{% trans "Save your Excel packing list as CSV (UTF-8 or the default Chinese GBK encoding both work) with one row per carton and item type. All rows are checked first; if any row has an error nothing is imported." %}</p>
+    {% if result.errors %}
+    <ul class="messages">{% for e in result.errors %}<li class="error">{% icon "x" %}<span>{{ e }}</span></li>{% endfor %}</ul>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" %}</div>
+      <div class="form-actions"><button class="btn primary" type="submit">{% trans "Import" %}</button>
+        <a class="btn" href="{% url 'logistics:packing' consignment.code %}">{% trans "Cancel" %}</a></div>
+    </form>
+  </section>
+  <section class="card">
+    <h2>{% trans "Columns" %}</h2>
+    <table class="data">
+      <thead><tr><th>{% trans "Column" %}</th><th>{% trans "Meaning" %}</th></tr></thead>
+      <tbody>
+        <tr><td class="code">carton</td><td>{% trans "Carton number, e.g. 1 … 57 (required)" %}</td></tr>
+        <tr><td class="code">item_code</td><td>{% trans "Item master code, e.g. DCJM (required)" %}</td></tr>
+        <tr><td class="code">quantity</td><td>{% trans "Number of units or pieces (required)" %}</td></tr>
+        <tr><td class="code">oem_serial</td><td>{% trans "Manufacturer serial no. (quantity 1)" %}</td></tr>
+        <tr><td class="code">batch_no</td><td>{% trans "Batch / lot no." %}</td></tr>
+        <tr><td class="code">pallet</td><td>{% trans "Pallet number the carton is on" %}</td></tr>
+        <tr><td class="code">container</td><td>{% trans "Container no. (ISO 6346)" %}</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:.75rem">{% trans "Example" %}:</p>
+    <pre class="code" style="white-space:pre;overflow-x:auto;background:var(--surface-2);padding:.6rem;border-radius:6px">carton,item_code,quantity,oem_serial,pallet,container
+1,DCJM,1,DJ26A00101,1,MSKU1234565
+1,DCJM,1,DJ26A00102,1,MSKU1234565
+4,PSU,10,,1,MSKU1234565
+22,CBL,20,,2,MSKU1234565</pre>
+  </section>
+</div>
+{% endblock %}

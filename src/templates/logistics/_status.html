@@ -1,0 +1,1 @@
+{% load portal i18n %}<span class="pill stage-{{ c.stage }}"><span class="dot" aria-hidden="true"></span>{{ c.get_status_display }}</span>{% if c.is_delayed %} <span class="pill state-serious">{% icon "clock" %}{% trans "Delayed" %}</span>{% endif %}

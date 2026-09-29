@@ -1,0 +1,7 @@
+# Runtime dependencies (kept deliberately small).
+Django==5.2.17          # LTS, security support until April 2028
+psycopg[binary]==3.3.6  # PostgreSQL driver
+gunicorn==26.2.0
+whitenoise==6.12.0      # serves static files; no CDN (CDNs are unreliable from mainland China)
+segno==1.6.6            # QR codes, pure Python
+anthropic==1.9.0        # optional: only imported when MT_PROVIDER=anthropic

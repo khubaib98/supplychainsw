@@ -1,0 +1,9 @@
+{% load i18n portal %}{% get_current_language as LANG %}{% free_text text lang as t %}
+<div class="msg-body"{% if not t.translated and lang == "ur" %} lang="ur" dir="rtl"{% endif %}>{{ t.text }}</div>
+{% if t.translated %}
+<div class="mt-note">{% icon "globe" %} {% blocktrans with src=lang|lang_name %}Machine translation from {{ src }}{% endblocktrans %} ·
+  <button type="button" data-toggle-original="orig-{{ uid }}" aria-expanded="false">{% trans "Show original" %}</button></div>
+<div class="original" id="orig-{{ uid }}"{% if lang == "ur" %} lang="ur" dir="rtl"{% endif %}>{{ t.original }}</div>
+{% elif lang != LANG %}
+<div class="mt-note">{% icon "globe" %} {% blocktrans with src=lang|lang_name %}Written in {{ src }}{% endblocktrans %}{% if not MT_ENABLED %} · {% trans "automatic translation is not switched on" %}{% endif %}</div>
+{% endif %}
