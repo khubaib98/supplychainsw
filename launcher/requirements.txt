@@ -1,0 +1,8 @@
+# Desktop edition: the portal on one computer (SQLite database, waitress web server).
+# Works on Windows, macOS and Linux. Versions match ../requirements.txt (checked by build.py).
+Django==5.2.17
+whitenoise==6.12.0
+segno==1.6.6
+waitress==3.0.2
+tzdata==2026.4          # time zones (Windows has no time-zone database of its own)
+anthropic==1.9.0        # optional: machine translation of remarks with the Claude API

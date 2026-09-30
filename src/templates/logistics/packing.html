@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Packing" %} · {{ consignment.code }}{% endblock %}
+{% block content %}
+{% include "logistics/_c_header.html" %}
+
+<div class="callout">
+  {% icon "info" %}
+  {% blocktrans %}Every container, pallet, carton and item has its own permanent ID with a QR label. Moving an item to another carton does <strong>not</strong> change its ID: the move is recorded and its location updates.{% endblocktrans %}
+  <a href="{% url 'logistics:coding_help' %}">{% trans "How the IDs work" %}</a>
+</div>
+
+<div class="card-head">
+  <div class="legend" aria-label="{% trans 'Legend' %}">
+    <span class="k-container"><span class="swatch"></span>{% trans "Container / truck" %}</span>
+    <span class="k-pallet"><span class="swatch"></span>{% trans "Pallet" %}</span>
+    <span class="k-crate"><span class="swatch"></span>{% trans "Crate" %}</span>
+    <span class="k-carton"><span class="swatch"></span>{% trans "Carton" %}</span>
+    <span class="k-box"><span class="swatch"></span>{% trans "Inner box" %}</span>
+    <span>|</span>
+    {% for label, count in kind_totals %}<span>{{ label }}: <strong>{{ count }}</strong></span>{% endfor %}
+    <span>{% trans "Pieces" %}: <strong>{{ tree.item_total }}</strong></span>
+  </div>
+  <div class="actions no-print">
+    {% if show_items %}<a class="btn small" href="?items=0">{% trans "Hide item IDs" %}</a>{% else %}<a class="btn small" href="?items=1">{% trans "Show item IDs" %}</a>{% endif %}
+    <a class="btn small" href="{% url 'logistics:labels' consignment.code %}?kind=carton" target="_blank" rel="noopener">{% icon "print" %}{% trans "Carton labels" %}</a>
+    <a class="btn small" href="{% url 'logistics:labels' consignment.code %}?what=items" target="_blank" rel="noopener">{% icon "print" %}{% trans "Item labels" %}</a>
+    <a class="btn small" href="{% url 'logistics:packing_list' consignment.code %}?format=csv">{% icon "download" %}{% trans "Item list (CSV)" %}</a>
+    {% if can_edit_packing %}<a class="btn small" href="{% url 'logistics:scan' %}?mode=move&c={{ consignment.code }}">{% icon "scan" %}{% trans "Scan to move" %}</a>
+    <a class="btn small" href="{% url 'logistics:import' consignment.code %}">{% icon "upload" %}{% trans "Import packing list" %}</a>{% endif %}
+  </div>
+</div>
+
+{% if can_edit_packing %}
+<div class="grid grid-2" style="margin-bottom:16px">
+  <details class="card">
+    <summary style="cursor:pointer"><strong>{% icon "plus" %} {% trans "Add containers, pallets or cartons" %}</strong>
+      <div class="muted">{% trans "IDs are numbered automatically (CTN-001, CTN-002 …)." %}</div></summary>
+    <form method="post" action="{% url 'logistics:add_units' consignment.code %}" style="margin-top:.75rem">{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" with form=units_form %}</div>
+      <div class="form-actions"><button class="btn primary" type="submit">{% trans "Create" %}</button></div>
+    </form>
+  </details>
+  <details class="card">
+    <summary style="cursor:pointer"><strong>{% icon "item" %} {% trans "Register items and pack them" %}</strong>
+      <div class="muted">{% trans "e.g. 40 × DCJM into CTN-001…003 gives DCJM-001…040, spread 14 / 13 / 13." %}</div></summary>
+    <form method="post" action="{% url 'logistics:add_items' consignment.code %}" style="margin-top:.75rem">{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" with form=items_form %}</div>
+      <div class="form-actions"><button class="btn primary" type="submit">{% trans "Register" %}</button></div>
+    </form>
+  </details>
+</div>
+{% else %}
+<p class="muted">{% icon "lock" %}
+  {% if custody_note == "shipper" %}{% trans "Packing can be changed by the Shipper at this stage." %}{% elif custody_note == "receiver" %}{% trans "Packing can be changed by the Receiver at this stage." %}{% else %}{% trans "Packing is locked while the goods are in transit or the consignment is closed." %}{% endif %}
+</p>
+{% endif %}
+
+<section class="tree" aria-label="{% trans 'Packing structure' %}">
+  {% for node in tree.roots %}{% include "logistics/_unit_node.html" %}{% empty %}
+  <div class="card empty">{% trans "Nothing packed yet." %}</div>{% endfor %}
+</section>
+
+{% if tree.loose_items %}
+<section class="card" style="margin-top:16px">
+  <h2>{% trans "Items not inside any unit" %}</h2>
+  <div class="chips">{% for item in tree.loose_items %}<a class="chip{% if item.uid == highlight %} hl{% endif %}" id="{{ item.uid }}" href="{% url 'logistics:item' item.uid %}">{{ item.short }}{% if item.quantity > 1 %} ×{{ item.quantity }}{% endif %}</a>{% endfor %}</div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Consignments" %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{% trans "Consignments" %}</h1>
+    <div class="sub">{% trans "Every consignment gets its number automatically, e.g. CSG-2026-0042." %}</div></div>
+  <div class="actions">{% if can_create %}<a class="btn primary" href="{% url 'logistics:consignment_new' %}">{% icon "plus" %}{% trans "New consignment" %}</a>{% endif %}</div>
+</div>
+<form class="filters" method="get">
+  <label class="visually-hidden" for="q">{% trans "Search" %}</label>
+  <input id="q" type="search" name="q" value="{{ q }}" placeholder="{% trans 'Number, PO, B/L or container no.' %}">
+  <select name="scope" data-autosubmit aria-label="{% trans 'Show' %}">
+    <option value="active"{% if scope == "active" %} selected{% endif %}>{% trans "Active" %}</option>
+    <option value="closed"{% if scope == "closed" %} selected{% endif %}>{% trans "Closed" %}</option>
+    <option value="all"{% if scope == "all" %} selected{% endif %}>{% trans "All" %}</option>
+  </select>
+  <select name="status" data-autosubmit aria-label="{% trans 'Stage' %}">
+    <option value="">{% trans "Any stage" %}</option>
+    {% for value, label in statuses %}<option value="{{ value }}"{% if value == status %} selected{% endif %}>{{ label }}</option>{% endfor %}
+  </select>
+  <select name="mode" data-autosubmit aria-label="{% trans 'Transport mode' %}">
+    <option value="">{% trans "Any mode" %}</option>
+    {% for value, label in modes %}<option value="{{ value }}"{% if value == mode %} selected{% endif %}>{{ label }}</option>{% endfor %}
+  </select>
+  <button class="btn" type="submit">{% trans "Search" %}</button>
+</form>
+<div class="card flush">
+  <div class="table-wrap">
+    <table class="data">
+      <thead><tr>
+        <th>{% trans "Consignment" %}</th><th>{% trans "Shipper → Receiver" %}</th><th>{% trans "Route" %}</th>
+        <th>{% trans "Stage" %}</th><th>{% trans "ETD" %}</th><th>{% trans "ETA" %}</th><th>{% trans "Documents" %}</th><th class="num">{% trans "Open queries" %}</th>
+      </tr></thead>
+      <tbody>
+      {% for row in rows %}
+      <tr{% if row.c.is_archived %} class="row-muted"{% endif %}>
+        <td><a class="code" href="{% url 'logistics:consignment' row.c.code %}">{{ row.c.code }}</a><div class="muted">{{ row.c.reference }}{% if row.c.description %} · {{ row.c.description }}{% endif %}</div></td>
+        <td>{{ row.c.shipper }}<div class="muted">→ {{ row.c.receiver }}</div></td>
+        <td>{% icon row.c.transport_mode %} {{ row.c.origin }} → {{ row.c.destination }}</td>
+        <td>{% include "logistics/_status.html" with c=row.c %}</td>
+        <td class="nowrap">{{ row.c.etd|day|default:"—" }}</td>
+        <td class="nowrap">{{ row.c.eta|day|default:"—" }}</td>
+        <td class="nowrap">{{ row.docs_done }} / {{ row.docs_total }}{% if row.docs_overdue %} <span class="pill state-critical">{% icon "alert" %}{{ row.docs_overdue }}</span>{% endif %}</td>
+        <td class="num">{{ row.open_threads }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="8" class="empty">{% trans "No consignments match." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

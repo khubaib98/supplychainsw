@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.sqlite3
+.DS_Store
+
+# local data, never committed
+src/data/
+src/staticfiles/
+deploy/.env
+deploy/backups/
+deploy/rclone/
+
+# desktop program builds (python launcher/build.py)
+build/
+dist/

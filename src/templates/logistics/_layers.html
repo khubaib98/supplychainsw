@@ -1,0 +1,32 @@
+{% load i18n portal %}
+<section class="card">
+  <div class="card-head"><h2>{% trans "Where it is, layer by layer" %}</h2>
+    <a href="{% url 'logistics:packing' consignment.code %}?hl={{ current_code }}">{% trans "Show in packing view" %} →</a></div>
+  <div class="path" aria-label="{% trans 'Location path' %}">
+    <a href="{% url 'logistics:consignment' consignment.code %}">{{ consignment.code }}</a>
+    {% for layer in layers %}<span class="sep">›</span>{% if forloop.last %}<strong>{{ layer.current.short }}</strong>{% else %}<a href="{% url 'logistics:unit' layer.current.code %}">{{ layer.current.short }}</a>{% endif %}{% endfor %}
+  </div>
+  <div class="layers">
+    {% for layer in layers %}
+    <div class="layer {% if layer.kind == 'item' %}kind-item{% else %}k-{{ layer.kind }}{% endif %}">
+      <div class="layer-name">
+        <span class="depth">{{ layer.depth }}</span>
+        <span class="lbl"><strong>{{ layer.label }}</strong>
+          <small class="muted">{% blocktrans with n=layer.siblings|length %}{{ n }} at this layer{% endblocktrans %}</small></span>
+      </div>
+      <div class="tiles">
+        {% for sibling in layer.siblings|slice:":80" %}
+          {% if layer.kind == "item" %}
+            {% if sibling.pk == layer.current.pk %}<span class="tile current" aria-current="true">{{ sibling.short }}</span>{% else %}<a class="tile" href="{% url 'logistics:item' sibling.uid %}">{{ sibling.short }}</a>{% endif %}
+          {% else %}
+            {% if sibling.pk == layer.current.pk %}{% if forloop.parentloop.last %}<span class="tile current" aria-current="true">{{ sibling.short }}</span>{% else %}<a class="tile current" href="{% url 'logistics:unit' sibling.code %}">{{ sibling.short }}</a>{% endif %}{% else %}<a class="tile" href="{% url 'logistics:unit' sibling.code %}">{{ sibling.short }}</a>{% endif %}
+          {% endif %}
+        {% endfor %}
+        {% if layer.siblings|length > 80 %}<span class="muted">+{{ layer.siblings|length|add:"-80" }}</span>{% endif %}
+      </div>
+    </div>
+    {% empty %}
+    <p class="empty">{% trans "Not inside any container, pallet or carton." %}</p>
+    {% endfor %}
+  </div>
+</section>

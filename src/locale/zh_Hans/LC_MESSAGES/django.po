@@ -1,0 +1,2618 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: consignment-portal 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-29 21:52+0000\n"
+"PO-Revision-Date: 2026-09-29 18:00+0000\n"
+"Last-Translator: Initial machine-assisted draft - to be reviewed by native speakers\n"
+"Language-Team: Simplified Chinese\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Organisations and users"
+msgstr "组织与用户"
+
+msgid "6-digit code from your authenticator app"
+msgstr "验证器应用中的 6 位验证码"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Time zone"
+msgstr "时区"
+
+msgid "E-mail for reminders"
+msgstr "接收提醒的邮箱"
+
+msgid "Phone"
+msgstr "电话"
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "Used to sign in, for example li.wei or ahmed.raza."
+msgstr "用于登录，例如 li.wei 或 ahmed.raza。"
+
+msgid "Your name"
+msgstr "您的姓名"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Password again"
+msgstr "再次输入密码"
+
+msgid "Shipper (company in China)"
+msgstr "发货方（中国公司）"
+
+msgid "Shipper's name in Chinese"
+msgstr "发货方的中文名称"
+
+msgid "Receiver (company in Pakistan)"
+msgstr "收货方（巴基斯坦公司）"
+
+msgid "Receiver's name in Urdu"
+msgstr "收货方的乌尔都语名称"
+
+msgid "Oversight (top management)"
+msgstr "监管方（高层管理）"
+
+msgid "Top management"
+msgstr "高层管理"
+
+msgid "The two passwords are not the same."
+msgstr "两次输入的密码不一致。"
+
+msgid "First name"
+msgstr "名"
+
+msgid "Last name"
+msgstr "姓"
+
+msgid "Organisation"
+msgstr "组织"
+
+msgid "Access level"
+msgstr "权限级别"
+
+msgid "The organisation's language"
+msgstr "与组织语言相同"
+
+msgid "From the organisation's country"
+msgstr "按组织所在国家"
+
+msgid "This username is already taken."
+msgstr "该用户名已被使用。"
+
+msgid "Other computers in the office network may open the portal"
+msgstr "允许办公网络中的其他电脑打开平台"
+
+msgid "Public address (HTTPS tunnel)"
+msgstr "公网地址（HTTPS 隧道）"
+
+msgid ""
+"Only if the portal is published through a tunnel, e.g. "
+"https://portal.example.com"
+msgstr "仅在通过隧道对外发布平台时填写，例如 https://portal.example.com"
+
+msgid "Everyone must use an authenticator app to sign in"
+msgstr "所有人登录时都必须使用验证器应用"
+
+msgid "Enter an address like https://portal.example.com (without a path)."
+msgstr "请输入类似 https://portal.example.com 的地址（不带路径）。"
+
+msgid "China (Asia/Shanghai, UTC+8)"
+msgstr "中国（Asia/Shanghai，UTC+8）"
+
+msgid "Pakistan (Asia/Karachi, UTC+5)"
+msgstr "巴基斯坦（Asia/Karachi，UTC+5）"
+
+msgid "UAE (Asia/Dubai, UTC+4)"
+msgstr "阿联酋（Asia/Dubai，UTC+4）"
+
+msgid "Singapore (UTC+8)"
+msgstr "新加坡（UTC+8）"
+
+msgid "United Kingdom (Europe/London)"
+msgstr "英国（Europe/London）"
+
+msgid "UTC"
+msgstr "UTC"
+
+msgid "Shipper"
+msgstr "发货方"
+
+msgid "Receiver"
+msgstr "收货方"
+
+msgid "Oversight"
+msgstr "监管方"
+
+msgid "name"
+msgstr "名称"
+
+msgid "name in local language"
+msgstr "本地语言名称"
+
+msgid "role"
+msgstr "角色"
+
+msgid "country (ISO code)"
+msgstr "国家（ISO 代码）"
+
+msgid "default language"
+msgstr "默认语言"
+
+msgid "WeCom group-bot webhook"
+msgstr "企业微信群机器人 Webhook"
+
+msgid "Optional. Reminders are also posted to this 企业微信 group robot."
+msgstr "可选。提醒也会发送到该企业微信群机器人。"
+
+msgid "active"
+msgstr "启用"
+
+msgid "organisation"
+msgstr "组织"
+
+msgid "organisations"
+msgstr "组织"
+
+msgid "Manager"
+msgstr "经理"
+
+msgid "Operator"
+msgstr "操作员"
+
+msgid "Viewer"
+msgstr "查看者"
+
+msgid "access level"
+msgstr "权限级别"
+
+msgid ""
+"Manager: everything incl. archiving and waiving. Operator: create, edit, "
+"upload, scan. Viewer: read only."
+msgstr "经理：全部权限，包括归档和豁免。操作员：创建、编辑、上传、扫码。查看者：只读。"
+
+msgid "language"
+msgstr "语言"
+
+msgid "time zone"
+msgstr "时区"
+
+msgid "phone"
+msgstr "电话"
+
+msgid "two-factor authentication"
+msgstr "双重验证"
+
+msgid "must choose a new password"
+msgstr "须设置新密码"
+
+msgid "Set when an administrator creates the account or resets its password."
+msgstr "管理员创建账号或重置密码时自动设置。"
+
+msgid "user profile"
+msgstr "用户资料"
+
+msgid "user profiles"
+msgstr "用户资料"
+
+#, python-format
+msgid "Hello %(name)s,"
+msgstr "%(name)s，您好："
+
+#, python-format
+msgid "you now have an account on %(portal)s."
+msgstr "您已开通 %(portal)s 的账号。"
+
+#, python-format
+msgid "Address: %(url)s"
+msgstr "网址：%(url)s"
+
+#, python-format
+msgid "Username: %(username)s"
+msgstr "用户名：%(username)s"
+
+#, python-format
+msgid "Temporary password: %(password)s"
+msgstr "临时密码：%(password)s"
+
+msgid "You will be asked to choose your own password when you first sign in."
+msgstr "首次登录时，系统会要求您设置自己的密码。"
+
+msgid "On this computer"
+msgstr "在本机上"
+
+msgid "In the office network"
+msgstr "在办公网络中"
+
+msgid "From anywhere (internet)"
+msgstr "任何地方（互联网）"
+
+msgid "The portal is ready. Now add the people who will use it."
+msgstr "平台已准备就绪。现在请添加将使用平台的人员。"
+
+msgid "Saved."
+msgstr "已保存。"
+
+msgid "You cannot do this to your own account."
+msgstr "不能对自己的账号执行此操作。"
+
+#, python-format
+msgid "Two-factor authentication was reset for %(name)s."
+msgstr "已为 %(name)s 重置双重验证。"
+
+#, python-format
+msgid "%(name)s can no longer sign in. Their history is kept."
+msgstr "%(name)s 已无法登录，其历史记录仍会保留。"
+
+#, python-format
+msgid "%(name)s can sign in again."
+msgstr "%(name)s 可以再次登录。"
+
+msgid "This action is not available."
+msgstr "无法执行此操作。"
+
+msgid "Saved. Restart the portal to use the new settings."
+msgstr "已保存。请重新启动平台以使用新设置。"
+
+#, python-format
+msgid "Backup saved: %(file)s"
+msgstr "备份已保存：%(file)s"
+
+msgid "Too many failed attempts. Please wait 15 minutes and try again."
+msgstr "失败次数过多，请 15 分钟后再试。"
+
+msgid "That code is not valid. Check the time on your phone and try again."
+msgstr "验证码无效。请检查手机时间后重试。"
+
+msgid ""
+"This administrator account has no organisation profile. Use the admin site."
+msgstr "该管理员账号没有组织资料，请使用管理后台。"
+
+msgid "Preferences saved."
+msgstr "偏好设置已保存。"
+
+msgid "That code is not valid."
+msgstr "验证码无效。"
+
+msgid "Two-factor authentication is mandatory on this portal."
+msgstr "本平台必须启用双重验证。"
+
+msgid "Two-factor authentication is now off."
+msgstr "双重验证已关闭。"
+
+msgid "Two-factor authentication is on. You will need a code at every login."
+msgstr "双重验证已开启。每次登录都需要验证码。"
+
+msgid "Password changed."
+msgstr "密码已修改。"
+
+msgid "Core"
+msgstr "核心"
+
+msgid "time"
+msgstr "时间"
+
+msgid "user"
+msgstr "用户"
+
+msgid "action"
+msgstr "操作"
+
+msgid "object type"
+msgstr "对象类型"
+
+msgid "object"
+msgstr "对象"
+
+msgid "consignment"
+msgstr "货运批次"
+
+msgid "details"
+msgstr "详情"
+
+msgid "audit record"
+msgstr "审计记录"
+
+msgid "audit log"
+msgstr "审计日志"
+
+#, python-format
+msgid "%(doc)s for %(code)s is due. Please upload it."
+msgstr "%(code)s 的%(doc)s已到期，请上传。"
+
+#, python-format
+msgid "Reminder: %(doc)s for %(code)s is %(days)s day(s) overdue."
+msgstr "提醒：%(code)s 的%(doc)s已逾期 %(days)s 天。"
+
+#, python-format
+msgid ""
+"Escalation: %(doc)s for %(code)s is %(days)s day(s) overdue. Responsible: "
+"%(org)s."
+msgstr "升级提醒：%(code)s 的%(doc)s已逾期 %(days)s 天。负责方：%(org)s。"
+
+#, python-format
+msgid "%(user)s uploaded %(doc)s (version %(version)s) for %(code)s."
+msgstr "%(user)s 为 %(code)s 上传了%(doc)s（第 %(version)s 版）。"
+
+#, python-format
+msgid "%(user)s raised a %(category)s on %(code)s: %(subject)s"
+msgstr "%(user)s 在 %(code)s 上提出了%(category)s：%(subject)s"
+
+#, python-format
+msgid "%(user)s replied on %(code)s: %(subject)s"
+msgstr "%(user)s 在 %(code)s 上回复了：%(subject)s"
+
+#, python-format
+msgid "%(user)s marked “%(subject)s” on %(code)s as %(state)s."
+msgstr "%(user)s 将 %(code)s 的“%(subject)s”标记为%(state)s。"
+
+#, python-format
+msgid "%(code)s is now: %(status)s."
+msgstr "%(code)s 当前状态：%(status)s。"
+
+msgid "Either party"
+msgstr "任一方"
+
+msgid "created the consignment"
+msgstr "创建了货运批次"
+
+msgid "updated consignment details"
+msgstr "更新了货运批次信息"
+
+msgid "recorded a milestone"
+msgstr "记录了一个节点"
+
+msgid "added packaging units"
+msgstr "添加了包装单元"
+
+msgid "registered items"
+msgstr "登记了货物"
+
+msgid "moved"
+msgstr "移动了"
+
+msgid "updated a unit"
+msgstr "更新了一个包装单元"
+
+msgid "updated an item"
+msgstr "更新了一件货物"
+
+msgid "recorded receipt"
+msgstr "记录了收货"
+
+msgid "uploaded a document"
+msgstr "上传了一份单据"
+
+msgid "downloaded a document"
+msgstr "下载了一份单据"
+
+msgid "archived a document"
+msgstr "归档了一份单据"
+
+msgid "added a required document"
+msgstr "添加了一项必需单据"
+
+msgid "waived a document"
+msgstr "豁免了一份单据"
+
+msgid "upload rejected by the virus scanner"
+msgstr "上传被病毒扫描拒绝"
+
+msgid "raised a remark or query"
+msgstr "提出了备注或询问"
+
+msgid "replied"
+msgstr "回复了"
+
+msgid "changed the state of a query"
+msgstr "更改了询问的状态"
+
+msgid "updated the item master"
+msgstr "更新了物料主数据"
+
+msgid "updated preferences"
+msgstr "更新了偏好设置"
+
+msgid "signed in"
+msgstr "登录了"
+
+msgid "failed sign-in attempt"
+msgstr "登录失败"
+
+msgid "signed out"
+msgstr "退出了登录"
+
+msgid "turned on two-factor authentication"
+msgstr "开启了双重验证"
+
+msgid "turned off two-factor authentication"
+msgstr "关闭了双重验证"
+
+msgid "changed password"
+msgstr "修改了密码"
+
+msgid "set up the portal"
+msgstr "完成了平台初始设置"
+
+msgid "created an account"
+msgstr "创建了一个账号"
+
+msgid "updated an account"
+msgstr "更新了一个账号"
+
+msgid "reset a password"
+msgstr "重置了密码"
+
+msgid "reset two-factor authentication"
+msgstr "重置了双重验证"
+
+msgid "deactivated an account"
+msgstr "停用了一个账号"
+
+msgid "reactivated an account"
+msgstr "重新启用了一个账号"
+
+msgid "changed the settings of the portal computer"
+msgstr "修改了平台所在电脑的设置"
+
+msgid "made a backup"
+msgstr "进行了备份"
+
+msgid "Consignments"
+msgstr "货运批次"
+
+msgid "e.g. Shenzhen (Yantian port)"
+msgstr "例如：深圳（盐田港）"
+
+msgid "e.g. Karachi (Port Qasim) → Rawalpindi"
+msgstr "例如：卡拉奇（卡西姆港）→ 拉瓦尔品第"
+
+msgid "ETA cannot be before ETD."
+msgstr "预计到达时间不能早于预计离港时间。"
+
+msgid "New milestone"
+msgstr "新节点"
+
+msgid "When did it happen?"
+msgstr "发生时间"
+
+msgid "Note"
+msgstr "备注"
+
+msgid "The check digit of this container number is wrong. Please re-check it."
+msgstr "该集装箱号的校验位错误，请重新核对。"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "How many"
+msgstr "数量"
+
+msgid "Place inside"
+msgstr "放入"
+
+msgid "Container no. (ISO 6346)"
+msgstr "集装箱号（ISO 6346）"
+
+msgid "Seal no."
+msgstr "封条号"
+
+msgid "Gross weight each (kg)"
+msgstr "单件毛重（千克）"
+
+msgid "Length (cm)"
+msgstr "长（厘米）"
+
+msgid "Width (cm)"
+msgstr "宽（厘米）"
+
+msgid "Height (cm)"
+msgstr "高（厘米）"
+
+msgid "— not inside anything —"
+msgstr "— 不放入任何单元 —"
+
+msgid "Item"
+msgstr "货物"
+
+msgid "Total quantity"
+msgstr "总数量"
+
+msgid "Pack into"
+msgstr "装入"
+
+msgid "Select one or more units; the quantity is spread across them in order."
+msgstr "选择一个或多个包装单元；数量将按顺序分配。"
+
+msgid "Max. per unit"
+msgstr "每单元上限"
+
+msgid "Leave empty to spread evenly (40 over 3 cartons → 14, 13, 13)."
+msgstr "留空则平均分配（40 件分到 3 箱 → 14、13、13）。"
+
+msgid "Manufacturer serial numbers"
+msgstr "厂家序列号"
+
+msgid "Optional, one per line, in packing order."
+msgstr "可选，每行一个，按装箱顺序。"
+
+msgid "Batch / lot no."
+msgstr "批次号"
+
+msgid "Move into"
+msgstr "移入"
+
+msgid "Quantity to move"
+msgstr "移动数量"
+
+msgid "Reason"
+msgstr "原因"
+
+msgid "e.g. repacked after customs inspection"
+msgstr "例如：海关查验后重新装箱"
+
+msgid "Location"
+msgstr "地点"
+
+msgid "e.g. Karachi port, shed 4"
+msgstr "例如：卡拉奇港 4 号仓"
+
+msgid "— take out (loose) —"
+msgstr "— 取出（散放）—"
+
+msgid "Condition"
+msgstr "状况"
+
+msgid "Also mark everything inside as received"
+msgstr "同时将内部所有物品标记为已收货"
+
+msgid "Document"
+msgstr "单据"
+
+msgid "File"
+msgstr "文件"
+
+msgid "Due date (optional)"
+msgstr "截止日期（可选）"
+
+msgid "Subject"
+msgstr "主题"
+
+msgid "Message"
+msgstr "内容"
+
+msgid "About unit or item (optional)"
+msgstr "相关包装单元或货物（可选）"
+
+msgid "Reply"
+msgstr "回复"
+
+msgid "CSV file"
+msgstr "CSV 文件"
+
+#, python-format
+msgid "%(code)s is reserved for packaging units."
+msgstr "%(code)s 为包装单元保留代码。"
+
+msgid "The code cannot change once items use it (their IDs contain it)."
+msgstr "已有货物使用该代码后不能再修改（其编号中包含该代码）。"
+
+msgid "The file is not UTF-8 or GB18030 text."
+msgstr "该文件不是 UTF-8 或 GB18030 编码的文本。"
+
+#, python-format
+msgid "Row %(row)s: %(column)s must be a whole number ≥ 1."
+msgstr "第 %(row)s 行：%(column)s 必须是 ≥ 1 的整数。"
+
+#, python-format
+msgid "Missing column(s): %(cols)s"
+msgstr "缺少列：%(cols)s"
+
+#, python-format
+msgid "Row %(row)s: unknown item code “%(code)s”."
+msgstr "第 %(row)s 行：未知的货物代码“%(code)s”。"
+
+#, python-format
+msgid "Row %(row)s: a serial number needs quantity 1."
+msgstr "第 %(row)s 行：填写序列号时数量必须为 1。"
+
+msgid "The file has no data rows."
+msgstr "文件中没有数据行。"
+
+msgid "Serialised: one ID and label per unit"
+msgstr "序列化：每件一个编号和标签"
+
+msgid "Batch: tracked as a quantity"
+msgstr "批量：按数量跟踪"
+
+msgid "item code"
+msgstr "货物代码"
+
+msgid "2–8 capital letters/digits, starting with a letter."
+msgstr "2–8 位大写字母或数字，以字母开头。"
+
+msgid "Short code used inside IDs, e.g. DCJM."
+msgstr "用于编号中的简码，例如 DCJM。"
+
+msgid "name (English)"
+msgstr "名称（英文）"
+
+msgid "name (Chinese)"
+msgstr "名称（中文）"
+
+msgid "name (Urdu)"
+msgstr "名称（乌尔都语）"
+
+msgid "HS code"
+msgstr "HS 编码"
+
+msgid "tracking"
+msgstr "跟踪方式"
+
+msgid "unit of measure"
+msgstr "计量单位"
+
+msgid "controlled item"
+msgstr "管制物品"
+
+msgid "Needs end-user authorisation / export licence documents."
+msgstr "需要最终用户授权/出口许可证单据。"
+
+msgid "item type"
+msgstr "货物类型"
+
+msgid "item master"
+msgstr "物料主数据"
+
+msgid "Sea"
+msgstr "海运"
+
+msgid "Air"
+msgstr "空运"
+
+msgid "Road (Khunjerab)"
+msgstr "公路（红其拉甫）"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Packing"
+msgstr "装箱中"
+
+msgid "Packed, ready to ship"
+msgstr "已装箱，待发运"
+
+msgid "Dispatched from origin"
+msgstr "已从起运地发出"
+
+msgid "Export customs cleared"
+msgstr "出口已清关"
+
+msgid "In transit"
+msgstr "运输中"
+
+msgid "Arrived at port of entry"
+msgstr "已抵达入境口岸"
+
+msgid "Import customs cleared"
+msgstr "进口已清关"
+
+msgid "Delivered to receiver"
+msgstr "已送达收货方"
+
+msgid "Received and verified"
+msgstr "已收货并核验"
+
+msgid "Closed"
+msgstr "已关闭"
+
+msgid "consignment no."
+msgstr "货运批次号"
+
+msgid "PO / contract reference"
+msgstr "订单/合同号"
+
+msgid "description"
+msgstr "描述"
+
+msgid "shipper"
+msgstr "发货方"
+
+msgid "receiver"
+msgstr "收货方"
+
+msgid "transport mode"
+msgstr "运输方式"
+
+msgid "Incoterm"
+msgstr "贸易术语"
+
+msgid "origin"
+msgstr "起运地"
+
+msgid "destination"
+msgstr "目的地"
+
+msgid "carrier / forwarder"
+msgstr "承运人/货代"
+
+msgid "B/L, AWB or truck no."
+msgstr "提单号、空运单号或车牌号"
+
+msgid "ETD"
+msgstr "预计离港"
+
+msgid "ETA"
+msgstr "预计到达"
+
+msgid "planned no. of packages"
+msgstr "计划件数"
+
+msgid "status"
+msgstr "状态"
+
+msgid "notes"
+msgstr "备注"
+
+msgid "archived"
+msgstr "已归档"
+
+msgid "consignments"
+msgstr "货运批次"
+
+msgid "milestone"
+msgstr "节点"
+
+msgid "date and time"
+msgstr "日期和时间"
+
+msgid "note"
+msgstr "备注"
+
+msgid "milestones"
+msgstr "节点"
+
+msgid "Container / truck"
+msgstr "集装箱/卡车"
+
+msgid "Pallet"
+msgstr "托盘"
+
+msgid "Crate"
+msgstr "木箱"
+
+msgid "Carton"
+msgstr "纸箱"
+
+msgid "Inner box"
+msgstr "内盒"
+
+msgid "Good"
+msgstr "完好"
+
+msgid "Damaged"
+msgstr "破损"
+
+msgid "unit ID"
+msgstr "单元编号"
+
+msgid "type"
+msgstr "类型"
+
+msgid "inside"
+msgstr "位于"
+
+msgid "container no. (ISO 6346)"
+msgstr "集装箱号（ISO 6346）"
+
+msgid "seal no."
+msgstr "封条号"
+
+msgid "length (cm)"
+msgstr "长（厘米）"
+
+msgid "width (cm)"
+msgstr "宽（厘米）"
+
+msgid "height (cm)"
+msgstr "高（厘米）"
+
+msgid "gross weight (kg)"
+msgstr "毛重（千克）"
+
+msgid "extra marks"
+msgstr "附加唛头"
+
+msgid "received"
+msgstr "已收货"
+
+msgid "condition"
+msgstr "状况"
+
+msgid "handling unit"
+msgstr "包装单元"
+
+msgid "handling units"
+msgstr "包装单元"
+
+msgid "item ID"
+msgstr "单件编号"
+
+msgid "quantity"
+msgstr "数量"
+
+msgid "manufacturer serial no."
+msgstr "厂家序列号"
+
+msgid "batch / lot no."
+msgstr "批次号"
+
+msgid "item"
+msgstr "货物"
+
+msgid "items"
+msgstr "货物"
+
+msgid "Packed"
+msgstr "已装箱"
+
+msgid "Moved"
+msgstr "已移动"
+
+msgid "Taken out"
+msgstr "已取出"
+
+msgid "Split"
+msgstr "已拆分"
+
+msgid "Received"
+msgstr "已收货"
+
+msgid "from"
+msgstr "从"
+
+msgid "to"
+msgstr "到"
+
+msgid "reason"
+msgstr "原因"
+
+msgid "location"
+msgstr "地点"
+
+msgid "movement"
+msgstr "移动记录"
+
+msgid "movements"
+msgstr "移动记录"
+
+msgid "code"
+msgstr "代码"
+
+msgid "uploaded by"
+msgstr "上传方"
+
+msgid "required by default"
+msgstr "默认必需"
+
+msgid "transport modes"
+msgstr "运输方式"
+
+msgid "Comma-separated (sea,air,road). Empty = all."
+msgstr "用逗号分隔（sea,air,road）。留空 = 全部。"
+
+msgid "due when status reaches"
+msgstr "在以下状态时到期"
+
+msgid "… plus days"
+msgstr "… 再加天数"
+
+msgid "document type"
+msgstr "单据类型"
+
+msgid "document types"
+msgstr "单据类型"
+
+msgid "Not yet due"
+msgstr "尚未到期"
+
+msgid "Due"
+msgstr "到期"
+
+msgid "Overdue"
+msgstr "逾期"
+
+msgid "Uploaded"
+msgstr "已上传"
+
+msgid "Waived"
+msgstr "已豁免"
+
+msgid "document"
+msgstr "单据"
+
+msgid "due date (override)"
+msgstr "截止日期（手动指定）"
+
+msgid "waived"
+msgstr "已豁免"
+
+msgid "required document"
+msgstr "必需单据"
+
+msgid "required documents"
+msgstr "必需单据"
+
+msgid "version"
+msgstr "版本"
+
+msgid "file name"
+msgstr "文件名"
+
+msgid "size"
+msgstr "大小"
+
+msgid "SHA-256 fingerprint"
+msgstr "SHA-256 指纹"
+
+msgid "uploaded"
+msgstr "上传时间"
+
+msgid "reason for archiving"
+msgstr "归档原因"
+
+msgid "documents"
+msgstr "单据"
+
+msgid "Remark"
+msgstr "备注"
+
+msgid "Query"
+msgstr "询问"
+
+msgid "Discrepancy"
+msgstr "差异"
+
+msgid "Damage"
+msgstr "破损"
+
+msgid "Document issue"
+msgstr "单据问题"
+
+msgid "Payment"
+msgstr "付款"
+
+msgid "Open"
+msgstr "待回复"
+
+msgid "Answered"
+msgstr "已回复"
+
+msgid "Resolved"
+msgstr "已解决"
+
+msgid "subject"
+msgstr "主题"
+
+msgid "state"
+msgstr "状态"
+
+msgid "remark / query"
+msgstr "备注/询问"
+
+msgid "remarks / queries"
+msgstr "备注/询问"
+
+msgid "message"
+msgstr "内容"
+
+msgid "Choose a shipper and a receiver organisation."
+msgstr "请选择发货方和收货方组织。"
+
+msgid "You can only create consignments for your own organisation."
+msgstr "只能为本组织创建货运批次。"
+
+msgid "Unknown status."
+msgstr "未知状态。"
+
+msgid "A milestone cannot be recorded in the future."
+msgstr "不能记录未来时间的节点。"
+
+#, python-format
+msgid "A %(child)s cannot be placed inside a %(parent)s."
+msgstr "%(child)s不能放入%(parent)s中。"
+
+msgid "Unknown unit type."
+msgstr "未知的单元类型。"
+
+msgid "Create between 1 and 1000 units at a time."
+msgstr "每次可创建 1 至 1000 个单元。"
+
+msgid "Items can only be moved within the same consignment."
+msgstr "货物只能在同一货运批次内移动。"
+
+#, python-format
+msgid "%(qty)s units do not fit: %(slots)s cartons × %(per)s per carton."
+msgstr "%(qty)s 件装不下：%(slots)s 箱 × 每箱 %(per)s 件。"
+
+msgid "Quantity must be between 1 and 10,000."
+msgstr "数量必须在 1 到 10,000 之间。"
+
+msgid "More serial numbers than units."
+msgstr "序列号数量多于货物数量。"
+
+msgid "A unit cannot be placed inside itself."
+msgstr "单元不能放入其自身。"
+
+msgid "It is already there."
+msgstr "已经在该位置。"
+
+#, python-format
+msgid "Quantity must be between 1 and %(max)s."
+msgstr "数量必须在 1 到 %(max)s 之间。"
+
+#, python-format
+msgid ""
+"File type %(ext)s is not accepted. Use PDF, JPG, PNG, TIFF, Excel, Word, CSV"
+" or TXT."
+msgstr "不接受 %(ext)s 文件类型。请使用 PDF、JPG、PNG、TIFF、Excel、Word、CSV 或 TXT。"
+
+#, python-format
+msgid "The file is larger than %(mb)s MB."
+msgstr "文件大于 %(mb)s MB。"
+
+msgid "The file is empty."
+msgstr "文件为空。"
+
+#, python-format
+msgid "The file content does not match its %(ext)s extension."
+msgstr "文件内容与其 %(ext)s 扩展名不符。"
+
+msgid "The virus scanner is unavailable; please try again later."
+msgstr "病毒扫描服务不可用，请稍后再试。"
+
+msgid "The file was rejected by the virus scanner."
+msgstr "文件被病毒扫描拒绝。"
+
+msgid "Please give a reason."
+msgstr "请填写原因。"
+
+msgid "Subject and message are required."
+msgstr "主题和内容为必填项。"
+
+msgid "Message is required."
+msgstr "内容为必填项。"
+
+msgid "Only the party that raised this can mark it resolved."
+msgstr "只有提出方可以将其标记为已解决。"
+
+#, python-format
+msgid "Consignment %(code)s created."
+msgstr "货运批次 %(code)s 已创建。"
+
+msgid "Milestone recorded."
+msgstr "节点已记录。"
+
+msgid "Please choose a milestone."
+msgstr "请选择一个节点。"
+
+#, python-format
+msgid "%(doc)s uploaded as version %(version)s."
+msgstr "%(doc)s已上传为第 %(version)s 版。"
+
+#, python-format
+msgid "Please correct the form: %(errors)s"
+msgstr "请修正表单：%(errors)s"
+
+msgid "Document archived. It stays in the history and audit log."
+msgstr "单据已归档，仍保留在历史和审计日志中。"
+
+msgid "Requirement added."
+msgstr "已添加必需单据。"
+
+msgid "Requirement waived."
+msgstr "已豁免该单据。"
+
+#, python-format
+msgid "Created %(first)s … %(last)s."
+msgstr "已创建 %(first)s … %(last)s。"
+
+#, python-format
+msgid "Registered %(first)s … %(last)s."
+msgstr "已登记 %(first)s … %(last)s。"
+
+#, python-format
+msgid "Imported %(rows)s rows: %(items)s item IDs in %(cartons)s cartons."
+msgstr "已导入 %(rows)s 行：%(cartons)s 箱中共 %(items)s 个单件编号。"
+
+msgid "Moved. The ID stays the same; only its location changed."
+msgstr "已移动。编号不变，只是位置发生了变化。"
+
+#, python-format
+msgid "Receipt recorded: %(units)s unit(s), %(items)s item(s)."
+msgstr "已记录收货：%(units)s 个单元，%(items)s 件货物。"
+
+msgid "Consignment"
+msgstr "货运批次"
+
+msgid "Reference"
+msgstr "参考号"
+
+msgid "Mode"
+msgstr "运输方式"
+
+msgid "Route"
+msgstr "路线"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Created"
+msgstr "创建时间"
+
+msgid "Handling units"
+msgstr "包装单元"
+
+msgid "Unit ID"
+msgstr "单元编号"
+
+msgid "Inside"
+msgstr "位于"
+
+msgid "Gross weight (kg)"
+msgstr "毛重（千克）"
+
+msgid "Items"
+msgstr "货物"
+
+msgid "Item ID"
+msgstr "单件编号"
+
+msgid "Item code"
+msgstr "货物代码"
+
+msgid "Quantity"
+msgstr "数量"
+
+msgid "Manufacturer serial no."
+msgstr "厂家序列号"
+
+msgid "Movements"
+msgstr "移动记录"
+
+msgid "Time"
+msgstr "时间"
+
+msgid "Action"
+msgstr "操作"
+
+msgid "ID"
+msgstr "编号"
+
+msgid "From"
+msgstr "从"
+
+msgid "To"
+msgstr "到"
+
+msgid "By"
+msgstr "操作人"
+
+msgid "Documents"
+msgstr "单据"
+
+msgid "Version"
+msgstr "版本"
+
+msgid "File name"
+msgstr "文件名"
+
+msgid "Archived"
+msgstr "已归档"
+
+msgid "Required documents"
+msgstr "必需单据"
+
+msgid "Uploaded by"
+msgstr "上传方"
+
+msgid "State"
+msgstr "状态"
+
+msgid "Remarks / queries"
+msgstr "备注/询问"
+
+msgid "Raised by"
+msgstr "提出人"
+
+msgid "Opened"
+msgstr "创建时间"
+
+msgid "Last update"
+msgstr "最近更新"
+
+msgid "Audit log"
+msgstr "审计日志"
+
+msgid "User"
+msgstr "用户"
+
+msgid "Object"
+msgstr "对象"
+
+msgid "Details"
+msgstr "详情"
+
+msgid "Hash"
+msgstr "哈希值"
+
+msgid "not inside anything"
+msgstr "不在任何单元中"
+
+msgid "Bad request."
+msgstr "请求无效。"
+
+#, python-format
+msgid "Not found: %(code)s"
+msgstr "未找到：%(code)s"
+
+msgid "Scan a container, pallet, crate, carton or box as the destination."
+msgstr "请扫描集装箱、托盘、木箱、纸箱或内盒作为目标位置。"
+
+msgid ""
+"You cannot change the packing of this consignment at its current stage."
+msgstr "在当前阶段您不能修改该货运批次的装箱。"
+
+#, python-format
+msgid "Destination: %(label)s"
+msgstr "目标位置：%(label)s"
+
+msgid "Scan the destination first."
+msgstr "请先扫描目标位置。"
+
+msgid "Scan a unit or an item."
+msgstr "请扫描包装单元或货物。"
+
+#, python-format
+msgid "%(what)s → %(where)s"
+msgstr "%(what)s 已移入 %(where)s"
+
+#, python-format
+msgid "Received: %(label)s (%(units)s unit(s), %(items)s item(s))"
+msgstr "已收货：%(label)s（%(units)s 个单元，%(items)s 件货物）"
+
+msgid ""
+"You are not allowed to do that on this consignment at its current stage."
+msgstr "在当前阶段您无权对该货运批次执行此操作。"
+
+msgid "Unknown mode."
+msgstr "未知模式。"
+
+msgid "No unit or item with that ID in this consignment."
+msgstr "该货运批次中没有此编号的单元或货物。"
+
+msgid "Posted. The other party has been notified."
+msgstr "已发布，已通知对方。"
+
+msgid "Marked resolved."
+msgstr "已标记为已解决。"
+
+msgid "Reopened."
+msgstr "已重新打开。"
+
+msgid "Not allowed"
+msgstr "无权操作"
+
+msgid ""
+"Your role cannot do this on this consignment at its current stage. For "
+"example, packing can only be changed by the party that has the goods, and "
+"Oversight is read-only."
+msgstr "您的角色在该货运批次的当前阶段无法执行此操作。例如：只有货物所在的一方可以修改装箱，监管方为只读。"
+
+msgid "Back to the dashboard"
+msgstr "返回看板"
+
+msgid "Not found"
+msgstr "未找到"
+
+msgid ""
+"This page does not exist, or it belongs to a consignment your organisation "
+"cannot see."
+msgstr "该页面不存在，或属于您的组织无权查看的货运批次。"
+
+msgid "My account"
+msgstr "我的账号"
+
+msgid "Two-factor authentication"
+msgstr "双重验证"
+
+msgid "Change password"
+msgstr "修改密码"
+
+msgid "Preferences"
+msgstr "偏好设置"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "What you can do"
+msgstr "您的权限"
+
+msgid "See every consignment, the dashboard and all records (read-only)."
+msgstr "查看所有货运批次、看板和全部数据记录（只读）。"
+
+msgid "See your organisation's consignments (read-only)."
+msgstr "查看本组织的货运批次（只读）。"
+
+msgid ""
+"Record milestones, packing, moves and receipts for your organisation's "
+"consignments."
+msgstr "为本组织的货运批次记录节点、装箱、移动和收货。"
+
+msgid "Upload the documents your organisation is responsible for."
+msgstr "上传本组织负责的单据。"
+
+msgid "Raise and answer remarks and queries."
+msgstr "提出并回复备注和询问。"
+
+msgid ""
+"Archive documents, add or waive required documents, maintain the item "
+"master."
+msgstr "归档单据、添加或豁免必需单据、维护物料主数据。"
+
+msgid "On"
+msgstr "已开启"
+
+msgid "Off"
+msgstr "已关闭"
+
+msgid "Sign in"
+msgstr "登录"
+
+msgid ""
+"Shipper, Receiver and Oversight access to consignments, documents and item-"
+"level traceability."
+msgstr "发货方、收货方和监管方共享货运批次、单据及单件级追溯信息。"
+
+msgid "Please enter a correct username and password."
+msgstr "请输入正确的用户名和密码。"
+
+msgid "Enter your code"
+msgstr "输入验证码"
+
+msgid ""
+"Open your authenticator app and enter the 6-digit code for this portal."
+msgstr "打开验证器应用，输入本平台的 6 位验证码。"
+
+msgid "Verify"
+msgstr "验证"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "Choose your own password"
+msgstr "设置您自己的密码"
+
+msgid ""
+"You signed in with a temporary password. Please choose your own password to "
+"continue."
+msgstr "您使用临时密码登录。请设置您自己的密码后继续。"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "People"
+msgstr "人员"
+
+msgid ""
+"Accounts for the Shipper, the Receiver and Oversight. Nobody is deleted: "
+"deactivate people who leave, so their history stays readable."
+msgstr "发货方、收货方和监管方的账号。账号不会被删除：人员离开时请停用其账号，以便其历史记录仍可查阅。"
+
+msgid "Add a person"
+msgstr "添加人员"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Last sign-in"
+msgstr "最近登录"
+
+msgid "Deactivated"
+msgstr "已停用"
+
+msgid "Temporary password"
+msgstr "临时密码"
+
+msgid "Never"
+msgstr "从未"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Nobody yet."
+msgstr "暂无人员。"
+
+msgid ""
+"There are no organisations yet. Create them in system administration first."
+msgstr "尚无组织。请先在系统管理后台中创建。"
+
+msgid "Accounts without an organisation"
+msgstr "未分配组织的账号"
+
+msgid ""
+"These accounts cannot see any consignments. Give them an organisation in "
+"system administration."
+msgstr "这些账号看不到任何货运批次。请在系统管理后台中为其指定组织。"
+
+msgid "How people connect"
+msgstr "如何访问平台"
+
+msgid "Scan with a phone to open the portal"
+msgstr "用手机扫码打开平台"
+
+msgid ""
+"At the moment only this computer can open the portal. Allow other computers "
+"in the office network below, or publish the portal through a tunnel for "
+"people in other places (see the guide)."
+msgstr "目前只有这台电脑可以打开平台。可在下方允许办公网络中的其他电脑访问，或通过隧道对外发布平台，供其他地点的人员使用（见使用指南）。"
+
+msgid "This computer"
+msgstr "本机"
+
+msgid "Data folder"
+msgstr "数据文件夹"
+
+msgid "Last backup"
+msgstr "最近备份"
+
+msgid "None yet"
+msgstr "暂无"
+
+msgid "Backups folder"
+msgstr "备份文件夹"
+
+msgid "Back up now"
+msgstr "立即备份"
+
+msgid ""
+"The portal restarts to apply the settings; people who are working need to "
+"reload their page. Continue?"
+msgstr "平台将重新启动以应用设置，正在使用的人员需要刷新页面。是否继续？"
+
+msgid "Save and restart"
+msgstr "保存并重新启动"
+
+msgid "Administrators"
+msgstr "管理员"
+
+msgid ""
+"Administrators manage people and settings and can see everything, but they "
+"do not work on consignments. If you also ship or receive, give yourself a "
+"separate everyday account."
+msgstr "管理员负责管理人员和设置，可以查看所有内容，但不处理货运批次。如果您同时负责发货或收货，请为自己另建一个日常使用的账号。"
+
+msgid ""
+"Organisations, document types and other settings: system administration"
+msgstr "组织、单据类型及其他设置：系统管理后台"
+
+msgid ""
+"The portal creates a temporary password. You see it once, together with a "
+"message you can send to the person."
+msgstr "平台会生成一个临时密码。该密码只显示一次，并附有一条可直接发送给对方的消息。"
+
+msgid "Create account"
+msgstr "创建账号"
+
+msgid "Account"
+msgstr "账号"
+
+msgid "Can sign in"
+msgstr "可以登录"
+
+msgid ""
+"Create a new temporary password? The current password stops working "
+"immediately."
+msgstr "生成新的临时密码？当前密码将立即失效。"
+
+msgid "Reset password"
+msgstr "重置密码"
+
+msgid ""
+"Reset two-factor authentication? Use this when the person lost or replaced "
+"their phone; they can then set it up again."
+msgstr "重置双重验证？适用于对方丢失或更换手机的情况，之后对方可以重新设置。"
+
+msgid "Reset two-factor authentication"
+msgstr "重置双重验证"
+
+msgid ""
+"Deactivate this account? The person can no longer sign in; everything they "
+"did stays in the records."
+msgstr "停用此账号？对方将无法登录，其所有操作仍保留在记录中。"
+
+msgid "Deactivate"
+msgstr "停用"
+
+msgid "Reactivate"
+msgstr "重新启用"
+
+msgid "Sign-in details"
+msgstr "登录信息"
+
+msgid "Send these details to the person"
+msgstr "将以下信息发送给对方"
+
+msgid "Address"
+msgstr "网址"
+
+msgid ""
+"This password is shown only once. At the first sign-in the person chooses "
+"their own password."
+msgstr "此密码只显示一次。对方首次登录时将设置自己的密码。"
+
+msgid ""
+"At the moment only this computer can open the portal. Allow other computers "
+"in the office network on the People page, or publish the portal through a "
+"tunnel for people in other places (see the guide)."
+msgstr "目前只有这台电脑可以打开平台。可在“人员”页面允许办公网络中的其他电脑访问，或通过隧道对外发布平台，供其他地点的人员使用（见使用指南）。"
+
+msgid "Ready-to-send message"
+msgstr "可直接发送的消息"
+
+#, python-format
+msgid ""
+"In %(language)s, the person's language. Copy it into WeChat, WhatsApp or an "
+"e-mail."
+msgstr "使用对方的语言（%(language)s）。可复制到微信、WhatsApp 或电子邮件中。"
+
+msgid ""
+"The temporary password is shown only once. If it was not passed on, reset "
+"the password to get a new one."
+msgstr "临时密码只显示一次。如果尚未转交给对方，请重置密码以生成新密码。"
+
+msgid "Back to People"
+msgstr "返回人员列表"
+
+msgid "Add another person"
+msgstr "继续添加人员"
+
+msgid "Restarting…"
+msgstr "正在重新启动…"
+
+msgid ""
+"The portal is restarting with the new settings. This page continues by "
+"itself in a few seconds."
+msgstr "平台正在以新设置重新启动。几秒钟后本页面会自动继续。"
+
+msgid ""
+"If nothing happens, close the portal window on this computer and start the "
+"portal again."
+msgstr "如果没有反应，请关闭这台电脑上的平台窗口，然后重新启动平台。"
+
+msgid "Continue"
+msgstr "继续"
+
+msgid ""
+"A code from your phone is needed at every sign-in, so a stolen password "
+"alone is not enough."
+msgstr "每次登录都需要手机上的验证码，因此仅凭被盗的密码无法登录。"
+
+msgid ""
+"This portal requires two-factor authentication. Please set it up to "
+"continue."
+msgstr "本平台要求启用双重验证，请先完成设置。"
+
+msgid "Two-factor authentication is active for your account."
+msgstr "您的账号已启用双重验证。"
+
+msgid "Turn off two-factor authentication?"
+msgstr "确定关闭双重验证？"
+
+msgid "Turn off"
+msgstr "关闭"
+
+msgid "1. Scan this code"
+msgstr "1. 扫描此二维码"
+
+msgid ""
+"Use any authenticator app (for example Microsoft Authenticator, Google "
+"Authenticator, FreeOTP or the authenticator built into your password "
+"manager)."
+msgstr ""
+"可使用任意验证器应用（例如 Microsoft Authenticator、Google Authenticator、FreeOTP "
+"或密码管理器自带的验证器）。"
+
+msgid "Or type this key:"
+msgstr "或手动输入此密钥："
+
+msgid "2. Enter the code it shows"
+msgstr "2. 输入应用显示的验证码"
+
+msgid "Turn on"
+msgstr "开启"
+
+msgid "Set up the portal"
+msgstr "设置平台"
+
+msgid "Two short steps. Everything can be changed later."
+msgstr "只需两步，之后所有内容都可以修改。"
+
+msgid "1. Your administrator account"
+msgstr "1. 您的管理员账号"
+
+msgid ""
+"For the person who looks after the portal: adds people, changes settings and"
+" keeps the backups."
+msgstr "供负责维护平台的人员使用：添加人员、修改设置并保管备份。"
+
+msgid "2. The organisations"
+msgstr "2. 组织"
+
+msgid ""
+"The companies that work together in the portal. More can be added later in "
+"system administration."
+msgstr "在平台上协作的公司。之后可在系统管理后台中添加更多。"
+
+msgid "Finish set-up"
+msgstr "完成设置"
+
+msgid ""
+"Open the set-up link shown in the portal window on the computer where the "
+"portal runs. The link contains a one-time key, so only someone at that "
+"computer can set up the portal."
+msgstr "请打开运行平台的电脑上平台窗口中显示的设置链接。该链接包含一次性密钥，因此只有在那台电脑前的人才能设置平台。"
+
+msgid "Main"
+msgstr "主导航"
+
+msgid "Dashboard"
+msgstr "看板"
+
+msgid "Scan"
+msgstr "扫码"
+
+msgid "Catalogue"
+msgstr "物料目录"
+
+msgid "Records"
+msgstr "数据记录"
+
+msgid "Admin"
+msgstr "管理后台"
+
+msgid "Notifications"
+msgstr "通知"
+
+msgid "Administrator"
+msgstr "管理员"
+
+msgid "Sign out"
+msgstr "退出"
+
+msgid "All times are shown in your time zone"
+msgstr "所有时间均按您的时区显示"
+
+msgid "Every change is recorded in a tamper-evident audit log."
+msgstr "所有更改都记录在防篡改的审计日志中。"
+
+msgid "Someone else just updated this information."
+msgstr "其他人刚刚更新了此信息。"
+
+msgid "Refresh"
+msgstr "刷新"
+
+msgid "Mark all as read"
+msgstr "全部标为已读"
+
+msgid "New"
+msgstr "新"
+
+msgid "Nothing yet."
+msgstr "暂无内容。"
+
+#, python-format
+msgid ""
+"In the print dialog choose the label printer, paper 100 × 150 mm (packages) "
+"or 50 × 30 mm (items), margins “None”, scale 100 %%."
+msgstr "在打印对话框中选择标签打印机，纸张 100 × 150 毫米（包装件）或 50 × 30 毫米（单件），边距“无”，缩放 100 %%。"
+
+msgid "Hide contents"
+msgstr "隐藏内容"
+
+msgid "Show contents on label"
+msgstr "在标签上显示内容"
+
+#, python-format
+msgid "%(n)s package labels, %(m)s item labels"
+msgstr "%(n)s 张包装标签，%(m)s 张单件标签"
+
+msgid "Edit details"
+msgstr "编辑信息"
+
+msgid "Packing list"
+msgstr "装箱单"
+
+msgid "Consignment sections"
+msgstr "货运批次栏目"
+
+msgid "Overview"
+msgstr "概览"
+
+msgid "Packing & traceability"
+msgstr "装箱与追溯"
+
+msgid "Remarks & queries"
+msgstr "备注与询问"
+
+msgid "Receiving"
+msgstr "收货"
+
+#, python-format
+msgid "Machine translation from %(src)s"
+msgstr "机器翻译自%(src)s"
+
+msgid "Show original"
+msgstr "显示原文"
+
+#, python-format
+msgid "Written in %(src)s"
+msgstr "原文为%(src)s"
+
+msgid "automatic translation is not switched on"
+msgstr "未开启自动翻译"
+
+msgid "History"
+msgstr "历史记录"
+
+msgid "into"
+msgstr "至"
+
+msgid "No history yet."
+msgstr "暂无历史记录。"
+
+msgid "Where it is, layer by layer"
+msgstr "逐层位置"
+
+msgid "Show in packing view"
+msgstr "在装箱视图中显示"
+
+msgid "Location path"
+msgstr "位置路径"
+
+#, python-format
+msgid "%(n)s at this layer"
+msgstr "本层共 %(n)s 个"
+
+msgid "Not inside any container, pallet or carton."
+msgstr "不在任何集装箱、托盘或纸箱中。"
+
+#, python-format
+msgid "Overdue %(days)s day"
+msgid_plural "Overdue %(days)s days"
+msgstr[0] "逾期 %(days)s 天"
+
+msgid "Due now"
+msgstr "现已到期"
+
+msgid "Delayed"
+msgstr "延误"
+
+#, python-format
+msgid "%(n)s inside"
+msgstr "内含 %(n)s 个"
+
+#, python-format
+msgid "%(n)s pcs"
+msgstr "%(n)s 件"
+
+msgid "damaged"
+msgstr "破损"
+
+msgid "Empty"
+msgstr "空"
+
+msgid ""
+"The item master (one code per product, names in three languages) and the "
+"document types. Codes are part of every item ID, so they are controlled here"
+" rather than typed freely."
+msgstr "物料主数据（每种产品一个代码，名称为三种语言）和单据类型。代码是每个单件编号的一部分，因此在此统一管理，而不是随意输入。"
+
+msgid "How the IDs work"
+msgstr "编号规则说明"
+
+msgid "New item type"
+msgstr "新建货物类型"
+
+msgid "Item master"
+msgstr "物料主数据"
+
+msgid "Code"
+msgstr "代码"
+
+msgid "Tracking"
+msgstr "跟踪方式"
+
+msgid "Controlled"
+msgstr "管制"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No item types yet."
+msgstr "暂无货物类型。"
+
+msgid "Document types"
+msgstr "单据类型"
+
+msgid "Changed by the system administrator"
+msgstr "由系统管理员修改"
+
+msgid "Required by default"
+msgstr "默认必需"
+
+msgid "days"
+msgstr "天"
+
+msgid "Packaging codes"
+msgstr "包装代码"
+
+msgid ""
+"One rule: an ID says what a thing is and where it was born — never where it "
+"is now."
+msgstr "一条规则：编号说明物品是什么、在哪里登记——绝不说明它现在在哪里。"
+
+msgid "consignment it was packed for"
+msgstr "所属货运批次"
+
+msgid "item code (item master)"
+msgstr "货物代码（物料主数据）"
+
+msgid "number within the consignment"
+msgstr "批次内序号"
+
+msgid ""
+"DCJM-017 is the 17th Dual Channel Jamming Module registered in consignment "
+"CSG-2026-0002. The manufacturer's own serial number is stored with it."
+msgstr "DCJM-017 是货运批次 CSG-2026-0002 中登记的第 17 个双通道干扰模块，厂家序列号也一并保存。"
+
+msgid "Packaging ID"
+msgstr "包装编号"
+
+msgid "number"
+msgstr "序号"
+
+msgid "Level"
+msgstr "层级"
+
+msgid "May contain"
+msgstr "可装入"
+
+msgid "pallets, crates, cartons, boxes, items"
+msgstr "托盘、木箱、纸箱、内盒、货物"
+
+msgid "crates, cartons, boxes, items"
+msgstr "木箱、纸箱、内盒、货物"
+
+msgid "cartons, boxes, items"
+msgstr "纸箱、内盒、货物"
+
+msgid "boxes, items"
+msgstr "内盒、货物"
+
+msgid "Why the carton is not part of the item ID"
+msgstr "为什么箱号不包含在单件编号中"
+
+msgid "The first proposal was:"
+msgstr "最初的方案是："
+
+msgid ""
+"“CTN-001” inside the item ID becomes wrong the moment the item is moved to "
+"another carton, so the label would have to be reprinted or would mislead."
+msgstr "单件编号中的“CTN-001”在货物被移到另一个纸箱时就会出错，标签要么重新打印，要么产生误导。"
+
+msgid ""
+"“/057” becomes wrong when a carton is added or removed; “/” also breaks file"
+" names, web addresses and Excel (which turns 1/57 into a date)."
+msgstr "增加或减少纸箱时“/057”就会出错；“/”还会破坏文件名、网址和 Excel（Excel 会把 1/57 变成日期）。"
+
+msgid "Two digits for the unit number stop at 99."
+msgstr "两位数的序号最多只能到 99。"
+
+msgid "“TJM3-1” repeats information the system already knows."
+msgstr "“TJM3-1”重复了系统已知的信息。"
+
+msgid ""
+"Instead, the location is a <strong>record</strong>: scanning DCJM-017 shows "
+"CTN-003 › PLT-001 › CNT-001, and the history shows it was moved from CTN-002"
+" during export inspection. “Carton 17 of 57” is still printed on the carton "
+"label as a shipping mark, but it is not part of the ID."
+msgstr ""
+"位置改为一条<strong>记录</strong>：扫描 DCJM-017 会显示 CTN-003 › PLT-001 › "
+"CNT-001，历史记录显示它在出口查验时从 CTN-002 移出。“第 17 / 57 件”仍作为唛头印在纸箱标签上，但不属于编号的一部分。"
+
+msgid "Labels"
+msgstr "标签"
+
+msgid ""
+"Carton / pallet label: 100 × 150 mm, large QR code, bilingual English / "
+"Chinese text."
+msgstr "纸箱/托盘标签：100 × 150 毫米，大号二维码，中英双语。"
+
+msgid ""
+"Item label: 50 × 30 mm, QR code, item ID, name and manufacturer serial no."
+msgstr "单件标签：50 × 30 毫米，二维码、单件编号、名称和厂家序列号。"
+
+msgid ""
+"The QR code contains only the ID. Scan it with the portal's Scan page (phone"
+" camera or handheld scanner)."
+msgstr "二维码只包含编号。请用平台的“扫码”页面扫描（手机摄像头或手持扫描枪）。"
+
+msgid ""
+"Outer labels do not show the contents by default, so sensitive goods are not"
+" advertised in transit."
+msgstr "外箱标签默认不显示内容，避免敏感货物在运输途中暴露。"
+
+msgid "Milestones"
+msgstr "运输节点"
+
+msgid ""
+"Shipper records milestones up to “in transit”; Receiver from arrival "
+"onwards."
+msgstr "发货方记录至“运输中”的节点；收货方记录到达后的节点。"
+
+msgid "Record the next milestone"
+msgstr "记录下一个节点"
+
+msgid "Record milestone"
+msgstr "记录节点"
+
+msgid "Milestone history"
+msgstr "节点历史"
+
+msgid "Packing structure"
+msgstr "装箱结构"
+
+msgid "Open the packing view"
+msgstr "打开装箱视图"
+
+msgid "Item IDs"
+msgstr "单件编号"
+
+msgid "Pieces"
+msgstr "件数"
+
+msgid "Planned packages"
+msgstr "计划件数"
+
+#, python-format
+msgid "%(u)s units inside, %(i)s pieces"
+msgstr "内含 %(u)s 个单元，%(i)s 件"
+
+msgid "Nothing packed yet."
+msgstr "尚未装箱。"
+
+msgid "Start packing"
+msgstr "开始装箱"
+
+msgid "Latest movements"
+msgstr "最近移动"
+
+msgid "All"
+msgstr "全部"
+
+msgid "No movements yet."
+msgstr "暂无移动记录。"
+
+msgid "Audit trail"
+msgstr "审计轨迹"
+
+msgid "Manage"
+msgstr "管理"
+
+msgid "due"
+msgstr "截止"
+
+msgid "No documents required."
+msgstr "无必需单据。"
+
+msgid "Receiving check"
+msgstr "收货核对"
+
+msgid "Packages / units received"
+msgstr "已收包装件/单元"
+
+msgid "Item IDs verified"
+msgstr "已核验单件编号"
+
+msgid "units"
+msgstr "个单元"
+
+msgid "No remarks yet."
+msgstr "暂无备注。"
+
+msgid "Carrier / forwarder"
+msgstr "承运人/货代"
+
+msgid "Description"
+msgstr "描述"
+
+msgid "Notes"
+msgstr "备注"
+
+msgid "New consignment"
+msgstr "新建货运批次"
+
+msgid ""
+"The consignment number is assigned automatically when you save. Required "
+"documents are set up from the transport mode."
+msgstr "保存后系统会自动分配货运批次号，并根据运输方式设置必需单据。"
+
+msgid "Create consignment"
+msgstr "创建货运批次"
+
+msgid "Every consignment gets its number automatically, e.g. CSG-2026-0042."
+msgstr "每个货运批次自动获得编号，例如 CSG-2026-0042。"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Number, PO, B/L or container no."
+msgstr "批次号、订单号、提单号或集装箱号"
+
+msgid "Show"
+msgstr "显示"
+
+msgid "Active"
+msgstr "进行中"
+
+msgid "Stage"
+msgstr "阶段"
+
+msgid "Any stage"
+msgstr "所有阶段"
+
+msgid "Transport mode"
+msgstr "运输方式"
+
+msgid "Any mode"
+msgstr "所有方式"
+
+msgid "Shipper → Receiver"
+msgstr "发货方 → 收货方"
+
+msgid "Open queries"
+msgstr "待处理询问"
+
+msgid "No consignments match."
+msgstr "没有符合条件的货运批次。"
+
+#, python-format
+msgid ""
+"Status on %(now)s. This page tells you when someone else changes something."
+msgstr "截至 %(now)s 的状态。其他人有更改时本页会提示您。"
+
+msgid "Key figures"
+msgstr "关键指标"
+
+msgid "Active consignments"
+msgstr "进行中的货运批次"
+
+#, python-format
+msgid "%(n)s on the way"
+msgstr "%(n)s 个在途"
+
+msgid "Required documents on file"
+msgstr "必需单据齐备率"
+
+#, python-format
+msgid "%(a)s of %(b)s"
+msgstr "%(b)s 中的 %(a)s"
+
+#, python-format
+msgid "%(a)s of %(b)s uploaded"
+msgstr "已上传 %(a)s / %(b)s"
+
+msgid "Overdue documents"
+msgstr "逾期单据"
+
+#, python-format
+msgid "Oldest: %(d)s days late"
+msgstr "最长：逾期 %(d)s 天"
+
+msgid "None"
+msgstr "无"
+
+msgid "Open remarks and queries"
+msgstr "待处理的备注和询问"
+
+#, python-format
+msgid "%(n)s damage or discrepancy"
+msgstr "%(n)s 项破损或差异"
+
+msgid "Delayed shipments"
+msgstr "延误货运"
+
+msgid "ETA passed, not yet arrived"
+msgstr "已过预计到达时间，尚未到达"
+
+msgid "Units received at destination"
+msgstr "目的地已收单元"
+
+msgid "Containers, pallets and cartons of arrived consignments"
+msgstr "已到达批次的集装箱、托盘和纸箱"
+
+msgid "Your to-do list"
+msgstr "您的待办事项"
+
+msgid "Things waiting for your organisation"
+msgstr "等待本组织处理的事项"
+
+msgid "Documents to upload"
+msgstr "待上传单据"
+
+msgid "Nothing due."
+msgstr "暂无到期事项。"
+
+msgid "Remarks and queries waiting for your reply"
+msgstr "等待您回复的备注和询问"
+
+msgid "All answered."
+msgstr "均已回复。"
+
+msgid "Active consignments by stage"
+msgstr "各阶段进行中的货运批次"
+
+msgid "Select a stage to see the list"
+msgstr "选择阶段查看列表"
+
+msgid "Number of active consignments at each stage"
+msgstr "各阶段进行中的货运批次数量"
+
+msgid "Needs attention"
+msgstr "需要关注"
+
+msgid "Nothing needs attention right now."
+msgstr "目前没有需要关注的事项。"
+
+msgid "Responsible"
+msgstr "负责方"
+
+#, python-format
+msgid "%(n)s reminder sent"
+msgid_plural "%(n)s reminders sent"
+msgstr[0] "已发送 %(n)s 次提醒"
+
+msgid "Open damage and discrepancy reports"
+msgstr "未解决的破损和差异报告"
+
+msgid "All consignments"
+msgstr "全部货运批次"
+
+#, python-format
+msgid "%(n)s overdue"
+msgstr "%(n)s 项逾期"
+
+msgid "No active consignments."
+msgstr "没有进行中的货运批次。"
+
+msgid "Recent activity"
+msgstr "最近动态"
+
+msgid "No activity yet."
+msgstr "暂无动态。"
+
+msgid ""
+"Reminders go out automatically when a document is due and not uploaded; "
+"after several days they escalate to Oversight."
+msgstr "单据到期未上传时会自动发送提醒；数天后会升级通知监管方。"
+
+#, python-format
+msgid "due once “%(s)s”"
+msgstr "在“%(s)s”时到期"
+
+msgid "escalated to Oversight"
+msgstr "已升级至监管方"
+
+#, python-format
+msgid "All %(n)s versions"
+msgstr "全部 %(n)s 个版本"
+
+msgid "Archive"
+msgstr "归档"
+
+msgid "Archive this document? It stays in the history and audit log."
+msgstr "确定归档此单据？它仍会保留在历史和审计日志中。"
+
+msgid "Waive"
+msgstr "豁免"
+
+msgid "Other documents"
+msgstr "其他单据"
+
+msgid "Upload a document"
+msgstr "上传单据"
+
+#, python-format
+msgid ""
+"PDF, JPG, PNG, TIFF, Excel, Word, CSV or TXT, up to %(mb)s MB. A new upload "
+"of the same document becomes the next version; older versions are kept."
+msgstr ""
+"支持 PDF、JPG、PNG、TIFF、Excel、Word、CSV 或 TXT，最大 %(mb)s MB。同一单据再次上传会成为新版本，旧版本会保留。"
+
+msgid "Upload"
+msgstr "上传"
+
+msgid "Require another document"
+msgstr "增加必需单据"
+
+msgid ""
+"e.g. Certificate of Origin (Form P) for the China–Pakistan FTA duty "
+"preference, or an end-user NOC."
+msgstr "例如：用于中巴自贸协定关税优惠的原产地证书（Form P），或最终用户无异议证书（NOC）。"
+
+msgid "How files are protected"
+msgstr "文件如何受到保护"
+
+msgid ""
+"Only the Shipper, Receiver and Oversight of this consignment can open these "
+"files."
+msgstr "只有该货运批次的发货方、收货方和监管方可以打开这些文件。"
+
+msgid ""
+"Every upload gets a SHA-256 fingerprint, so any later change to a file can "
+"be detected."
+msgstr "每次上传都会生成 SHA-256 指纹，文件之后的任何改动都能被发现。"
+
+msgid "Every download is recorded in the audit log."
+msgstr "每次下载都会记录在审计日志中。"
+
+msgid "Nothing is deleted: archived documents stay in the history."
+msgstr "不会删除任何内容：归档的单据仍保留在历史中。"
+
+msgid "Import packing list"
+msgstr "导入装箱单"
+
+msgid "Import packing list (CSV)"
+msgstr "导入装箱单（CSV）"
+
+msgid ""
+"Save your Excel packing list as CSV (UTF-8 or the default Chinese GBK "
+"encoding both work) with one row per carton and item type. All rows are "
+"checked first; if any row has an error nothing is imported."
+msgstr ""
+"将 Excel 装箱单另存为 CSV（UTF-8 或中文默认的 GBK "
+"编码均可），每个纸箱的每种货物一行。系统会先检查所有行；任何一行有错误都不会导入。"
+
+msgid "Import"
+msgstr "导入"
+
+msgid "Columns"
+msgstr "列"
+
+msgid "Column"
+msgstr "列名"
+
+msgid "Meaning"
+msgstr "含义"
+
+msgid "Carton number, e.g. 1 … 57 (required)"
+msgstr "箱号，例如 1 … 57（必填）"
+
+msgid "Item master code, e.g. DCJM (required)"
+msgstr "物料主数据代码，例如 DCJM（必填）"
+
+msgid "Number of units or pieces (required)"
+msgstr "件数或数量（必填）"
+
+msgid "Manufacturer serial no. (quantity 1)"
+msgstr "厂家序列号（数量为 1）"
+
+msgid "Pallet number the carton is on"
+msgstr "纸箱所在托盘号"
+
+msgid "Example"
+msgstr "示例"
+
+#, python-format
+msgid "unit %(n)s of %(total)s in this consignment"
+msgstr "本批次 %(total)s 件中的第 %(n)s 件"
+
+msgid "Controlled item"
+msgstr "管制物品"
+
+msgid "Print label"
+msgstr "打印标签"
+
+msgid "Raise a remark"
+msgstr "提出备注"
+
+msgid "Currently in"
+msgstr "当前位置"
+
+msgid "Record receipt"
+msgstr "记录收货"
+
+msgid "Confirm received"
+msgstr "确认收货"
+
+msgid "Move to another unit"
+msgstr "移至其他单元"
+
+msgid "The ID stays the same; the move is recorded in the history."
+msgstr "编号保持不变，移动会记录在历史中。"
+
+msgid "Move"
+msgstr "移动"
+
+msgid "Edit serial / batch"
+msgstr "编辑序列号/批次"
+
+msgid "Remarks about this item"
+msgstr "关于此货物的备注"
+
+msgid ""
+"Enter the name in all three languages once here; every label, list and "
+"screen then shows it in the reader's language."
+msgstr "在此一次性填写三种语言的名称；所有标签、列表和页面都会按读者的语言显示。"
+
+msgid ""
+"Every container, pallet, carton and item has its own permanent ID with a QR "
+"label. Moving an item to another carton does <strong>not</strong> change its"
+" ID: the move is recorded and its location updates."
+msgstr ""
+"每个集装箱、托盘、纸箱和货物都有永久编号和二维码标签。把货物移到另一个纸箱<strong>不会</strong>改变其编号：系统记录这次移动并更新位置。"
+
+msgid "Legend"
+msgstr "图例"
+
+msgid "Hide item IDs"
+msgstr "隐藏单件编号"
+
+msgid "Show item IDs"
+msgstr "显示单件编号"
+
+msgid "Carton labels"
+msgstr "纸箱标签"
+
+msgid "Item labels"
+msgstr "单件标签"
+
+msgid "Item list (CSV)"
+msgstr "单件清单（CSV）"
+
+msgid "Scan to move"
+msgstr "扫码移动"
+
+msgid "Add containers, pallets or cartons"
+msgstr "添加集装箱、托盘或纸箱"
+
+msgid "IDs are numbered automatically (CTN-001, CTN-002 …)."
+msgstr "编号自动生成（CTN-001、CTN-002 …）。"
+
+msgid "Create"
+msgstr "创建"
+
+msgid "Register items and pack them"
+msgstr "登记货物并装箱"
+
+msgid ""
+"e.g. 40 × DCJM into CTN-001…003 gives DCJM-001…040, spread 14 / 13 / 13."
+msgstr "例如：40 × DCJM 装入 CTN-001…003，生成 DCJM-001…040，分配为 14 / 13 / 13。"
+
+msgid "Register"
+msgstr "登记"
+
+msgid "Packing can be changed by the Shipper at this stage."
+msgstr "当前阶段由发货方修改装箱。"
+
+msgid "Packing can be changed by the Receiver at this stage."
+msgstr "当前阶段由收货方修改装箱。"
+
+msgid ""
+"Packing is locked while the goods are in transit or the consignment is "
+"closed."
+msgstr "货物在途或批次已关闭时，装箱被锁定。"
+
+msgid "Items not inside any unit"
+msgstr "未放入任何单元的货物"
+
+msgid ""
+"Receiving opens when the consignment has arrived. Until then this page shows"
+" what is expected."
+msgstr "货运批次到达后才能收货。在此之前，本页显示预期到货内容。"
+
+msgid "units and items"
+msgstr "单元和货物"
+
+msgid "Not yet received"
+msgstr "尚未收货"
+
+msgid "Scan to receive"
+msgstr "扫码收货"
+
+msgid "Units"
+msgstr "单元"
+
+msgid "Everything has been received."
+msgstr "全部已收货。"
+
+msgid ""
+"Raise a “Damage” remark from the unit or item page so the Shipper can "
+"respond (and claim insurance)."
+msgstr "请在单元或货物页面提出“破损”备注，以便发货方回复（并办理保险理赔）。"
+
+msgid "No damage recorded."
+msgstr "未记录破损。"
+
+msgid ""
+"Read-only view of the underlying data. Export any table to Excel (CSV)."
+msgstr "底层数据的只读视图，任何表格都可导出为 Excel（CSV）。"
+
+msgid "Tables"
+msgstr "数据表"
+
+msgid "Filter"
+msgstr "筛选"
+
+msgid "Export CSV"
+msgstr "导出 CSV"
+
+#, python-format
+msgid "%(n)s rows"
+msgstr "%(n)s 行"
+
+msgid "No rows."
+msgstr "无数据。"
+
+msgid "Previous"
+msgstr "上一页"
+
+#, python-format
+msgid "Page %(p)s of %(n)s"
+msgstr "第 %(p)s / %(n)s 页"
+
+msgid "Next"
+msgstr "下一页"
+
+msgid ""
+"Use the phone camera, a USB/Bluetooth barcode scanner, or type an ID. The QR"
+" label contains the full ID; a manufacturer serial no. also works."
+msgstr "可使用手机摄像头、USB/蓝牙扫描枪，或手动输入编号。二维码标签包含完整编号；厂家序列号也可以。"
+
+#, python-format
+msgid "Short IDs (CTN-017, DCJM-017) are looked up in %(c)s"
+msgstr "短编号（CTN-017、DCJM-017）将在 %(c)s 中查找"
+
+msgid ""
+"No destination yet: scan the container, pallet or carton to move things "
+"into."
+msgstr "尚未选择目标：请扫描要移入的集装箱、托盘或纸箱。"
+
+msgid "Destination"
+msgstr "目标位置"
+
+msgid ""
+"The camera could not be started. Check the browser permission, or type/scan "
+"the ID instead."
+msgstr "无法启动摄像头。请检查浏览器权限，或改为输入/扫描编号。"
+
+msgid "The camera needs a secure (https) connection."
+msgstr "摄像头需要安全（https）连接。"
+
+msgid "Connection problem: the scan was not saved. Try again."
+msgstr "连接问题：本次扫码未保存，请重试。"
+
+msgid "What do you want to do?"
+msgstr "您要执行什么操作？"
+
+msgid "Look up"
+msgstr "查询"
+
+msgid "Move / repack"
+msgstr "移动/重新装箱"
+
+msgid "Receive"
+msgstr "收货"
+
+msgid "Change destination"
+msgstr "更改目标位置"
+
+msgid "Scan or type an ID, then press Enter"
+msgstr "扫描或输入编号，然后按回车"
+
+msgid "Use camera"
+msgstr "使用摄像头"
+
+msgid "Results"
+msgstr "结果"
+
+msgid "Scanned IDs appear here."
+msgstr "扫描的编号将显示在这里。"
+
+msgid "Mark resolved"
+msgstr "标记为已解决"
+
+msgid "Reopen"
+msgstr "重新打开"
+
+msgid "About"
+msgstr "相关"
+
+#, python-format
+msgid "Waiting for: %(p)s"
+msgstr "等待：%(p)s"
+
+msgid "How it works"
+msgstr "处理流程"
+
+msgid "Open: waiting for the other party to answer."
+msgstr "待回复：等待对方回复。"
+
+msgid "Answered: waiting for the party who raised it to accept or follow up."
+msgstr "已回复：等待提出方确认或跟进。"
+
+msgid "Resolved: closed by the party who raised it. Anyone can reopen it."
+msgstr "已解决：由提出方关闭，任何一方都可以重新打开。"
+
+msgid "Machine translations help reading; the original text is what counts."
+msgstr "机器翻译仅供阅读参考，以原文为准。"
+
+msgid "raised by"
+msgstr "提出方"
+
+msgid "Nothing here."
+msgstr "暂无内容。"
+
+msgid "Raise a remark or query"
+msgstr "提出备注或询问"
+
+msgid ""
+"Write in your own language. The other side reads it in theirs; the original "
+"is always kept."
+msgstr "请用您自己的语言书写。对方会以其语言阅读，原文始终保留。"
+
+msgid "Post"
+msgstr "发布"
+
+msgid "Seal"
+msgstr "封条"
+
+msgid "Labels for contents"
+msgstr "内部物品标签"
+
+msgid "Contents"
+msgstr "内容"
+
+msgid "Units inside"
+msgstr "内含单元"
+
+msgid "Qty"
+msgstr "数量"
+
+msgid "Dimensions"
+msgstr "尺寸"
+
+msgid "Gross weight"
+msgstr "毛重"
+
+msgid "Marks"
+msgstr "唛头"
+
+msgid "Remarks about this unit"
+msgstr "关于此单元的备注"

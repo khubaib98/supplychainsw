@@ -1,0 +1,2736 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: consignment-portal 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-29 21:52+0000\n"
+"PO-Revision-Date: 2026-09-29 18:00+0000\n"
+"Last-Translator: Initial machine-assisted draft - to be reviewed by native speakers\n"
+"Language-Team: Urdu\n"
+"Language: ur\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Organisations and users"
+msgstr "ادارے اور صارفین"
+
+msgid "6-digit code from your authenticator app"
+msgstr "آتھنٹیکیٹر ایپ کا 6 ہندسی کوڈ"
+
+msgid "Language"
+msgstr "زبان"
+
+msgid "Time zone"
+msgstr "ٹائم زون"
+
+msgid "E-mail for reminders"
+msgstr "یاد دہانیوں کے لیے ای میل"
+
+msgid "Phone"
+msgstr "فون"
+
+msgid "Username"
+msgstr "یوزر نیم"
+
+msgid "Used to sign in, for example li.wei or ahmed.raza."
+msgstr "سائن ان کے لیے استعمال ہوتا ہے، مثلاً li.wei یا ahmed.raza۔"
+
+msgid "Your name"
+msgstr "آپ کا نام"
+
+msgid "Password"
+msgstr "پاس ورڈ"
+
+msgid "Password again"
+msgstr "پاس ورڈ دوبارہ"
+
+msgid "Shipper (company in China)"
+msgstr "شپر (چین کی کمپنی)"
+
+msgid "Shipper's name in Chinese"
+msgstr "شپر کا نام چینی میں"
+
+msgid "Receiver (company in Pakistan)"
+msgstr "ریسیور (پاکستان کی کمپنی)"
+
+msgid "Receiver's name in Urdu"
+msgstr "ریسیور کا نام اردو میں"
+
+msgid "Oversight (top management)"
+msgstr "نگران (اعلیٰ انتظامیہ)"
+
+msgid "Top management"
+msgstr "اعلیٰ انتظامیہ"
+
+msgid "The two passwords are not the same."
+msgstr "دونوں پاس ورڈ ایک جیسے نہیں ہیں۔"
+
+msgid "First name"
+msgstr "پہلا نام"
+
+msgid "Last name"
+msgstr "خاندانی نام"
+
+msgid "Organisation"
+msgstr "ادارہ"
+
+msgid "Access level"
+msgstr "رسائی کی سطح"
+
+msgid "The organisation's language"
+msgstr "ادارے کی زبان"
+
+msgid "From the organisation's country"
+msgstr "ادارے کے ملک کے مطابق"
+
+msgid "This username is already taken."
+msgstr "یہ یوزر نیم پہلے سے استعمال میں ہے۔"
+
+msgid "Other computers in the office network may open the portal"
+msgstr "دفتر کے نیٹ ورک کے دوسرے کمپیوٹر بھی پورٹل کھول سکیں"
+
+msgid "Public address (HTTPS tunnel)"
+msgstr "عوامی پتا (HTTPS ٹنل)"
+
+msgid ""
+"Only if the portal is published through a tunnel, e.g. "
+"https://portal.example.com"
+msgstr ""
+"صرف اس صورت میں جب پورٹل ٹنل کے ذریعے شائع کیا گیا ہو، مثلاً "
+"https://portal.example.com"
+
+msgid "Everyone must use an authenticator app to sign in"
+msgstr "سب کے لیے سائن ان کرتے وقت آتھنٹیکیٹر ایپ استعمال کرنا لازمی ہو"
+
+msgid "Enter an address like https://portal.example.com (without a path)."
+msgstr "https://portal.example.com جیسا پتا درج کریں (بغیر پاتھ کے)۔"
+
+msgid "China (Asia/Shanghai, UTC+8)"
+msgstr "چین (Asia/Shanghai، UTC+8)"
+
+msgid "Pakistan (Asia/Karachi, UTC+5)"
+msgstr "پاکستان (Asia/Karachi، UTC+5)"
+
+msgid "UAE (Asia/Dubai, UTC+4)"
+msgstr "متحدہ عرب امارات (Asia/Dubai، UTC+4)"
+
+msgid "Singapore (UTC+8)"
+msgstr "سنگاپور (UTC+8)"
+
+msgid "United Kingdom (Europe/London)"
+msgstr "برطانیہ (Europe/London)"
+
+msgid "UTC"
+msgstr "UTC"
+
+msgid "Shipper"
+msgstr "شپر"
+
+msgid "Receiver"
+msgstr "ریسیور"
+
+msgid "Oversight"
+msgstr "نگران"
+
+msgid "name"
+msgstr "نام"
+
+msgid "name in local language"
+msgstr "مقامی زبان میں نام"
+
+msgid "role"
+msgstr "کردار"
+
+msgid "country (ISO code)"
+msgstr "ملک (ISO کوڈ)"
+
+msgid "default language"
+msgstr "طے شدہ زبان"
+
+msgid "WeCom group-bot webhook"
+msgstr "WeCom گروپ بوٹ ویب ہک"
+
+msgid "Optional. Reminders are also posted to this 企业微信 group robot."
+msgstr ""
+"اختیاری۔ یاد دہانیاں اس 企业微信 (WeCom) گروپ روبوٹ پر بھی بھیجی جاتی ہیں۔"
+
+msgid "active"
+msgstr "فعال"
+
+msgid "organisation"
+msgstr "ادارہ"
+
+msgid "organisations"
+msgstr "ادارے"
+
+msgid "Manager"
+msgstr "مینیجر"
+
+msgid "Operator"
+msgstr "آپریٹر"
+
+msgid "Viewer"
+msgstr "ناظر"
+
+msgid "access level"
+msgstr "رسائی کی سطح"
+
+msgid ""
+"Manager: everything incl. archiving and waiving. Operator: create, edit, "
+"upload, scan. Viewer: read only."
+msgstr ""
+"مینیجر: سب کچھ بشمول آرکائیو اور استثنیٰ۔ آپریٹر: بنانا، ترمیم، اپ لوڈ، "
+"اسکین۔ ناظر: صرف دیکھنا۔"
+
+msgid "language"
+msgstr "زبان"
+
+msgid "time zone"
+msgstr "ٹائم زون"
+
+msgid "phone"
+msgstr "فون"
+
+msgid "two-factor authentication"
+msgstr "دو مرحلہ تصدیق"
+
+msgid "must choose a new password"
+msgstr "نیا پاس ورڈ منتخب کرنا لازمی"
+
+msgid "Set when an administrator creates the account or resets its password."
+msgstr ""
+"جب ایڈمنسٹریٹر اکاؤنٹ بنائے یا اس کا پاس ورڈ ری سیٹ کرے تو یہ لگ جاتا ہے۔"
+
+msgid "user profile"
+msgstr "صارف پروفائل"
+
+msgid "user profiles"
+msgstr "صارف پروفائلز"
+
+#, python-format
+msgid "Hello %(name)s,"
+msgstr "السلام علیکم %(name)s،"
+
+#, python-format
+msgid "you now have an account on %(portal)s."
+msgstr "%(portal)s پر آپ کا اکاؤنٹ بن گیا ہے۔"
+
+#, python-format
+msgid "Address: %(url)s"
+msgstr "پتا: %(url)s"
+
+#, python-format
+msgid "Username: %(username)s"
+msgstr "یوزر نیم: %(username)s"
+
+#, python-format
+msgid "Temporary password: %(password)s"
+msgstr "عارضی پاس ورڈ: %(password)s"
+
+msgid "You will be asked to choose your own password when you first sign in."
+msgstr ""
+"پہلی بار سائن ان کرنے پر آپ سے اپنا پاس ورڈ منتخب کرنے کو کہا جائے گا۔"
+
+msgid "On this computer"
+msgstr "اسی کمپیوٹر پر"
+
+msgid "In the office network"
+msgstr "دفتر کے نیٹ ورک میں"
+
+msgid "From anywhere (internet)"
+msgstr "کہیں سے بھی (انٹرنیٹ)"
+
+msgid "The portal is ready. Now add the people who will use it."
+msgstr "پورٹل تیار ہے۔ اب ان لوگوں کو شامل کریں جو اسے استعمال کریں گے۔"
+
+msgid "Saved."
+msgstr "محفوظ ہو گیا۔"
+
+msgid "You cannot do this to your own account."
+msgstr "آپ اپنے اکاؤنٹ پر یہ نہیں کر سکتے۔"
+
+#, python-format
+msgid "Two-factor authentication was reset for %(name)s."
+msgstr "%(name)s کی دو مرحلہ تصدیق ری سیٹ ہو گئی۔"
+
+#, python-format
+msgid "%(name)s can no longer sign in. Their history is kept."
+msgstr "%(name)s اب سائن ان نہیں کر سکتے۔ ان کی ہسٹری محفوظ رہے گی۔"
+
+#, python-format
+msgid "%(name)s can sign in again."
+msgstr "%(name)s دوبارہ سائن ان کر سکتے ہیں۔"
+
+msgid "This action is not available."
+msgstr "یہ عمل دستیاب نہیں۔"
+
+msgid "Saved. Restart the portal to use the new settings."
+msgstr "محفوظ ہو گیا۔ نئی سیٹنگز کے لیے پورٹل دوبارہ شروع کریں۔"
+
+#, python-format
+msgid "Backup saved: %(file)s"
+msgstr "بیک اپ محفوظ ہو گیا: %(file)s"
+
+msgid "Too many failed attempts. Please wait 15 minutes and try again."
+msgstr ""
+"بہت زیادہ ناکام کوششیں۔ براہ کرم 15 منٹ انتظار کر کے دوبارہ کوشش کریں۔"
+
+msgid "That code is not valid. Check the time on your phone and try again."
+msgstr "یہ کوڈ درست نہیں۔ اپنے فون کا وقت چیک کر کے دوبارہ کوشش کریں۔"
+
+msgid ""
+"This administrator account has no organisation profile. Use the admin site."
+msgstr ""
+"اس ایڈمنسٹریٹر اکاؤنٹ کا کوئی ادارہ پروفائل نہیں۔ ایڈمن سائٹ استعمال کریں۔"
+
+msgid "Preferences saved."
+msgstr "ترجیحات محفوظ ہو گئیں۔"
+
+msgid "That code is not valid."
+msgstr "یہ کوڈ درست نہیں۔"
+
+msgid "Two-factor authentication is mandatory on this portal."
+msgstr "اس پورٹل پر دو مرحلہ تصدیق لازمی ہے۔"
+
+msgid "Two-factor authentication is now off."
+msgstr "دو مرحلہ تصدیق اب بند ہے۔"
+
+msgid "Two-factor authentication is on. You will need a code at every login."
+msgstr "دو مرحلہ تصدیق آن ہے۔ ہر لاگ ان پر کوڈ درکار ہوگا۔"
+
+msgid "Password changed."
+msgstr "پاس ورڈ تبدیل ہو گیا۔"
+
+msgid "Core"
+msgstr "بنیادی"
+
+msgid "time"
+msgstr "وقت"
+
+msgid "user"
+msgstr "صارف"
+
+msgid "action"
+msgstr "کارروائی"
+
+msgid "object type"
+msgstr "آبجیکٹ کی قسم"
+
+msgid "object"
+msgstr "آبجیکٹ"
+
+msgid "consignment"
+msgstr "کنسائنمنٹ"
+
+msgid "details"
+msgstr "تفصیلات"
+
+msgid "audit record"
+msgstr "آڈٹ ریکارڈ"
+
+msgid "audit log"
+msgstr "آڈٹ لاگ"
+
+#, python-format
+msgid "%(doc)s for %(code)s is due. Please upload it."
+msgstr "%(code)s کے لیے %(doc)s درکار ہے۔ براہ کرم اپ لوڈ کریں۔"
+
+#, python-format
+msgid "Reminder: %(doc)s for %(code)s is %(days)s day(s) overdue."
+msgstr ""
+"یاد دہانی: %(code)s کے لیے %(doc)s میں %(days)s دن کی تاخیر ہو چکی ہے۔"
+
+#, python-format
+msgid ""
+"Escalation: %(doc)s for %(code)s is %(days)s day(s) overdue. Responsible: "
+"%(org)s."
+msgstr ""
+"معاملہ اوپر بھیجا گیا: %(code)s کے لیے %(doc)s میں %(days)s دن کی تاخیر ہے۔ "
+"ذمہ دار: %(org)s۔"
+
+#, python-format
+msgid "%(user)s uploaded %(doc)s (version %(version)s) for %(code)s."
+msgstr "%(user)s نے %(code)s کے لیے %(doc)s (ورژن %(version)s) اپ لوڈ کیا۔"
+
+#, python-format
+msgid "%(user)s raised a %(category)s on %(code)s: %(subject)s"
+msgstr "%(user)s نے %(code)s پر %(category)s درج کیا: %(subject)s"
+
+#, python-format
+msgid "%(user)s replied on %(code)s: %(subject)s"
+msgstr "%(user)s نے %(code)s پر جواب دیا: %(subject)s"
+
+#, python-format
+msgid "%(user)s marked “%(subject)s” on %(code)s as %(state)s."
+msgstr "%(user)s نے %(code)s پر “%(subject)s” کو %(state)s قرار دیا۔"
+
+#, python-format
+msgid "%(code)s is now: %(status)s."
+msgstr "%(code)s اب: %(status)s۔"
+
+msgid "Either party"
+msgstr "کوئی بھی فریق"
+
+msgid "created the consignment"
+msgstr "نے کنسائنمنٹ بنائی"
+
+msgid "updated consignment details"
+msgstr "نے کنسائنمنٹ کی تفصیلات تبدیل کیں"
+
+msgid "recorded a milestone"
+msgstr "نے ایک مرحلہ درج کیا"
+
+msgid "added packaging units"
+msgstr "نے پیکنگ یونٹس شامل کیے"
+
+msgid "registered items"
+msgstr "نے آئٹمز رجسٹر کیے"
+
+msgid "moved"
+msgstr "نے منتقل کیا"
+
+msgid "updated a unit"
+msgstr "نے ایک یونٹ تبدیل کیا"
+
+msgid "updated an item"
+msgstr "نے ایک آئٹم تبدیل کیا"
+
+msgid "recorded receipt"
+msgstr "نے وصولی درج کی"
+
+msgid "uploaded a document"
+msgstr "نے ایک دستاویز اپ لوڈ کی"
+
+msgid "downloaded a document"
+msgstr "نے ایک دستاویز ڈاؤن لوڈ کی"
+
+msgid "archived a document"
+msgstr "نے ایک دستاویز آرکائیو کی"
+
+msgid "added a required document"
+msgstr "نے ایک لازمی دستاویز شامل کی"
+
+msgid "waived a document"
+msgstr "نے ایک دستاویز سے استثنیٰ دیا"
+
+msgid "upload rejected by the virus scanner"
+msgstr "وائرس اسکینر نے اپ لوڈ مسترد کر دیا"
+
+msgid "raised a remark or query"
+msgstr "نے ریمارک یا سوال درج کیا"
+
+msgid "replied"
+msgstr "نے جواب دیا"
+
+msgid "changed the state of a query"
+msgstr "نے سوال کی حالت تبدیل کی"
+
+msgid "updated the item master"
+msgstr "نے آئٹم ماسٹر تبدیل کیا"
+
+msgid "updated preferences"
+msgstr "نے ترجیحات تبدیل کیں"
+
+msgid "signed in"
+msgstr "سائن ان ہوا"
+
+msgid "failed sign-in attempt"
+msgstr "ناکام سائن ان کی کوشش"
+
+msgid "signed out"
+msgstr "سائن آؤٹ ہوا"
+
+msgid "turned on two-factor authentication"
+msgstr "نے دو مرحلہ تصدیق آن کی"
+
+msgid "turned off two-factor authentication"
+msgstr "نے دو مرحلہ تصدیق بند کی"
+
+msgid "changed password"
+msgstr "نے پاس ورڈ تبدیل کیا"
+
+msgid "set up the portal"
+msgstr "نے پورٹل سیٹ اپ کیا"
+
+msgid "created an account"
+msgstr "نے ایک اکاؤنٹ بنایا"
+
+msgid "updated an account"
+msgstr "نے ایک اکاؤنٹ میں ترمیم کی"
+
+msgid "reset a password"
+msgstr "نے پاس ورڈ ری سیٹ کیا"
+
+msgid "reset two-factor authentication"
+msgstr "نے دو مرحلہ تصدیق ری سیٹ کی"
+
+msgid "deactivated an account"
+msgstr "نے ایک اکاؤنٹ غیر فعال کیا"
+
+msgid "reactivated an account"
+msgstr "نے ایک اکاؤنٹ دوبارہ فعال کیا"
+
+msgid "changed the settings of the portal computer"
+msgstr "نے پورٹل والے کمپیوٹر کی سیٹنگز تبدیل کیں"
+
+msgid "made a backup"
+msgstr "نے بیک اپ بنایا"
+
+msgid "Consignments"
+msgstr "کنسائنمنٹس"
+
+msgid "e.g. Shenzhen (Yantian port)"
+msgstr "مثلاً شینزن (یانتیان پورٹ)"
+
+msgid "e.g. Karachi (Port Qasim) → Rawalpindi"
+msgstr "مثلاً کراچی (پورٹ قاسم) ← راولپنڈی"
+
+msgid "ETA cannot be before ETD."
+msgstr "ETA، ETD سے پہلے نہیں ہو سکتا۔"
+
+msgid "New milestone"
+msgstr "نیا مرحلہ"
+
+msgid "When did it happen?"
+msgstr "یہ کب ہوا؟"
+
+msgid "Note"
+msgstr "نوٹ"
+
+msgid "The check digit of this container number is wrong. Please re-check it."
+msgstr "اس کنٹینر نمبر کا چیک ڈیجٹ غلط ہے۔ براہ کرم دوبارہ چیک کریں۔"
+
+msgid "Type"
+msgstr "قسم"
+
+msgid "How many"
+msgstr "کتنے"
+
+msgid "Place inside"
+msgstr "اندر رکھیں"
+
+msgid "Container no. (ISO 6346)"
+msgstr "کنٹینر نمبر (ISO 6346)"
+
+msgid "Seal no."
+msgstr "سیل نمبر"
+
+msgid "Gross weight each (kg)"
+msgstr "فی یونٹ مجموعی وزن (کلوگرام)"
+
+msgid "Length (cm)"
+msgstr "لمبائی (سینٹی میٹر)"
+
+msgid "Width (cm)"
+msgstr "چوڑائی (سینٹی میٹر)"
+
+msgid "Height (cm)"
+msgstr "اونچائی (سینٹی میٹر)"
+
+msgid "— not inside anything —"
+msgstr "— کسی چیز کے اندر نہیں —"
+
+msgid "Item"
+msgstr "آئٹم"
+
+msgid "Total quantity"
+msgstr "کل مقدار"
+
+msgid "Pack into"
+msgstr "اس میں پیک کریں"
+
+msgid "Select one or more units; the quantity is spread across them in order."
+msgstr ""
+"ایک یا زیادہ یونٹس منتخب کریں؛ مقدار ترتیب سے ان میں تقسیم ہو جائے گی۔"
+
+msgid "Max. per unit"
+msgstr "فی یونٹ زیادہ سے زیادہ"
+
+msgid "Leave empty to spread evenly (40 over 3 cartons → 14, 13, 13)."
+msgstr "برابر تقسیم کے لیے خالی چھوڑیں (3 کارٹنوں میں 40 ← 14، 13، 13)۔"
+
+msgid "Manufacturer serial numbers"
+msgstr "مینوفیکچرر سیریل نمبرز"
+
+msgid "Optional, one per line, in packing order."
+msgstr "اختیاری، ہر سطر میں ایک، پیکنگ کی ترتیب سے۔"
+
+msgid "Batch / lot no."
+msgstr "بیچ / لاٹ نمبر"
+
+msgid "Move into"
+msgstr "اس میں منتقل کریں"
+
+msgid "Quantity to move"
+msgstr "منتقل کرنے کی مقدار"
+
+msgid "Reason"
+msgstr "وجہ"
+
+msgid "e.g. repacked after customs inspection"
+msgstr "مثلاً کسٹمز معائنے کے بعد دوبارہ پیک کیا"
+
+msgid "Location"
+msgstr "مقام"
+
+msgid "e.g. Karachi port, shed 4"
+msgstr "مثلاً کراچی پورٹ، شیڈ 4"
+
+msgid "— take out (loose) —"
+msgstr "— باہر نکالیں (کھلا) —"
+
+msgid "Condition"
+msgstr "حالت"
+
+msgid "Also mark everything inside as received"
+msgstr "اندر کی ہر چیز کو بھی وصول شدہ درج کریں"
+
+msgid "Document"
+msgstr "دستاویز"
+
+msgid "File"
+msgstr "فائل"
+
+msgid "Due date (optional)"
+msgstr "آخری تاریخ (اختیاری)"
+
+msgid "Subject"
+msgstr "موضوع"
+
+msgid "Message"
+msgstr "پیغام"
+
+msgid "About unit or item (optional)"
+msgstr "متعلقہ یونٹ یا آئٹم (اختیاری)"
+
+msgid "Reply"
+msgstr "جواب"
+
+msgid "CSV file"
+msgstr "CSV فائل"
+
+#, python-format
+msgid "%(code)s is reserved for packaging units."
+msgstr "%(code)s پیکنگ یونٹس کے لیے مخصوص ہے۔"
+
+msgid "The code cannot change once items use it (their IDs contain it)."
+msgstr ""
+"آئٹمز کے استعمال کے بعد کوڈ تبدیل نہیں ہو سکتا (ان کی IDs میں شامل ہے)۔"
+
+msgid "The file is not UTF-8 or GB18030 text."
+msgstr "یہ فائل UTF-8 یا GB18030 ٹیکسٹ نہیں ہے۔"
+
+#, python-format
+msgid "Row %(row)s: %(column)s must be a whole number ≥ 1."
+msgstr "سطر %(row)s: %(column)s ایک مکمل عدد ≥ 1 ہونا چاہیے۔"
+
+#, python-format
+msgid "Missing column(s): %(cols)s"
+msgstr "غائب کالم: %(cols)s"
+
+#, python-format
+msgid "Row %(row)s: unknown item code “%(code)s”."
+msgstr "سطر %(row)s: نامعلوم آئٹم کوڈ “%(code)s”۔"
+
+#, python-format
+msgid "Row %(row)s: a serial number needs quantity 1."
+msgstr "سطر %(row)s: سیریل نمبر کے لیے مقدار 1 ہونی چاہیے۔"
+
+msgid "The file has no data rows."
+msgstr "فائل میں کوئی ڈیٹا سطر نہیں۔"
+
+msgid "Serialised: one ID and label per unit"
+msgstr "سیریل: ہر یونٹ کی الگ ID اور لیبل"
+
+msgid "Batch: tracked as a quantity"
+msgstr "بیچ: مقدار کے طور پر ٹریک"
+
+msgid "item code"
+msgstr "آئٹم کوڈ"
+
+msgid "2–8 capital letters/digits, starting with a letter."
+msgstr "2 تا 8 بڑے حروف/ہندسے، پہلا حرف لازمی۔"
+
+msgid "Short code used inside IDs, e.g. DCJM."
+msgstr "IDs میں استعمال ہونے والا مختصر کوڈ، مثلاً DCJM۔"
+
+msgid "name (English)"
+msgstr "نام (انگریزی)"
+
+msgid "name (Chinese)"
+msgstr "نام (چینی)"
+
+msgid "name (Urdu)"
+msgstr "نام (اردو)"
+
+msgid "HS code"
+msgstr "HS کوڈ"
+
+msgid "tracking"
+msgstr "ٹریکنگ"
+
+msgid "unit of measure"
+msgstr "پیمائش کی اکائی"
+
+msgid "controlled item"
+msgstr "کنٹرولڈ آئٹم"
+
+msgid "Needs end-user authorisation / export licence documents."
+msgstr "اینڈ یوزر اجازت نامہ / ایکسپورٹ لائسنس کی دستاویزات درکار ہیں۔"
+
+msgid "item type"
+msgstr "آئٹم کی قسم"
+
+msgid "item master"
+msgstr "آئٹم ماسٹر"
+
+msgid "Sea"
+msgstr "بحری"
+
+msgid "Air"
+msgstr "فضائی"
+
+msgid "Road (Khunjerab)"
+msgstr "زمینی (خنجراب)"
+
+msgid "Draft"
+msgstr "مسودہ"
+
+msgid "Packing"
+msgstr "پیکنگ جاری"
+
+msgid "Packed, ready to ship"
+msgstr "پیک شدہ، روانگی کے لیے تیار"
+
+msgid "Dispatched from origin"
+msgstr "روانہ کر دیا گیا"
+
+msgid "Export customs cleared"
+msgstr "ایکسپورٹ کسٹمز کلیئر"
+
+msgid "In transit"
+msgstr "راستے میں"
+
+msgid "Arrived at port of entry"
+msgstr "داخلی بندرگاہ پر پہنچ گیا"
+
+msgid "Import customs cleared"
+msgstr "امپورٹ کسٹمز کلیئر"
+
+msgid "Delivered to receiver"
+msgstr "ریسیور تک پہنچا دیا گیا"
+
+msgid "Received and verified"
+msgstr "وصول اور تصدیق شدہ"
+
+msgid "Closed"
+msgstr "بند"
+
+msgid "consignment no."
+msgstr "کنسائنمنٹ نمبر"
+
+msgid "PO / contract reference"
+msgstr "PO / معاہدہ نمبر"
+
+msgid "description"
+msgstr "تفصیل"
+
+msgid "shipper"
+msgstr "شپر"
+
+msgid "receiver"
+msgstr "ریسیور"
+
+msgid "transport mode"
+msgstr "ذریعہ نقل و حمل"
+
+msgid "Incoterm"
+msgstr "انکوٹرم"
+
+msgid "origin"
+msgstr "روانگی کا مقام"
+
+msgid "destination"
+msgstr "منزل"
+
+msgid "carrier / forwarder"
+msgstr "کیریئر / فارورڈر"
+
+msgid "B/L, AWB or truck no."
+msgstr "B/L، AWB یا ٹرک نمبر"
+
+msgid "ETD"
+msgstr "ETD"
+
+msgid "ETA"
+msgstr "ETA"
+
+msgid "planned no. of packages"
+msgstr "پیکجز کی متوقع تعداد"
+
+msgid "status"
+msgstr "حیثیت"
+
+msgid "notes"
+msgstr "نوٹس"
+
+msgid "archived"
+msgstr "آرکائیو شدہ"
+
+msgid "consignments"
+msgstr "کنسائنمنٹس"
+
+msgid "milestone"
+msgstr "مرحلہ"
+
+msgid "date and time"
+msgstr "تاریخ اور وقت"
+
+msgid "note"
+msgstr "نوٹ"
+
+msgid "milestones"
+msgstr "مراحل"
+
+msgid "Container / truck"
+msgstr "کنٹینر / ٹرک"
+
+msgid "Pallet"
+msgstr "پیلیٹ"
+
+msgid "Crate"
+msgstr "کریٹ"
+
+msgid "Carton"
+msgstr "کارٹن"
+
+msgid "Inner box"
+msgstr "اندرونی ڈبہ"
+
+msgid "Good"
+msgstr "ٹھیک"
+
+msgid "Damaged"
+msgstr "خراب"
+
+msgid "unit ID"
+msgstr "یونٹ ID"
+
+msgid "type"
+msgstr "قسم"
+
+msgid "inside"
+msgstr "اندر"
+
+msgid "container no. (ISO 6346)"
+msgstr "کنٹینر نمبر (ISO 6346)"
+
+msgid "seal no."
+msgstr "سیل نمبر"
+
+msgid "length (cm)"
+msgstr "لمبائی (سینٹی میٹر)"
+
+msgid "width (cm)"
+msgstr "چوڑائی (سینٹی میٹر)"
+
+msgid "height (cm)"
+msgstr "اونچائی (سینٹی میٹر)"
+
+msgid "gross weight (kg)"
+msgstr "مجموعی وزن (کلوگرام)"
+
+msgid "extra marks"
+msgstr "اضافی نشانات"
+
+msgid "received"
+msgstr "وصول شدہ"
+
+msgid "condition"
+msgstr "حالت"
+
+msgid "handling unit"
+msgstr "ہینڈلنگ یونٹ"
+
+msgid "handling units"
+msgstr "ہینڈلنگ یونٹس"
+
+msgid "item ID"
+msgstr "آئٹم ID"
+
+msgid "quantity"
+msgstr "مقدار"
+
+msgid "manufacturer serial no."
+msgstr "مینوفیکچرر سیریل نمبر"
+
+msgid "batch / lot no."
+msgstr "بیچ / لاٹ نمبر"
+
+msgid "item"
+msgstr "آئٹم"
+
+msgid "items"
+msgstr "آئٹمز"
+
+msgid "Packed"
+msgstr "پیک کیا"
+
+msgid "Moved"
+msgstr "منتقل کیا"
+
+msgid "Taken out"
+msgstr "باہر نکالا"
+
+msgid "Split"
+msgstr "تقسیم کیا"
+
+msgid "Received"
+msgstr "وصول ہوا"
+
+msgid "from"
+msgstr "سے"
+
+msgid "to"
+msgstr "تک"
+
+msgid "reason"
+msgstr "وجہ"
+
+msgid "location"
+msgstr "مقام"
+
+msgid "movement"
+msgstr "نقل و حرکت"
+
+msgid "movements"
+msgstr "نقل و حرکت"
+
+msgid "code"
+msgstr "کوڈ"
+
+msgid "uploaded by"
+msgstr "اپ لوڈ کرنے والا"
+
+msgid "required by default"
+msgstr "طے شدہ طور پر لازمی"
+
+msgid "transport modes"
+msgstr "ذرائع نقل و حمل"
+
+msgid "Comma-separated (sea,air,road). Empty = all."
+msgstr "کوما سے الگ کریں (sea,air,road)۔ خالی = تمام۔"
+
+msgid "due when status reaches"
+msgstr "جب حیثیت یہاں پہنچے تو درکار"
+
+msgid "… plus days"
+msgstr "… مزید دن"
+
+msgid "document type"
+msgstr "دستاویز کی قسم"
+
+msgid "document types"
+msgstr "دستاویزات کی اقسام"
+
+msgid "Not yet due"
+msgstr "ابھی درکار نہیں"
+
+msgid "Due"
+msgstr "درکار"
+
+msgid "Overdue"
+msgstr "تاخیر شدہ"
+
+msgid "Uploaded"
+msgstr "اپ لوڈ شدہ"
+
+msgid "Waived"
+msgstr "مستثنیٰ"
+
+msgid "document"
+msgstr "دستاویز"
+
+msgid "due date (override)"
+msgstr "آخری تاریخ (دستی)"
+
+msgid "waived"
+msgstr "مستثنیٰ"
+
+msgid "required document"
+msgstr "لازمی دستاویز"
+
+msgid "required documents"
+msgstr "لازمی دستاویزات"
+
+msgid "version"
+msgstr "ورژن"
+
+msgid "file name"
+msgstr "فائل کا نام"
+
+msgid "size"
+msgstr "سائز"
+
+msgid "SHA-256 fingerprint"
+msgstr "SHA-256 فنگر پرنٹ"
+
+msgid "uploaded"
+msgstr "اپ لوڈ کا وقت"
+
+msgid "reason for archiving"
+msgstr "آرکائیو کرنے کی وجہ"
+
+msgid "documents"
+msgstr "دستاویزات"
+
+msgid "Remark"
+msgstr "ریمارک"
+
+msgid "Query"
+msgstr "سوال"
+
+msgid "Discrepancy"
+msgstr "تضاد"
+
+msgid "Damage"
+msgstr "نقصان"
+
+msgid "Document issue"
+msgstr "دستاویز کا مسئلہ"
+
+msgid "Payment"
+msgstr "ادائیگی"
+
+msgid "Open"
+msgstr "کھلا"
+
+msgid "Answered"
+msgstr "جواب دیا گیا"
+
+msgid "Resolved"
+msgstr "حل شدہ"
+
+msgid "subject"
+msgstr "موضوع"
+
+msgid "state"
+msgstr "حالت"
+
+msgid "remark / query"
+msgstr "ریمارک / سوال"
+
+msgid "remarks / queries"
+msgstr "ریمارکس / سوالات"
+
+msgid "message"
+msgstr "پیغام"
+
+msgid "Choose a shipper and a receiver organisation."
+msgstr "شپر اور ریسیور ادارہ منتخب کریں۔"
+
+msgid "You can only create consignments for your own organisation."
+msgstr "آپ صرف اپنے ادارے کے لیے کنسائنمنٹ بنا سکتے ہیں۔"
+
+msgid "Unknown status."
+msgstr "نامعلوم حیثیت۔"
+
+msgid "A milestone cannot be recorded in the future."
+msgstr "مستقبل کا مرحلہ درج نہیں کیا جا سکتا۔"
+
+#, python-format
+msgid "A %(child)s cannot be placed inside a %(parent)s."
+msgstr "%(child)s کو %(parent)s کے اندر نہیں رکھا جا سکتا۔"
+
+msgid "Unknown unit type."
+msgstr "نامعلوم یونٹ کی قسم۔"
+
+msgid "Create between 1 and 1000 units at a time."
+msgstr "ایک وقت میں 1 سے 1000 یونٹس بنائیں۔"
+
+msgid "Items can only be moved within the same consignment."
+msgstr "آئٹمز صرف اسی کنسائنمنٹ کے اندر منتقل ہو سکتے ہیں۔"
+
+#, python-format
+msgid "%(qty)s units do not fit: %(slots)s cartons × %(per)s per carton."
+msgstr "%(qty)s یونٹس نہیں سماتے: %(slots)s کارٹن × فی کارٹن %(per)s۔"
+
+msgid "Quantity must be between 1 and 10,000."
+msgstr "مقدار 1 سے 10,000 کے درمیان ہونی چاہیے۔"
+
+msgid "More serial numbers than units."
+msgstr "سیریل نمبر یونٹس سے زیادہ ہیں۔"
+
+msgid "A unit cannot be placed inside itself."
+msgstr "کوئی یونٹ اپنے ہی اندر نہیں رکھا جا سکتا۔"
+
+msgid "It is already there."
+msgstr "یہ پہلے ہی وہاں ہے۔"
+
+#, python-format
+msgid "Quantity must be between 1 and %(max)s."
+msgstr "مقدار 1 سے %(max)s کے درمیان ہونی چاہیے۔"
+
+#, python-format
+msgid ""
+"File type %(ext)s is not accepted. Use PDF, JPG, PNG, TIFF, Excel, Word, CSV"
+" or TXT."
+msgstr ""
+"فائل کی قسم %(ext)s قبول نہیں۔ PDF، JPG، PNG، TIFF، Excel، Word، CSV یا TXT "
+"استعمال کریں۔"
+
+#, python-format
+msgid "The file is larger than %(mb)s MB."
+msgstr "فائل %(mb)s MB سے بڑی ہے۔"
+
+msgid "The file is empty."
+msgstr "فائل خالی ہے۔"
+
+#, python-format
+msgid "The file content does not match its %(ext)s extension."
+msgstr "فائل کا مواد اس کی %(ext)s ایکسٹینشن سے مطابقت نہیں رکھتا۔"
+
+msgid "The virus scanner is unavailable; please try again later."
+msgstr "وائرس اسکینر دستیاب نہیں؛ براہ کرم بعد میں کوشش کریں۔"
+
+msgid "The file was rejected by the virus scanner."
+msgstr "وائرس اسکینر نے فائل مسترد کر دی۔"
+
+msgid "Please give a reason."
+msgstr "براہ کرم وجہ لکھیں۔"
+
+msgid "Subject and message are required."
+msgstr "موضوع اور پیغام لازمی ہیں۔"
+
+msgid "Message is required."
+msgstr "پیغام لازمی ہے۔"
+
+msgid "Only the party that raised this can mark it resolved."
+msgstr "صرف درج کرنے والا فریق اسے حل شدہ قرار دے سکتا ہے۔"
+
+#, python-format
+msgid "Consignment %(code)s created."
+msgstr "کنسائنمنٹ %(code)s بن گئی۔"
+
+msgid "Milestone recorded."
+msgstr "مرحلہ درج ہو گیا۔"
+
+msgid "Please choose a milestone."
+msgstr "براہ کرم مرحلہ منتخب کریں۔"
+
+#, python-format
+msgid "%(doc)s uploaded as version %(version)s."
+msgstr "%(doc)s ورژن %(version)s کے طور پر اپ لوڈ ہو گئی۔"
+
+#, python-format
+msgid "Please correct the form: %(errors)s"
+msgstr "براہ کرم فارم درست کریں: %(errors)s"
+
+msgid "Document archived. It stays in the history and audit log."
+msgstr "دستاویز آرکائیو ہو گئی۔ یہ ہسٹری اور آڈٹ لاگ میں موجود رہے گی۔"
+
+msgid "Requirement added."
+msgstr "لازمی دستاویز شامل ہو گئی۔"
+
+msgid "Requirement waived."
+msgstr "دستاویز سے استثنیٰ دے دیا گیا۔"
+
+#, python-format
+msgid "Created %(first)s … %(last)s."
+msgstr "%(first)s … %(last)s بن گئے۔"
+
+#, python-format
+msgid "Registered %(first)s … %(last)s."
+msgstr "%(first)s … %(last)s رجسٹر ہو گئے۔"
+
+#, python-format
+msgid "Imported %(rows)s rows: %(items)s item IDs in %(cartons)s cartons."
+msgstr ""
+"%(rows)s سطریں درآمد ہوئیں: %(cartons)s کارٹنوں میں %(items)s آئٹم IDs۔"
+
+msgid "Moved. The ID stays the same; only its location changed."
+msgstr "منتقل ہو گیا۔ ID وہی رہی؛ صرف مقام بدلا ہے۔"
+
+#, python-format
+msgid "Receipt recorded: %(units)s unit(s), %(items)s item(s)."
+msgstr "وصولی درج ہو گئی: %(units)s یونٹ، %(items)s آئٹم۔"
+
+msgid "Consignment"
+msgstr "کنسائنمنٹ"
+
+msgid "Reference"
+msgstr "حوالہ"
+
+msgid "Mode"
+msgstr "ذریعہ"
+
+msgid "Route"
+msgstr "راستہ"
+
+msgid "Status"
+msgstr "حیثیت"
+
+msgid "Created"
+msgstr "بنایا گیا"
+
+msgid "Handling units"
+msgstr "ہینڈلنگ یونٹس"
+
+msgid "Unit ID"
+msgstr "یونٹ ID"
+
+msgid "Inside"
+msgstr "اندر"
+
+msgid "Gross weight (kg)"
+msgstr "مجموعی وزن (کلوگرام)"
+
+msgid "Items"
+msgstr "آئٹمز"
+
+msgid "Item ID"
+msgstr "آئٹم ID"
+
+msgid "Item code"
+msgstr "آئٹم کوڈ"
+
+msgid "Quantity"
+msgstr "مقدار"
+
+msgid "Manufacturer serial no."
+msgstr "مینوفیکچرر سیریل نمبر"
+
+msgid "Movements"
+msgstr "نقل و حرکت"
+
+msgid "Time"
+msgstr "وقت"
+
+msgid "Action"
+msgstr "کارروائی"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "From"
+msgstr "سے"
+
+msgid "To"
+msgstr "تک"
+
+msgid "By"
+msgstr "بذریعہ"
+
+msgid "Documents"
+msgstr "دستاویزات"
+
+msgid "Version"
+msgstr "ورژن"
+
+msgid "File name"
+msgstr "فائل کا نام"
+
+msgid "Archived"
+msgstr "آرکائیو شدہ"
+
+msgid "Required documents"
+msgstr "لازمی دستاویزات"
+
+msgid "Uploaded by"
+msgstr "اپ لوڈ کرنے والا"
+
+msgid "State"
+msgstr "حالت"
+
+msgid "Remarks / queries"
+msgstr "ریمارکس / سوالات"
+
+msgid "Raised by"
+msgstr "درج کرنے والا"
+
+msgid "Opened"
+msgstr "کھولا گیا"
+
+msgid "Last update"
+msgstr "آخری تبدیلی"
+
+msgid "Audit log"
+msgstr "آڈٹ لاگ"
+
+msgid "User"
+msgstr "صارف"
+
+msgid "Object"
+msgstr "آبجیکٹ"
+
+msgid "Details"
+msgstr "تفصیلات"
+
+msgid "Hash"
+msgstr "ہیش"
+
+msgid "not inside anything"
+msgstr "کسی چیز کے اندر نہیں"
+
+msgid "Bad request."
+msgstr "غلط درخواست۔"
+
+#, python-format
+msgid "Not found: %(code)s"
+msgstr "نہیں ملا: %(code)s"
+
+msgid "Scan a container, pallet, crate, carton or box as the destination."
+msgstr "منزل کے طور پر کنٹینر، پیلیٹ، کریٹ، کارٹن یا ڈبہ اسکین کریں۔"
+
+msgid ""
+"You cannot change the packing of this consignment at its current stage."
+msgstr "موجودہ مرحلے پر آپ اس کنسائنمنٹ کی پیکنگ تبدیل نہیں کر سکتے۔"
+
+#, python-format
+msgid "Destination: %(label)s"
+msgstr "منزل: %(label)s"
+
+msgid "Scan the destination first."
+msgstr "پہلے منزل اسکین کریں۔"
+
+msgid "Scan a unit or an item."
+msgstr "کوئی یونٹ یا آئٹم اسکین کریں۔"
+
+#, python-format
+msgid "%(what)s → %(where)s"
+msgstr "%(what)s کو %(where)s میں منتقل کیا گیا"
+
+#, python-format
+msgid "Received: %(label)s (%(units)s unit(s), %(items)s item(s))"
+msgstr "وصول: %(label)s (%(units)s یونٹ، %(items)s آئٹم)"
+
+msgid ""
+"You are not allowed to do that on this consignment at its current stage."
+msgstr "موجودہ مرحلے پر آپ کو اس کنسائنمنٹ پر یہ کرنے کی اجازت نہیں۔"
+
+msgid "Unknown mode."
+msgstr "نامعلوم موڈ۔"
+
+msgid "No unit or item with that ID in this consignment."
+msgstr "اس کنسائنمنٹ میں اس ID کا کوئی یونٹ یا آئٹم نہیں۔"
+
+msgid "Posted. The other party has been notified."
+msgstr "پوسٹ ہو گیا۔ دوسرے فریق کو اطلاع دے دی گئی۔"
+
+msgid "Marked resolved."
+msgstr "حل شدہ قرار دیا گیا۔"
+
+msgid "Reopened."
+msgstr "دوبارہ کھول دیا گیا۔"
+
+msgid "Not allowed"
+msgstr "اجازت نہیں"
+
+msgid ""
+"Your role cannot do this on this consignment at its current stage. For "
+"example, packing can only be changed by the party that has the goods, and "
+"Oversight is read-only."
+msgstr ""
+"آپ کا کردار اس مرحلے پر اس کنسائنمنٹ پر یہ کام نہیں کر سکتا۔ مثلاً پیکنگ صرف"
+" وہ فریق بدل سکتا ہے جس کے پاس سامان ہو، اور نگران صرف دیکھ سکتا ہے۔"
+
+msgid "Back to the dashboard"
+msgstr "ڈیش بورڈ پر واپس"
+
+msgid "Not found"
+msgstr "نہیں ملا"
+
+msgid ""
+"This page does not exist, or it belongs to a consignment your organisation "
+"cannot see."
+msgstr ""
+"یہ صفحہ موجود نہیں، یا ایسی کنسائنمنٹ کا ہے جو آپ کا ادارہ نہیں دیکھ سکتا۔"
+
+msgid "My account"
+msgstr "میرا اکاؤنٹ"
+
+msgid "Two-factor authentication"
+msgstr "دو مرحلہ تصدیق"
+
+msgid "Change password"
+msgstr "پاس ورڈ تبدیل کریں"
+
+msgid "Preferences"
+msgstr "ترجیحات"
+
+msgid "Save"
+msgstr "محفوظ کریں"
+
+msgid "What you can do"
+msgstr "آپ کیا کر سکتے ہیں"
+
+msgid "See every consignment, the dashboard and all records (read-only)."
+msgstr "تمام کنسائنمنٹس، ڈیش بورڈ اور تمام ریکارڈز دیکھیں (صرف دیکھنا)۔"
+
+msgid "See your organisation's consignments (read-only)."
+msgstr "اپنے ادارے کی کنسائنمنٹس دیکھیں (صرف دیکھنا)۔"
+
+msgid ""
+"Record milestones, packing, moves and receipts for your organisation's "
+"consignments."
+msgstr "اپنے ادارے کی کنسائنمنٹس کے مراحل، پیکنگ، منتقلی اور وصولی درج کریں۔"
+
+msgid "Upload the documents your organisation is responsible for."
+msgstr "وہ دستاویزات اپ لوڈ کریں جن کا ذمہ دار آپ کا ادارہ ہے۔"
+
+msgid "Raise and answer remarks and queries."
+msgstr "ریمارکس اور سوالات درج کریں اور ان کا جواب دیں۔"
+
+msgid ""
+"Archive documents, add or waive required documents, maintain the item "
+"master."
+msgstr ""
+"دستاویزات آرکائیو کریں، لازمی دستاویزات شامل یا مستثنیٰ کریں، آئٹم ماسٹر "
+"سنبھالیں۔"
+
+msgid "On"
+msgstr "آن"
+
+msgid "Off"
+msgstr "بند"
+
+msgid "Sign in"
+msgstr "سائن ان"
+
+msgid ""
+"Shipper, Receiver and Oversight access to consignments, documents and item-"
+"level traceability."
+msgstr ""
+"شپر، ریسیور اور نگران کے لیے کنسائنمنٹس، دستاویزات اور آئٹم کی سطح تک ٹریس "
+"ایبلٹی۔"
+
+msgid "Please enter a correct username and password."
+msgstr "براہ کرم درست یوزر نیم اور پاس ورڈ درج کریں۔"
+
+msgid "Enter your code"
+msgstr "اپنا کوڈ درج کریں"
+
+msgid ""
+"Open your authenticator app and enter the 6-digit code for this portal."
+msgstr "اپنی آتھنٹیکیٹر ایپ کھولیں اور اس پورٹل کا 6 ہندسی کوڈ درج کریں۔"
+
+msgid "Verify"
+msgstr "تصدیق کریں"
+
+msgid "Back"
+msgstr "واپس"
+
+msgid "Choose your own password"
+msgstr "اپنا پاس ورڈ منتخب کریں"
+
+msgid ""
+"You signed in with a temporary password. Please choose your own password to "
+"continue."
+msgstr ""
+"آپ نے عارضی پاس ورڈ سے سائن ان کیا ہے۔ جاری رکھنے کے لیے اپنا پاس ورڈ منتخب "
+"کریں۔"
+
+msgid "Cancel"
+msgstr "منسوخ"
+
+msgid "People"
+msgstr "افراد"
+
+msgid ""
+"Accounts for the Shipper, the Receiver and Oversight. Nobody is deleted: "
+"deactivate people who leave, so their history stays readable."
+msgstr ""
+"شپر، ریسیور اور نگران کے اکاؤنٹس۔ کوئی اکاؤنٹ حذف نہیں ہوتا: جانے والے افراد"
+" کا اکاؤنٹ غیر فعال کریں تاکہ ان کی ہسٹری پڑھی جا سکے۔"
+
+msgid "Add a person"
+msgstr "فرد شامل کریں"
+
+msgid "Add"
+msgstr "شامل کریں"
+
+msgid "Name"
+msgstr "نام"
+
+msgid "Last sign-in"
+msgstr "آخری سائن ان"
+
+msgid "Deactivated"
+msgstr "غیر فعال"
+
+msgid "Temporary password"
+msgstr "عارضی پاس ورڈ"
+
+msgid "Never"
+msgstr "کبھی نہیں"
+
+msgid "Edit"
+msgstr "ترمیم"
+
+msgid "Nobody yet."
+msgstr "ابھی کوئی نہیں۔"
+
+msgid ""
+"There are no organisations yet. Create them in system administration first."
+msgstr "ابھی کوئی ادارہ نہیں۔ پہلے سسٹم ایڈمنسٹریشن میں ادارے بنائیں۔"
+
+msgid "Accounts without an organisation"
+msgstr "بغیر ادارے کے اکاؤنٹس"
+
+msgid ""
+"These accounts cannot see any consignments. Give them an organisation in "
+"system administration."
+msgstr ""
+"یہ اکاؤنٹس کوئی کنسائنمنٹ نہیں دیکھ سکتے۔ سسٹم ایڈمنسٹریشن میں انہیں کوئی "
+"ادارہ دیں۔"
+
+msgid "How people connect"
+msgstr "لوگ پورٹل تک کیسے پہنچیں"
+
+msgid "Scan with a phone to open the portal"
+msgstr "پورٹل کھولنے کے لیے فون سے اسکین کریں"
+
+msgid ""
+"At the moment only this computer can open the portal. Allow other computers "
+"in the office network below, or publish the portal through a tunnel for "
+"people in other places (see the guide)."
+msgstr ""
+"اس وقت صرف یہی کمپیوٹر پورٹل کھول سکتا ہے۔ نیچے دفتر کے نیٹ ورک کے دوسرے "
+"کمپیوٹرز کو اجازت دیں، یا دوسری جگہوں کے لوگوں کے لیے پورٹل کو ٹنل کے ذریعے "
+"شائع کریں (گائیڈ دیکھیں)۔"
+
+msgid "This computer"
+msgstr "یہ کمپیوٹر"
+
+msgid "Data folder"
+msgstr "ڈیٹا فولڈر"
+
+msgid "Last backup"
+msgstr "آخری بیک اپ"
+
+msgid "None yet"
+msgstr "ابھی کوئی نہیں"
+
+msgid "Backups folder"
+msgstr "بیک اپ فولڈر"
+
+msgid "Back up now"
+msgstr "ابھی بیک اپ لیں"
+
+msgid ""
+"The portal restarts to apply the settings; people who are working need to "
+"reload their page. Continue?"
+msgstr ""
+"سیٹنگز لاگو کرنے کے لیے پورٹل دوبارہ شروع ہوگا؛ کام کرنے والوں کو اپنا صفحہ "
+"دوبارہ لوڈ کرنا ہوگا۔ جاری رکھیں؟"
+
+msgid "Save and restart"
+msgstr "محفوظ کریں اور دوبارہ شروع کریں"
+
+msgid "Administrators"
+msgstr "ایڈمنسٹریٹرز"
+
+msgid ""
+"Administrators manage people and settings and can see everything, but they "
+"do not work on consignments. If you also ship or receive, give yourself a "
+"separate everyday account."
+msgstr ""
+"ایڈمنسٹریٹر افراد اور سیٹنگز کا انتظام کرتے ہیں اور سب کچھ دیکھ سکتے ہیں، "
+"لیکن کنسائنمنٹس پر کام نہیں کرتے۔ اگر آپ مال بھیجتے یا وصول بھی کرتے ہیں تو "
+"روزمرہ کام کے لیے اپنا الگ اکاؤنٹ بنائیں۔"
+
+msgid ""
+"Organisations, document types and other settings: system administration"
+msgstr "ادارے، دستاویزات کی اقسام اور دیگر سیٹنگز: سسٹم ایڈمنسٹریشن"
+
+msgid ""
+"The portal creates a temporary password. You see it once, together with a "
+"message you can send to the person."
+msgstr ""
+"پورٹل ایک عارضی پاس ورڈ بناتا ہے۔ یہ آپ کو صرف ایک بار دکھایا جاتا ہے، ساتھ "
+"ایک پیغام بھی جو آپ اس فرد کو بھیج سکتے ہیں۔"
+
+msgid "Create account"
+msgstr "اکاؤنٹ بنائیں"
+
+msgid "Account"
+msgstr "اکاؤنٹ"
+
+msgid "Can sign in"
+msgstr "سائن ان کر سکتا ہے"
+
+msgid ""
+"Create a new temporary password? The current password stops working "
+"immediately."
+msgstr "نیا عارضی پاس ورڈ بنائیں؟ موجودہ پاس ورڈ فوراً کام کرنا بند کر دے گا۔"
+
+msgid "Reset password"
+msgstr "پاس ورڈ ری سیٹ کریں"
+
+msgid ""
+"Reset two-factor authentication? Use this when the person lost or replaced "
+"their phone; they can then set it up again."
+msgstr ""
+"دو مرحلہ تصدیق ری سیٹ کریں؟ یہ تب استعمال کریں جب فرد کا فون گم ہو گیا ہو یا"
+" بدل گیا ہو؛ اس کے بعد وہ اسے دوبارہ سیٹ کر سکتے ہیں۔"
+
+msgid "Reset two-factor authentication"
+msgstr "دو مرحلہ تصدیق ری سیٹ کریں"
+
+msgid ""
+"Deactivate this account? The person can no longer sign in; everything they "
+"did stays in the records."
+msgstr ""
+"یہ اکاؤنٹ غیر فعال کریں؟ یہ فرد اب سائن ان نہیں کر سکے گا؛ اس کا کیا ہوا سب "
+"کچھ ریکارڈ میں رہے گا۔"
+
+msgid "Deactivate"
+msgstr "غیر فعال کریں"
+
+msgid "Reactivate"
+msgstr "دوبارہ فعال کریں"
+
+msgid "Sign-in details"
+msgstr "سائن ان کی تفصیلات"
+
+msgid "Send these details to the person"
+msgstr "یہ تفصیلات اس فرد کو بھیجیں"
+
+msgid "Address"
+msgstr "پتا"
+
+msgid ""
+"This password is shown only once. At the first sign-in the person chooses "
+"their own password."
+msgstr ""
+"یہ پاس ورڈ صرف ایک بار دکھایا جاتا ہے۔ پہلی بار سائن ان پر یہ فرد اپنا پاس "
+"ورڈ منتخب کرے گا۔"
+
+msgid ""
+"At the moment only this computer can open the portal. Allow other computers "
+"in the office network on the People page, or publish the portal through a "
+"tunnel for people in other places (see the guide)."
+msgstr ""
+"اس وقت صرف یہی کمپیوٹر پورٹل کھول سکتا ہے۔ \"افراد\" کے صفحے پر دفتر کے نیٹ "
+"ورک کے دوسرے کمپیوٹرز کو اجازت دیں، یا دوسری جگہوں کے لوگوں کے لیے پورٹل کو "
+"ٹنل کے ذریعے شائع کریں (گائیڈ دیکھیں)۔"
+
+msgid "Ready-to-send message"
+msgstr "بھیجنے کے لیے تیار پیغام"
+
+#, python-format
+msgid ""
+"In %(language)s, the person's language. Copy it into WeChat, WhatsApp or an "
+"e-mail."
+msgstr ""
+"اس فرد کی زبان (%(language)s) میں۔ اسے WeChat، WhatsApp یا ای میل میں کاپی "
+"کریں۔"
+
+msgid ""
+"The temporary password is shown only once. If it was not passed on, reset "
+"the password to get a new one."
+msgstr ""
+"عارضی پاس ورڈ صرف ایک بار دکھایا جاتا ہے۔ اگر یہ آگے نہیں پہنچایا گیا تو نیا"
+" پاس ورڈ حاصل کرنے کے لیے پاس ورڈ ری سیٹ کریں۔"
+
+msgid "Back to People"
+msgstr "افراد پر واپس"
+
+msgid "Add another person"
+msgstr "ایک اور فرد شامل کریں"
+
+msgid "Restarting…"
+msgstr "دوبارہ شروع ہو رہا ہے…"
+
+msgid ""
+"The portal is restarting with the new settings. This page continues by "
+"itself in a few seconds."
+msgstr ""
+"پورٹل نئی سیٹنگز کے ساتھ دوبارہ شروع ہو رہا ہے۔ چند سیکنڈ میں یہ صفحہ خود "
+"آگے بڑھ جائے گا۔"
+
+msgid ""
+"If nothing happens, close the portal window on this computer and start the "
+"portal again."
+msgstr ""
+"اگر کچھ نہ ہو تو اس کمپیوٹر پر پورٹل کی ونڈو بند کریں اور پورٹل دوبارہ شروع "
+"کریں۔"
+
+msgid "Continue"
+msgstr "جاری رکھیں"
+
+msgid ""
+"A code from your phone is needed at every sign-in, so a stolen password "
+"alone is not enough."
+msgstr ""
+"ہر سائن ان پر فون کا کوڈ درکار ہے، اس لیے صرف چوری شدہ پاس ورڈ کافی نہیں۔"
+
+msgid ""
+"This portal requires two-factor authentication. Please set it up to "
+"continue."
+msgstr "اس پورٹل پر دو مرحلہ تصدیق لازمی ہے۔ جاری رکھنے کے لیے اسے سیٹ کریں۔"
+
+msgid "Two-factor authentication is active for your account."
+msgstr "آپ کے اکاؤنٹ پر دو مرحلہ تصدیق فعال ہے۔"
+
+msgid "Turn off two-factor authentication?"
+msgstr "دو مرحلہ تصدیق بند کریں؟"
+
+msgid "Turn off"
+msgstr "بند کریں"
+
+msgid "1. Scan this code"
+msgstr "1. یہ کوڈ اسکین کریں"
+
+msgid ""
+"Use any authenticator app (for example Microsoft Authenticator, Google "
+"Authenticator, FreeOTP or the authenticator built into your password "
+"manager)."
+msgstr ""
+"کوئی بھی آتھنٹیکیٹر ایپ استعمال کریں (مثلاً Microsoft Authenticator، Google "
+"Authenticator، FreeOTP یا پاس ورڈ مینیجر کا اپنا آتھنٹیکیٹر)۔"
+
+msgid "Or type this key:"
+msgstr "یا یہ کلید درج کریں:"
+
+msgid "2. Enter the code it shows"
+msgstr "2. ایپ میں دکھایا گیا کوڈ درج کریں"
+
+msgid "Turn on"
+msgstr "آن کریں"
+
+msgid "Set up the portal"
+msgstr "پورٹل سیٹ اپ کریں"
+
+msgid "Two short steps. Everything can be changed later."
+msgstr "صرف دو مختصر مراحل۔ بعد میں سب کچھ تبدیل کیا جا سکتا ہے۔"
+
+msgid "1. Your administrator account"
+msgstr "1. آپ کا ایڈمنسٹریٹر اکاؤنٹ"
+
+msgid ""
+"For the person who looks after the portal: adds people, changes settings and"
+" keeps the backups."
+msgstr ""
+"اس فرد کے لیے جو پورٹل کی دیکھ بھال کرتا ہے: افراد شامل کرنا، سیٹنگز بدلنا "
+"اور بیک اپ سنبھالنا۔"
+
+msgid "2. The organisations"
+msgstr "2. ادارے"
+
+msgid ""
+"The companies that work together in the portal. More can be added later in "
+"system administration."
+msgstr ""
+"وہ کمپنیاں جو پورٹل میں مل کر کام کرتی ہیں۔ مزید بعد میں سسٹم ایڈمنسٹریشن "
+"میں شامل کی جا سکتی ہیں۔"
+
+msgid "Finish set-up"
+msgstr "سیٹ اپ مکمل کریں"
+
+msgid ""
+"Open the set-up link shown in the portal window on the computer where the "
+"portal runs. The link contains a one-time key, so only someone at that "
+"computer can set up the portal."
+msgstr ""
+"جس کمپیوٹر پر پورٹل چل رہا ہے، اس پر پورٹل کی ونڈو میں دکھایا گیا سیٹ اپ لنک"
+" کھولیں۔ لنک میں ایک بار استعمال ہونے والی کلید ہے، اس لیے صرف اسی کمپیوٹر "
+"پر موجود شخص پورٹل سیٹ اپ کر سکتا ہے۔"
+
+msgid "Main"
+msgstr "مرکزی"
+
+msgid "Dashboard"
+msgstr "ڈیش بورڈ"
+
+msgid "Scan"
+msgstr "اسکین"
+
+msgid "Catalogue"
+msgstr "کیٹلاگ"
+
+msgid "Records"
+msgstr "ریکارڈز"
+
+msgid "Admin"
+msgstr "ایڈمن"
+
+msgid "Notifications"
+msgstr "اطلاعات"
+
+msgid "Administrator"
+msgstr "ایڈمنسٹریٹر"
+
+msgid "Sign out"
+msgstr "سائن آؤٹ"
+
+msgid "All times are shown in your time zone"
+msgstr "تمام اوقات آپ کے ٹائم زون میں دکھائے گئے ہیں"
+
+msgid "Every change is recorded in a tamper-evident audit log."
+msgstr "ہر تبدیلی چھیڑ چھاڑ ظاہر کرنے والے آڈٹ لاگ میں درج ہوتی ہے۔"
+
+msgid "Someone else just updated this information."
+msgstr "کسی اور نے ابھی یہ معلومات اپ ڈیٹ کی ہیں۔"
+
+msgid "Refresh"
+msgstr "ریفریش"
+
+msgid "Mark all as read"
+msgstr "سب کو پڑھا ہوا قرار دیں"
+
+msgid "New"
+msgstr "نیا"
+
+msgid "Nothing yet."
+msgstr "ابھی کچھ نہیں۔"
+
+#, python-format
+msgid ""
+"In the print dialog choose the label printer, paper 100 × 150 mm (packages) "
+"or 50 × 30 mm (items), margins “None”, scale 100 %%."
+msgstr ""
+"پرنٹ ڈائیلاگ میں لیبل پرنٹر منتخب کریں، کاغذ 100 × 150 ملی میٹر (پیکجز) یا "
+"50 × 30 ملی میٹر (آئٹمز)، مارجن “None”، اسکیل 100 %%۔"
+
+msgid "Hide contents"
+msgstr "مواد چھپائیں"
+
+msgid "Show contents on label"
+msgstr "لیبل پر مواد دکھائیں"
+
+#, python-format
+msgid "%(n)s package labels, %(m)s item labels"
+msgstr "%(n)s پیکج لیبل، %(m)s آئٹم لیبل"
+
+msgid "Edit details"
+msgstr "تفصیلات میں ترمیم"
+
+msgid "Packing list"
+msgstr "پیکنگ لسٹ"
+
+msgid "Consignment sections"
+msgstr "کنسائنمنٹ کے حصے"
+
+msgid "Overview"
+msgstr "خلاصہ"
+
+msgid "Packing & traceability"
+msgstr "پیکنگ اور ٹریس ایبلٹی"
+
+msgid "Remarks & queries"
+msgstr "ریمارکس اور سوالات"
+
+msgid "Receiving"
+msgstr "وصولی"
+
+#, python-format
+msgid "Machine translation from %(src)s"
+msgstr "%(src)s سے مشینی ترجمہ"
+
+msgid "Show original"
+msgstr "اصل متن دکھائیں"
+
+#, python-format
+msgid "Written in %(src)s"
+msgstr "%(src)s میں لکھا گیا"
+
+msgid "automatic translation is not switched on"
+msgstr "خودکار ترجمہ آن نہیں ہے"
+
+msgid "History"
+msgstr "ہسٹری"
+
+msgid "into"
+msgstr "میں"
+
+msgid "No history yet."
+msgstr "ابھی کوئی ہسٹری نہیں۔"
+
+msgid "Where it is, layer by layer"
+msgstr "یہ کہاں ہے، تہہ بہ تہہ"
+
+msgid "Show in packing view"
+msgstr "پیکنگ ویو میں دکھائیں"
+
+msgid "Location path"
+msgstr "مقام کا راستہ"
+
+#, python-format
+msgid "%(n)s at this layer"
+msgstr "اس تہہ میں %(n)s"
+
+msgid "Not inside any container, pallet or carton."
+msgstr "کسی کنٹینر، پیلیٹ یا کارٹن کے اندر نہیں۔"
+
+#, python-format
+msgid "Overdue %(days)s day"
+msgid_plural "Overdue %(days)s days"
+msgstr[0] "%(days)s دن تاخیر"
+msgstr[1] "%(days)s دن تاخیر"
+
+msgid "Due now"
+msgstr "ابھی درکار"
+
+msgid "Delayed"
+msgstr "تاخیر"
+
+#, python-format
+msgid "%(n)s inside"
+msgstr "اندر %(n)s"
+
+#, python-format
+msgid "%(n)s pcs"
+msgstr "%(n)s عدد"
+
+msgid "damaged"
+msgstr "خراب"
+
+msgid "Empty"
+msgstr "خالی"
+
+msgid ""
+"The item master (one code per product, names in three languages) and the "
+"document types. Codes are part of every item ID, so they are controlled here"
+" rather than typed freely."
+msgstr ""
+"آئٹم ماسٹر (ہر پروڈکٹ کا ایک کوڈ، نام تین زبانوں میں) اور دستاویزات کی "
+"اقسام۔ کوڈ ہر آئٹم ID کا حصہ ہیں، اس لیے انہیں یہاں کنٹرول کیا جاتا ہے، مرضی"
+" سے نہیں لکھا جاتا۔"
+
+msgid "How the IDs work"
+msgstr "IDs کیسے کام کرتی ہیں"
+
+msgid "New item type"
+msgstr "نئی آئٹم قسم"
+
+msgid "Item master"
+msgstr "آئٹم ماسٹر"
+
+msgid "Code"
+msgstr "کوڈ"
+
+msgid "Tracking"
+msgstr "ٹریکنگ"
+
+msgid "Controlled"
+msgstr "کنٹرولڈ"
+
+msgid "Yes"
+msgstr "ہاں"
+
+msgid "No item types yet."
+msgstr "ابھی کوئی آئٹم قسم نہیں۔"
+
+msgid "Document types"
+msgstr "دستاویزات کی اقسام"
+
+msgid "Changed by the system administrator"
+msgstr "سسٹم ایڈمنسٹریٹر تبدیل کرتا ہے"
+
+msgid "Required by default"
+msgstr "طے شدہ طور پر لازمی"
+
+msgid "days"
+msgstr "دن"
+
+msgid "Packaging codes"
+msgstr "پیکنگ کوڈز"
+
+msgid ""
+"One rule: an ID says what a thing is and where it was born — never where it "
+"is now."
+msgstr ""
+"ایک اصول: ID بتاتی ہے کہ چیز کیا ہے اور کہاں درج ہوئی — یہ کبھی نہیں کہ ابھی"
+" کہاں ہے۔"
+
+msgid "consignment it was packed for"
+msgstr "جس کنسائنمنٹ کے لیے پیک ہوا"
+
+msgid "item code (item master)"
+msgstr "آئٹم کوڈ (آئٹم ماسٹر)"
+
+msgid "number within the consignment"
+msgstr "کنسائنمنٹ کے اندر نمبر"
+
+msgid ""
+"DCJM-017 is the 17th Dual Channel Jamming Module registered in consignment "
+"CSG-2026-0002. The manufacturer's own serial number is stored with it."
+msgstr ""
+"DCJM-017 کنسائنمنٹ CSG-2026-0002 میں درج 17واں ڈوئل چینل جیمنگ ماڈیول ہے۔ "
+"مینوفیکچرر کا اپنا سیریل نمبر بھی اس کے ساتھ محفوظ ہے۔"
+
+msgid "Packaging ID"
+msgstr "پیکنگ ID"
+
+msgid "number"
+msgstr "نمبر"
+
+msgid "Level"
+msgstr "سطح"
+
+msgid "May contain"
+msgstr "اس میں رکھا جا سکتا ہے"
+
+msgid "pallets, crates, cartons, boxes, items"
+msgstr "پیلیٹ، کریٹ، کارٹن، ڈبے، آئٹمز"
+
+msgid "crates, cartons, boxes, items"
+msgstr "کریٹ، کارٹن، ڈبے، آئٹمز"
+
+msgid "cartons, boxes, items"
+msgstr "کارٹن، ڈبے، آئٹمز"
+
+msgid "boxes, items"
+msgstr "ڈبے، آئٹمز"
+
+msgid "Why the carton is not part of the item ID"
+msgstr "کارٹن نمبر آئٹم ID کا حصہ کیوں نہیں"
+
+msgid "The first proposal was:"
+msgstr "ابتدائی تجویز یہ تھی:"
+
+msgid ""
+"“CTN-001” inside the item ID becomes wrong the moment the item is moved to "
+"another carton, so the label would have to be reprinted or would mislead."
+msgstr ""
+"آئٹم ID کے اندر “CTN-001” اسی لمحے غلط ہو جاتا ہے جب آئٹم دوسرے کارٹن میں "
+"منتقل ہو، یوں لیبل دوبارہ پرنٹ کرنا پڑتا یا گمراہ کرتا۔"
+
+msgid ""
+"“/057” becomes wrong when a carton is added or removed; “/” also breaks file"
+" names, web addresses and Excel (which turns 1/57 into a date)."
+msgstr ""
+"کارٹن بڑھنے یا کم ہونے پر “/057” غلط ہو جاتا ہے؛ “/” فائل ناموں، ویب ایڈریس "
+"اور Excel کو بھی خراب کرتا ہے (Excel 1/57 کو تاریخ بنا دیتا ہے)۔"
+
+msgid "Two digits for the unit number stop at 99."
+msgstr "دو ہندسوں کا نمبر 99 پر ختم ہو جاتا ہے۔"
+
+msgid "“TJM3-1” repeats information the system already knows."
+msgstr "“TJM3-1” وہی معلومات دہراتا ہے جو سسٹم پہلے سے جانتا ہے۔"
+
+msgid ""
+"Instead, the location is a <strong>record</strong>: scanning DCJM-017 shows "
+"CTN-003 › PLT-001 › CNT-001, and the history shows it was moved from CTN-002"
+" during export inspection. “Carton 17 of 57” is still printed on the carton "
+"label as a shipping mark, but it is not part of the ID."
+msgstr ""
+"اس کے بجائے مقام ایک <strong>ریکارڈ</strong> ہے: DCJM-017 اسکین کرنے پر "
+"CTN-003 › PLT-001 › CNT-001 نظر آتا ہے، اور ہسٹری بتاتی ہے کہ یہ ایکسپورٹ "
+"معائنے کے دوران CTN-002 سے منتقل ہوا۔ “57 میں سے کارٹن 17” اب بھی کارٹن لیبل"
+" پر شپنگ مارک کے طور پر چھپتا ہے، مگر یہ ID کا حصہ نہیں۔"
+
+msgid "Labels"
+msgstr "لیبلز"
+
+msgid ""
+"Carton / pallet label: 100 × 150 mm, large QR code, bilingual English / "
+"Chinese text."
+msgstr ""
+"کارٹن / پیلیٹ لیبل: 100 × 150 ملی میٹر، بڑا QR کوڈ، انگریزی / چینی دو لسانی "
+"متن۔"
+
+msgid ""
+"Item label: 50 × 30 mm, QR code, item ID, name and manufacturer serial no."
+msgstr ""
+"آئٹم لیبل: 50 × 30 ملی میٹر، QR کوڈ، آئٹم ID، نام اور مینوفیکچرر سیریل نمبر۔"
+
+msgid ""
+"The QR code contains only the ID. Scan it with the portal's Scan page (phone"
+" camera or handheld scanner)."
+msgstr ""
+"QR کوڈ میں صرف ID ہوتی ہے۔ اسے پورٹل کے اسکین صفحے سے اسکین کریں (فون کیمرا "
+"یا ہینڈ ہیلڈ اسکینر)۔"
+
+msgid ""
+"Outer labels do not show the contents by default, so sensitive goods are not"
+" advertised in transit."
+msgstr ""
+"بیرونی لیبل طے شدہ طور پر مواد نہیں دکھاتے، تاکہ حساس سامان راستے میں ظاہر "
+"نہ ہو۔"
+
+msgid "Milestones"
+msgstr "مراحل"
+
+msgid ""
+"Shipper records milestones up to “in transit”; Receiver from arrival "
+"onwards."
+msgstr "شپر “راستے میں” تک مراحل درج کرتا ہے؛ ریسیور پہنچنے کے بعد سے۔"
+
+msgid "Record the next milestone"
+msgstr "اگلا مرحلہ درج کریں"
+
+msgid "Record milestone"
+msgstr "مرحلہ درج کریں"
+
+msgid "Milestone history"
+msgstr "مراحل کی ہسٹری"
+
+msgid "Packing structure"
+msgstr "پیکنگ کا ڈھانچہ"
+
+msgid "Open the packing view"
+msgstr "پیکنگ ویو کھولیں"
+
+msgid "Item IDs"
+msgstr "آئٹم IDs"
+
+msgid "Pieces"
+msgstr "عدد"
+
+msgid "Planned packages"
+msgstr "متوقع پیکجز"
+
+#, python-format
+msgid "%(u)s units inside, %(i)s pieces"
+msgstr "اندر %(u)s یونٹس، %(i)s عدد"
+
+msgid "Nothing packed yet."
+msgstr "ابھی کچھ پیک نہیں ہوا۔"
+
+msgid "Start packing"
+msgstr "پیکنگ شروع کریں"
+
+msgid "Latest movements"
+msgstr "حالیہ نقل و حرکت"
+
+msgid "All"
+msgstr "سب"
+
+msgid "No movements yet."
+msgstr "ابھی کوئی نقل و حرکت نہیں۔"
+
+msgid "Audit trail"
+msgstr "آڈٹ ٹریل"
+
+msgid "Manage"
+msgstr "انتظام"
+
+msgid "due"
+msgstr "آخری تاریخ"
+
+msgid "No documents required."
+msgstr "کوئی لازمی دستاویز نہیں۔"
+
+msgid "Receiving check"
+msgstr "وصولی کی جانچ"
+
+msgid "Packages / units received"
+msgstr "وصول شدہ پیکجز / یونٹس"
+
+msgid "Item IDs verified"
+msgstr "تصدیق شدہ آئٹم IDs"
+
+msgid "units"
+msgstr "یونٹس"
+
+msgid "No remarks yet."
+msgstr "ابھی کوئی ریمارک نہیں۔"
+
+msgid "Carrier / forwarder"
+msgstr "کیریئر / فارورڈر"
+
+msgid "Description"
+msgstr "تفصیل"
+
+msgid "Notes"
+msgstr "نوٹس"
+
+msgid "New consignment"
+msgstr "نئی کنسائنمنٹ"
+
+msgid ""
+"The consignment number is assigned automatically when you save. Required "
+"documents are set up from the transport mode."
+msgstr ""
+"محفوظ کرنے پر کنسائنمنٹ نمبر خود بخود ملتا ہے۔ لازمی دستاویزات ذریعہ نقل و "
+"حمل کے مطابق طے ہوتی ہیں۔"
+
+msgid "Create consignment"
+msgstr "کنسائنمنٹ بنائیں"
+
+msgid "Every consignment gets its number automatically, e.g. CSG-2026-0042."
+msgstr "ہر کنسائنمنٹ کو خود بخود نمبر ملتا ہے، مثلاً CSG-2026-0042۔"
+
+msgid "Search"
+msgstr "تلاش"
+
+msgid "Number, PO, B/L or container no."
+msgstr "نمبر، PO، B/L یا کنٹینر نمبر"
+
+msgid "Show"
+msgstr "دکھائیں"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Stage"
+msgstr "مرحلہ"
+
+msgid "Any stage"
+msgstr "کوئی بھی مرحلہ"
+
+msgid "Transport mode"
+msgstr "ذریعہ نقل و حمل"
+
+msgid "Any mode"
+msgstr "کوئی بھی ذریعہ"
+
+msgid "Shipper → Receiver"
+msgstr "شپر ← ریسیور"
+
+msgid "Open queries"
+msgstr "کھلے سوالات"
+
+msgid "No consignments match."
+msgstr "کوئی کنسائنمنٹ مطابقت نہیں رکھتی۔"
+
+#, python-format
+msgid ""
+"Status on %(now)s. This page tells you when someone else changes something."
+msgstr "%(now)s کی صورتحال۔ کوئی اور تبدیلی کرے تو یہ صفحہ آپ کو بتا دے گا۔"
+
+msgid "Key figures"
+msgstr "اہم اعداد"
+
+msgid "Active consignments"
+msgstr "فعال کنسائنمنٹس"
+
+#, python-format
+msgid "%(n)s on the way"
+msgstr "%(n)s راستے میں"
+
+msgid "Required documents on file"
+msgstr "لازمی دستاویزات موجود"
+
+#, python-format
+msgid "%(a)s of %(b)s"
+msgstr "%(b)s میں سے %(a)s"
+
+#, python-format
+msgid "%(a)s of %(b)s uploaded"
+msgstr "%(b)s میں سے %(a)s اپ لوڈ شدہ"
+
+msgid "Overdue documents"
+msgstr "تاخیر شدہ دستاویزات"
+
+#, python-format
+msgid "Oldest: %(d)s days late"
+msgstr "سب سے پرانی: %(d)s دن تاخیر"
+
+msgid "None"
+msgstr "کوئی نہیں"
+
+msgid "Open remarks and queries"
+msgstr "کھلے ریمارکس اور سوالات"
+
+#, python-format
+msgid "%(n)s damage or discrepancy"
+msgstr "%(n)s نقصان یا تضاد"
+
+msgid "Delayed shipments"
+msgstr "تاخیر شدہ شپمنٹس"
+
+msgid "ETA passed, not yet arrived"
+msgstr "ETA گزر گیا، ابھی نہیں پہنچا"
+
+msgid "Units received at destination"
+msgstr "منزل پر وصول شدہ یونٹس"
+
+msgid "Containers, pallets and cartons of arrived consignments"
+msgstr "پہنچی ہوئی کنسائنمنٹس کے کنٹینر، پیلیٹ اور کارٹن"
+
+msgid "Your to-do list"
+msgstr "آپ کے کرنے کے کام"
+
+msgid "Things waiting for your organisation"
+msgstr "آپ کے ادارے کے منتظر کام"
+
+msgid "Documents to upload"
+msgstr "اپ لوڈ کرنے والی دستاویزات"
+
+msgid "Nothing due."
+msgstr "کچھ درکار نہیں۔"
+
+msgid "Remarks and queries waiting for your reply"
+msgstr "آپ کے جواب کے منتظر ریمارکس اور سوالات"
+
+msgid "All answered."
+msgstr "سب کا جواب دیا جا چکا۔"
+
+msgid "Active consignments by stage"
+msgstr "مرحلہ وار فعال کنسائنمنٹس"
+
+msgid "Select a stage to see the list"
+msgstr "فہرست دیکھنے کے لیے مرحلہ منتخب کریں"
+
+msgid "Number of active consignments at each stage"
+msgstr "ہر مرحلے پر فعال کنسائنمنٹس کی تعداد"
+
+msgid "Needs attention"
+msgstr "توجہ طلب"
+
+msgid "Nothing needs attention right now."
+msgstr "ابھی کسی چیز پر توجہ کی ضرورت نہیں۔"
+
+msgid "Responsible"
+msgstr "ذمہ دار"
+
+#, python-format
+msgid "%(n)s reminder sent"
+msgid_plural "%(n)s reminders sent"
+msgstr[0] "%(n)s یاد دہانی بھیجی گئی"
+msgstr[1] "%(n)s یاد دہانیاں بھیجی گئیں"
+
+msgid "Open damage and discrepancy reports"
+msgstr "کھلی نقصان اور تضاد رپورٹس"
+
+msgid "All consignments"
+msgstr "تمام کنسائنمنٹس"
+
+#, python-format
+msgid "%(n)s overdue"
+msgstr "%(n)s تاخیر شدہ"
+
+msgid "No active consignments."
+msgstr "کوئی فعال کنسائنمنٹ نہیں۔"
+
+msgid "Recent activity"
+msgstr "حالیہ سرگرمی"
+
+msgid "No activity yet."
+msgstr "ابھی کوئی سرگرمی نہیں۔"
+
+msgid ""
+"Reminders go out automatically when a document is due and not uploaded; "
+"after several days they escalate to Oversight."
+msgstr ""
+"دستاویز درکار ہو اور اپ لوڈ نہ ہو تو یاد دہانیاں خود بخود جاتی ہیں؛ چند دن "
+"بعد معاملہ نگران تک پہنچ جاتا ہے۔"
+
+#, python-format
+msgid "due once “%(s)s”"
+msgstr "“%(s)s” پر درکار"
+
+msgid "escalated to Oversight"
+msgstr "نگران تک پہنچایا گیا"
+
+#, python-format
+msgid "All %(n)s versions"
+msgstr "تمام %(n)s ورژن"
+
+msgid "Archive"
+msgstr "آرکائیو"
+
+msgid "Archive this document? It stays in the history and audit log."
+msgstr "یہ دستاویز آرکائیو کریں؟ یہ ہسٹری اور آڈٹ لاگ میں موجود رہے گی۔"
+
+msgid "Waive"
+msgstr "استثنیٰ دیں"
+
+msgid "Other documents"
+msgstr "دیگر دستاویزات"
+
+msgid "Upload a document"
+msgstr "دستاویز اپ لوڈ کریں"
+
+#, python-format
+msgid ""
+"PDF, JPG, PNG, TIFF, Excel, Word, CSV or TXT, up to %(mb)s MB. A new upload "
+"of the same document becomes the next version; older versions are kept."
+msgstr ""
+"PDF، JPG، PNG، TIFF، Excel، Word، CSV یا TXT، زیادہ سے زیادہ %(mb)s MB۔ اسی "
+"دستاویز کا نیا اپ لوڈ اگلا ورژن بنتا ہے؛ پرانے ورژن محفوظ رہتے ہیں۔"
+
+msgid "Upload"
+msgstr "اپ لوڈ"
+
+msgid "Require another document"
+msgstr "ایک اور دستاویز لازمی کریں"
+
+msgid ""
+"e.g. Certificate of Origin (Form P) for the China–Pakistan FTA duty "
+"preference, or an end-user NOC."
+msgstr ""
+"مثلاً چین–پاکستان FTA کی ڈیوٹی رعایت کے لیے سرٹیفکیٹ آف اوریجن (فارم P)، یا "
+"اینڈ یوزر این او سی۔"
+
+msgid "How files are protected"
+msgstr "فائلیں کیسے محفوظ ہیں"
+
+msgid ""
+"Only the Shipper, Receiver and Oversight of this consignment can open these "
+"files."
+msgstr "صرف اس کنسائنمنٹ کے شپر، ریسیور اور نگران یہ فائلیں کھول سکتے ہیں۔"
+
+msgid ""
+"Every upload gets a SHA-256 fingerprint, so any later change to a file can "
+"be detected."
+msgstr ""
+"ہر اپ لوڈ کو SHA-256 فنگر پرنٹ ملتا ہے، اس لیے فائل میں بعد کی کوئی بھی "
+"تبدیلی پکڑی جا سکتی ہے۔"
+
+msgid "Every download is recorded in the audit log."
+msgstr "ہر ڈاؤن لوڈ آڈٹ لاگ میں درج ہوتا ہے۔"
+
+msgid "Nothing is deleted: archived documents stay in the history."
+msgstr "کچھ حذف نہیں ہوتا: آرکائیو شدہ دستاویزات ہسٹری میں رہتی ہیں۔"
+
+msgid "Import packing list"
+msgstr "پیکنگ لسٹ درآمد کریں"
+
+msgid "Import packing list (CSV)"
+msgstr "پیکنگ لسٹ درآمد کریں (CSV)"
+
+msgid ""
+"Save your Excel packing list as CSV (UTF-8 or the default Chinese GBK "
+"encoding both work) with one row per carton and item type. All rows are "
+"checked first; if any row has an error nothing is imported."
+msgstr ""
+"اپنی Excel پیکنگ لسٹ کو CSV کے طور پر محفوظ کریں (UTF-8 یا چینی GBK انکوڈنگ "
+"دونوں چلتی ہیں)، ہر کارٹن اور آئٹم قسم کی ایک سطر۔ پہلے تمام سطریں جانچی "
+"جاتی ہیں؛ کسی سطر میں غلطی ہو تو کچھ درآمد نہیں ہوتا۔"
+
+msgid "Import"
+msgstr "درآمد"
+
+msgid "Columns"
+msgstr "کالم"
+
+msgid "Column"
+msgstr "کالم"
+
+msgid "Meaning"
+msgstr "مطلب"
+
+msgid "Carton number, e.g. 1 … 57 (required)"
+msgstr "کارٹن نمبر، مثلاً 1 … 57 (لازمی)"
+
+msgid "Item master code, e.g. DCJM (required)"
+msgstr "آئٹم ماسٹر کوڈ، مثلاً DCJM (لازمی)"
+
+msgid "Number of units or pieces (required)"
+msgstr "یونٹس یا عدد کی تعداد (لازمی)"
+
+msgid "Manufacturer serial no. (quantity 1)"
+msgstr "مینوفیکچرر سیریل نمبر (مقدار 1)"
+
+msgid "Pallet number the carton is on"
+msgstr "وہ پیلیٹ نمبر جس پر کارٹن ہے"
+
+msgid "Example"
+msgstr "مثال"
+
+#, python-format
+msgid "unit %(n)s of %(total)s in this consignment"
+msgstr "اس کنسائنمنٹ میں %(total)s میں سے یونٹ %(n)s"
+
+msgid "Controlled item"
+msgstr "کنٹرولڈ آئٹم"
+
+msgid "Print label"
+msgstr "لیبل پرنٹ کریں"
+
+msgid "Raise a remark"
+msgstr "ریمارک درج کریں"
+
+msgid "Currently in"
+msgstr "فی الحال اندر"
+
+msgid "Record receipt"
+msgstr "وصولی درج کریں"
+
+msgid "Confirm received"
+msgstr "وصولی کی تصدیق"
+
+msgid "Move to another unit"
+msgstr "دوسرے یونٹ میں منتقل کریں"
+
+msgid "The ID stays the same; the move is recorded in the history."
+msgstr "ID وہی رہتی ہے؛ منتقلی ہسٹری میں درج ہوتی ہے۔"
+
+msgid "Move"
+msgstr "منتقل کریں"
+
+msgid "Edit serial / batch"
+msgstr "سیریل / بیچ میں ترمیم"
+
+msgid "Remarks about this item"
+msgstr "اس آئٹم کے بارے میں ریمارکس"
+
+msgid ""
+"Enter the name in all three languages once here; every label, list and "
+"screen then shows it in the reader's language."
+msgstr ""
+"یہاں ایک بار تینوں زبانوں میں نام درج کریں؛ پھر ہر لیبل، فہرست اور اسکرین "
+"پڑھنے والے کی زبان میں دکھائے گی۔"
+
+msgid ""
+"Every container, pallet, carton and item has its own permanent ID with a QR "
+"label. Moving an item to another carton does <strong>not</strong> change its"
+" ID: the move is recorded and its location updates."
+msgstr ""
+"ہر کنٹینر، پیلیٹ، کارٹن اور آئٹم کی اپنی مستقل ID اور QR لیبل ہے۔ آئٹم کو "
+"دوسرے کارٹن میں منتقل کرنے سے اس کی ID <strong>نہیں</strong> بدلتی: منتقلی "
+"درج ہوتی ہے اور مقام اپ ڈیٹ ہو جاتا ہے۔"
+
+msgid "Legend"
+msgstr "علامات"
+
+msgid "Hide item IDs"
+msgstr "آئٹم IDs چھپائیں"
+
+msgid "Show item IDs"
+msgstr "آئٹم IDs دکھائیں"
+
+msgid "Carton labels"
+msgstr "کارٹن لیبلز"
+
+msgid "Item labels"
+msgstr "آئٹم لیبلز"
+
+msgid "Item list (CSV)"
+msgstr "آئٹم فہرست (CSV)"
+
+msgid "Scan to move"
+msgstr "منتقلی کے لیے اسکین"
+
+msgid "Add containers, pallets or cartons"
+msgstr "کنٹینر، پیلیٹ یا کارٹن شامل کریں"
+
+msgid "IDs are numbered automatically (CTN-001, CTN-002 …)."
+msgstr "IDs خود بخود نمبر پاتی ہیں (CTN-001، CTN-002 …)۔"
+
+msgid "Create"
+msgstr "بنائیں"
+
+msgid "Register items and pack them"
+msgstr "آئٹمز رجسٹر اور پیک کریں"
+
+msgid ""
+"e.g. 40 × DCJM into CTN-001…003 gives DCJM-001…040, spread 14 / 13 / 13."
+msgstr ""
+"مثلاً 40 × DCJM کو CTN-001…003 میں رکھنے سے DCJM-001…040 بنتے ہیں، تقسیم 14 "
+"/ 13 / 13۔"
+
+msgid "Register"
+msgstr "رجسٹر کریں"
+
+msgid "Packing can be changed by the Shipper at this stage."
+msgstr "اس مرحلے پر پیکنگ شپر تبدیل کر سکتا ہے۔"
+
+msgid "Packing can be changed by the Receiver at this stage."
+msgstr "اس مرحلے پر پیکنگ ریسیور تبدیل کر سکتا ہے۔"
+
+msgid ""
+"Packing is locked while the goods are in transit or the consignment is "
+"closed."
+msgstr "سامان راستے میں ہو یا کنسائنمنٹ بند ہو تو پیکنگ لاک رہتی ہے۔"
+
+msgid "Items not inside any unit"
+msgstr "وہ آئٹمز جو کسی یونٹ میں نہیں"
+
+msgid ""
+"Receiving opens when the consignment has arrived. Until then this page shows"
+" what is expected."
+msgstr ""
+"کنسائنمنٹ پہنچنے پر وصولی شروع ہوتی ہے۔ تب تک یہ صفحہ متوقع سامان دکھاتا ہے۔"
+
+msgid "units and items"
+msgstr "یونٹس اور آئٹمز"
+
+msgid "Not yet received"
+msgstr "ابھی وصول نہیں ہوا"
+
+msgid "Scan to receive"
+msgstr "وصولی کے لیے اسکین"
+
+msgid "Units"
+msgstr "یونٹس"
+
+msgid "Everything has been received."
+msgstr "سب کچھ وصول ہو چکا ہے۔"
+
+msgid ""
+"Raise a “Damage” remark from the unit or item page so the Shipper can "
+"respond (and claim insurance)."
+msgstr ""
+"یونٹ یا آئٹم کے صفحے سے “نقصان” کا ریمارک درج کریں تاکہ شپر جواب دے سکے (اور"
+" انشورنس کلیم کر سکے)۔"
+
+msgid "No damage recorded."
+msgstr "کوئی نقصان درج نہیں۔"
+
+msgid ""
+"Read-only view of the underlying data. Export any table to Excel (CSV)."
+msgstr ""
+"بنیادی ڈیٹا کا صرف دیکھنے والا منظر۔ کوئی بھی ٹیبل Excel (CSV) میں ایکسپورٹ "
+"کریں۔"
+
+msgid "Tables"
+msgstr "ٹیبلز"
+
+msgid "Filter"
+msgstr "فلٹر"
+
+msgid "Export CSV"
+msgstr "CSV ایکسپورٹ"
+
+#, python-format
+msgid "%(n)s rows"
+msgstr "%(n)s سطریں"
+
+msgid "No rows."
+msgstr "کوئی سطر نہیں۔"
+
+msgid "Previous"
+msgstr "پچھلا"
+
+#, python-format
+msgid "Page %(p)s of %(n)s"
+msgstr "صفحہ %(p)s از %(n)s"
+
+msgid "Next"
+msgstr "اگلا"
+
+msgid ""
+"Use the phone camera, a USB/Bluetooth barcode scanner, or type an ID. The QR"
+" label contains the full ID; a manufacturer serial no. also works."
+msgstr ""
+"فون کیمرا، USB/بلوٹوتھ بارکوڈ اسکینر استعمال کریں یا ID لکھیں۔ QR لیبل میں "
+"مکمل ID ہے؛ مینوفیکچرر سیریل نمبر بھی چلتا ہے۔"
+
+#, python-format
+msgid "Short IDs (CTN-017, DCJM-017) are looked up in %(c)s"
+msgstr "مختصر IDs (CTN-017، DCJM-017) کو %(c)s میں تلاش کیا جاتا ہے"
+
+msgid ""
+"No destination yet: scan the container, pallet or carton to move things "
+"into."
+msgstr ""
+"ابھی منزل نہیں: وہ کنٹینر، پیلیٹ یا کارٹن اسکین کریں جس میں چیزیں منتقل کرنی"
+" ہیں۔"
+
+msgid "Destination"
+msgstr "منزل"
+
+msgid ""
+"The camera could not be started. Check the browser permission, or type/scan "
+"the ID instead."
+msgstr ""
+"کیمرا شروع نہیں ہو سکا۔ براؤزر کی اجازت چیک کریں، یا ID لکھیں/اسکین کریں۔"
+
+msgid "The camera needs a secure (https) connection."
+msgstr "کیمرے کے لیے محفوظ (https) کنکشن درکار ہے۔"
+
+msgid "Connection problem: the scan was not saved. Try again."
+msgstr "کنکشن کا مسئلہ: اسکین محفوظ نہیں ہوا۔ دوبارہ کوشش کریں۔"
+
+msgid "What do you want to do?"
+msgstr "آپ کیا کرنا چاہتے ہیں؟"
+
+msgid "Look up"
+msgstr "تلاش"
+
+msgid "Move / repack"
+msgstr "منتقل / دوبارہ پیک"
+
+msgid "Receive"
+msgstr "وصول کریں"
+
+msgid "Change destination"
+msgstr "منزل تبدیل کریں"
+
+msgid "Scan or type an ID, then press Enter"
+msgstr "ID اسکین کریں یا لکھیں، پھر Enter دبائیں"
+
+msgid "Use camera"
+msgstr "کیمرا استعمال کریں"
+
+msgid "Results"
+msgstr "نتائج"
+
+msgid "Scanned IDs appear here."
+msgstr "اسکین شدہ IDs یہاں ظاہر ہوں گی۔"
+
+msgid "Mark resolved"
+msgstr "حل شدہ قرار دیں"
+
+msgid "Reopen"
+msgstr "دوبارہ کھولیں"
+
+msgid "About"
+msgstr "متعلقہ"
+
+#, python-format
+msgid "Waiting for: %(p)s"
+msgstr "منتظر: %(p)s"
+
+msgid "How it works"
+msgstr "یہ کیسے کام کرتا ہے"
+
+msgid "Open: waiting for the other party to answer."
+msgstr "کھلا: دوسرے فریق کے جواب کا انتظار۔"
+
+msgid "Answered: waiting for the party who raised it to accept or follow up."
+msgstr "جواب دیا گیا: درج کرنے والے فریق کی منظوری یا مزید سوال کا انتظار۔"
+
+msgid "Resolved: closed by the party who raised it. Anyone can reopen it."
+msgstr ""
+"حل شدہ: درج کرنے والے فریق نے بند کیا۔ کوئی بھی اسے دوبارہ کھول سکتا ہے۔"
+
+msgid "Machine translations help reading; the original text is what counts."
+msgstr "مشینی ترجمہ پڑھنے میں مدد کے لیے ہے؛ اصل متن ہی معتبر ہے۔"
+
+msgid "raised by"
+msgstr "درج کنندہ"
+
+msgid "Nothing here."
+msgstr "یہاں کچھ نہیں۔"
+
+msgid "Raise a remark or query"
+msgstr "ریمارک یا سوال درج کریں"
+
+msgid ""
+"Write in your own language. The other side reads it in theirs; the original "
+"is always kept."
+msgstr ""
+"اپنی زبان میں لکھیں۔ دوسرا فریق اپنی زبان میں پڑھے گا؛ اصل متن ہمیشہ محفوظ "
+"رہتا ہے۔"
+
+msgid "Post"
+msgstr "پوسٹ کریں"
+
+msgid "Seal"
+msgstr "سیل"
+
+msgid "Labels for contents"
+msgstr "اندر کے سامان کے لیبل"
+
+msgid "Contents"
+msgstr "مواد"
+
+msgid "Units inside"
+msgstr "اندر یونٹس"
+
+msgid "Qty"
+msgstr "مقدار"
+
+msgid "Dimensions"
+msgstr "پیمائش"
+
+msgid "Gross weight"
+msgstr "مجموعی وزن"
+
+msgid "Marks"
+msgstr "نشانات"
+
+msgid "Remarks about this unit"
+msgstr "اس یونٹ کے بارے میں ریمارکس"

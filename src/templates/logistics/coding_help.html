@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "How the IDs work" %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{% trans "How the IDs work" %}</h1>
+  <div class="sub">{% trans "One rule: an ID says what a thing is and where it was born — never where it is now." %}</div></div></div>
+
+<div class="grid grid-2">
+  <section class="card">
+    <h2>{% trans "Item ID" %}</h2>
+    <div class="id-anatomy">
+      <span class="k-container">CSG-2026-0002<small>{% trans "consignment it was packed for" %}</small></span>
+      <span class="k-pallet">-DCJM<small>{% trans "item code (item master)" %}</small></span>
+      <span class="k-carton">-017<small>{% trans "number within the consignment" %}</small></span>
+    </div>
+    <p>{% trans "DCJM-017 is the 17th Dual Channel Jamming Module registered in consignment CSG-2026-0002. The manufacturer's own serial number is stored with it." %}</p>
+    <h2 style="margin-top:1rem">{% trans "Packaging ID" %}</h2>
+    <div class="id-anatomy">
+      <span class="k-container">CSG-2026-0002<small>{% trans "consignment" %}</small></span>
+      <span class="k-carton">-CTN<small>{% trans "type" %}</small></span>
+      <span class="k-box">-017<small>{% trans "number" %}</small></span>
+    </div>
+    <table class="data">
+      <thead><tr><th>{% trans "Level" %}</th><th>{% trans "Code" %}</th><th>{% trans "May contain" %}</th></tr></thead>
+      <tbody>
+        <tr><td>{% icon "container" %} {% trans "Container / truck" %}</td><td class="code">CNT</td><td>{% trans "pallets, crates, cartons, boxes, items" %}</td></tr>
+        <tr><td>{% icon "pallet" %} {% trans "Pallet" %}</td><td class="code">PLT</td><td>{% trans "crates, cartons, boxes, items" %}</td></tr>
+        <tr><td>{% icon "crate" %} {% trans "Crate" %}</td><td class="code">CRT</td><td>{% trans "cartons, boxes, items" %}</td></tr>
+        <tr><td>{% icon "carton" %} {% trans "Carton" %}</td><td class="code">CTN</td><td>{% trans "boxes, items" %}</td></tr>
+        <tr><td>{% icon "box" %} {% trans "Inner box" %}</td><td class="code">BOX</td><td>{% trans "items" %}</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>{% trans "Why the carton is not part of the item ID" %}</h2>
+    <p>{% trans "The first proposal was:" %} <span class="code">01DCJM-TJM3-1-CTN-001/057</span></p>
+    <ul class="list">
+      <li>{% trans "“CTN-001” inside the item ID becomes wrong the moment the item is moved to another carton, so the label would have to be reprinted or would mislead." %}</li>
+      <li>{% trans "“/057” becomes wrong when a carton is added or removed; “/” also breaks file names, web addresses and Excel (which turns 1/57 into a date)." %}</li>
+      <li>{% trans "Two digits for the unit number stop at 99." %}</li>
+      <li>{% trans "“TJM3-1” repeats information the system already knows." %}</li>
+    </ul>
+    <div class="callout" style="margin-top:.75rem">{% blocktrans %}Instead, the location is a <strong>record</strong>: scanning DCJM-017 shows CTN-003 › PLT-001 › CNT-001, and the history shows it was moved from CTN-002 during export inspection. “Carton 17 of 57” is still printed on the carton label as a shipping mark, but it is not part of the ID.{% endblocktrans %}</div>
+    <h2 style="margin-top:1rem">{% trans "Labels" %}</h2>
+    <ul class="list">
+      <li>{% trans "Carton / pallet label: 100 × 150 mm, large QR code, bilingual English / Chinese text." %}</li>
+      <li>{% trans "Item label: 50 × 30 mm, QR code, item ID, name and manufacturer serial no." %}</li>
+      <li>{% trans "The QR code contains only the ID. Scan it with the portal's Scan page (phone camera or handheld scanner)." %}</li>
+      <li>{% trans "Outer labels do not show the contents by default, so sensitive goods are not advertised in transit." %}</li>
+    </ul>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "My account" %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{% trans "My account" %}</h1>
+    <div class="sub">{{ profile.organization }} · {{ profile.organization.get_kind_display }} · {{ profile.get_level_display }}</div></div>
+  <div class="actions">
+    <a class="btn" href="{% url 'accounts:security' %}">{% icon "lock" %}{% trans "Two-factor authentication" %}</a>
+    <a class="btn" href="{% url 'accounts:password' %}">{% trans "Change password" %}</a>
+  </div>
+</div>
+<div class="grid grid-main">
+  <div class="card">
+    <h2>{% trans "Preferences" %}</h2>
+    <form method="post">{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" %}</div>
+      <div class="form-actions"><button class="btn primary" type="submit">{% trans "Save" %}</button></div>
+    </form>
+  </div>
+  <div class="card">
+    <h2>{% trans "What you can do" %}</h2>
+    <ul class="list">
+      {% if profile.party == "oversight" %}
+      <li>{% trans "See every consignment, the dashboard and all records (read-only)." %}</li>
+      {% elif profile.level == "viewer" %}
+      <li>{% trans "See your organisation's consignments (read-only)." %}</li>
+      {% else %}
+      <li>{% trans "Record milestones, packing, moves and receipts for your organisation's consignments." %}</li>
+      <li>{% trans "Upload the documents your organisation is responsible for." %}</li>
+      <li>{% trans "Raise and answer remarks and queries." %}</li>
+      {% if profile.level == "manager" %}<li>{% trans "Archive documents, add or waive required documents, maintain the item master." %}</li>{% endif %}
+      {% endif %}
+    </ul>
+    <p class="muted" style="margin-top:.75rem">{% trans "Two-factor authentication" %}: {% if profile.totp_enabled %}<span class="pill state-good">{% icon "check" %}{% trans "On" %}</span>{% else %}<span class="pill state-warning">{% icon "alert" %}{% trans "Off" %}</span>{% endif %}</p>
+  </div>
+</div>
+{% endblock %}

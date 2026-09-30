@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% if instance %}{{ instance.code }}{% else %}{% trans "New item type" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{% if instance %}{{ instance.code }} – {{ instance.name_en }}{% else %}{% trans "New item type" %}{% endif %}</h1>
+  <div class="sub">{% trans "Enter the name in all three languages once here; every label, list and screen then shows it in the reader's language." %}</div></div></div>
+<div class="card">
+  <form method="post">{% csrf_token %}
+    <div class="form-grid">{% include "_fields.html" %}</div>
+    <div class="form-actions"><button class="btn primary" type="submit">{% trans "Save" %}</button>
+      <a class="btn" href="{% url 'logistics:catalog' %}">{% trans "Cancel" %}</a></div>
+  </form>
+</div>
+{% endblock %}

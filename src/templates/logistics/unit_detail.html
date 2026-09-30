@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{{ unit.short }} · {{ consignment.code }}{% endblock %}
+{% block content %}
+{% include "logistics/_c_header.html" %}
+<div class="page-head">
+  <div>
+    <h1 class="k-{{ unit.kind }}">{% icon unit.kind %} <span class="code">{{ unit.code }}</span></h1>
+    <div class="sub">{{ unit.get_kind_display }}{% if unit.container_no %} · <span class="code">{{ unit.container_no }}</span>{% endif %}{% if unit.seal_no %} · {% trans "Seal" %} <span class="code">{{ unit.seal_no }}</span>{% endif %}
+      {% if unit.received_at %} · <span class="pill state-good">{% icon "check" %}{% trans "Received" %} {{ unit.received_at|day }}</span>{% endif %}
+      {% if unit.condition == "damaged" %} <span class="pill state-critical">{% icon "alert" %}{% trans "Damaged" %}</span>{% endif %}</div>
+  </div>
+  <div class="actions">
+    <a class="btn" href="{% url 'logistics:labels' consignment.code %}?id={{ unit.code }}" target="_blank" rel="noopener">{% icon "print" %}{% trans "Print label" %}</a>
+    {% if items or children %}<a class="btn" href="{% url 'logistics:labels' consignment.code %}?what=items&unit={{ unit.code }}" target="_blank" rel="noopener">{% icon "print" %}{% trans "Labels for contents" %}</a>{% endif %}
+    {% if can_comment %}<a class="btn" href="{% url 'logistics:threads' consignment.code %}?about={{ unit.short }}">{% icon "chat" %}{% trans "Raise a remark" %}</a>{% endif %}
+  </div>
+</div>
+
+<div class="grid grid-main">
+  <div class="grid" style="align-content:start">
+    {% include "logistics/_layers.html" with current_code=unit.code %}
+    <section class="card">
+      <h2>{% trans "Contents" %}</h2>
+      {% if children %}
+      <h3>{% trans "Units inside" %}</h3>
+      <div class="chips" style="margin-bottom:.75rem">{% for child in children %}<a class="chip{% if child.received_at %} received{% endif %}{% if child.condition == 'damaged' %} damaged{% endif %}" href="{% url 'logistics:unit' child.code %}">{{ child.short }}</a>{% endfor %}</div>
+      {% endif %}
+      {% if items %}
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>{% trans "Item ID" %}</th><th>{% trans "Item" %}</th><th class="num">{% trans "Qty" %}</th><th>{% trans "Manufacturer serial no." %}</th><th>{% trans "Received" %}</th></tr></thead>
+        <tbody>{% for item in items %}
+          <tr><td><a class="code" href="{% url 'logistics:item' item.uid %}">{{ item.short }}</a></td><td>{{ item.item_type|localname }}</td><td class="num">{{ item.quantity }}</td>
+            <td><span class="code">{{ item.oem_serial|default:"—" }}</span></td>
+            <td>{% if item.received_at %}<span class="mini-status good">{% icon "check" %}{{ item.received_at|day }}</span>{% else %}—{% endif %}{% if item.condition == "damaged" %} <span class="mini-status critical">{% icon "alert" %}{% trans "damaged" %}</span>{% endif %}</td></tr>
+        {% endfor %}</tbody></table></div>
+      {% endif %}
+      {% if not children and not items %}<p class="empty">{% trans "Empty" %}</p>{% endif %}
+    </section>
+    {% include "logistics/_history.html" with current_code=unit.code %}
+  </div>
+
+  <div class="grid" style="align-content:start">
+    <section class="card">
+      <div style="max-width:200px;margin:0 auto">{% qr_svg unit.code 4 %}</div>
+      <p class="code" style="text-align:center;margin-top:.5rem">{{ unit.code }}</p>
+      <dl class="kv">
+        <dt>{% trans "Dimensions" %}</dt><dd>{% if unit.length_cm %}{{ unit.length_cm }} × {{ unit.width_cm }} × {{ unit.height_cm }} cm{% else %}—{% endif %}</dd>
+        <dt>{% trans "Gross weight" %}</dt><dd>{% if unit.gross_kg %}{{ unit.gross_kg }} kg{% else %}—{% endif %}</dd>
+        {% if unit.marks %}<dt>{% trans "Marks" %}</dt><dd>{{ unit.marks }}</dd>{% endif %}
+      </dl>
+    </section>
+    {% if receive_form %}
+    <section class="card">
+      <h2>{% icon "check" %} {% trans "Record receipt" %}</h2>
+      <form method="post" action="{% url 'logistics:receive_unit' unit.code %}">{% csrf_token %}
+        <div class="form-grid">{% include "_fields.html" with form=receive_form %}</div>
+        <div class="form-actions"><button class="btn primary" type="submit">{% trans "Confirm received" %}</button></div>
+      </form>
+    </section>
+    {% endif %}
+    {% if move_form %}
+    <section class="card">
+      <h2>{% icon "move" %} {% trans "Move" %}</h2>
+      <p class="muted">{% trans "The ID stays the same; the move is recorded in the history." %}</p>
+      <form method="post" action="{% url 'logistics:move_unit' unit.code %}">{% csrf_token %}
+        <div class="form-grid">{% include "_fields.html" with form=move_form %}</div>
+        <div class="form-actions"><button class="btn primary" type="submit">{% trans "Move" %}</button></div>
+      </form>
+    </section>
+    {% endif %}
+    {% if edit_form %}
+    <details class="card">
+      <summary style="cursor:pointer"><strong>{% icon "edit" %} {% trans "Edit details" %}</strong></summary>
+      <form method="post" action="{% url 'logistics:edit_unit' unit.code %}" style="margin-top:.75rem">{% csrf_token %}
+        <div class="form-grid">{% include "_fields.html" with form=edit_form %}</div>
+        <div class="form-actions"><button class="btn primary" type="submit">{% trans "Save" %}</button></div>
+      </form>
+    </details>
+    {% endif %}
+    {% if threads %}
+    <section class="card">
+      <h2>{% trans "Remarks about this unit" %}</h2>
+      <ul class="list">{% for t in threads %}<li><a href="{% url 'logistics:thread' t.pk %}">{% free_text t.subject t.subject_lang as s %}{{ s.text }}</a><span class="pill">{{ t.get_state_display }}</span></li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

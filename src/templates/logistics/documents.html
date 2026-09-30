@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Documents" %} · {{ consignment.code }}{% endblock %}
+{% block content %}
+{% include "logistics/_c_header.html" %}
+
+<div class="grid grid-main">
+  <section class="card">
+    <div class="card-head"><h2>{% trans "Required documents" %}</h2>
+      <span class="muted">{% trans "Reminders go out automatically when a document is due and not uploaded; after several days they escalate to Oversight." %}</span></div>
+    {% for row in rows %}
+    <div class="doc-row">
+      <div>
+        <strong>{{ row.req.doc_type|localname }}</strong> <span class="tag">{{ row.req.doc_type.code }}</span>
+        <div class="muted">{% trans "Uploaded by" %}: {{ row.req.doc_type.responsible|party }}{% if row.due %} · {% trans "due" %} {{ row.due|day }}{% else %} · {% blocktrans with s=row.req.doc_type.get_due_status_display %}due once “{{ s }}”{% endblocktrans %}{% endif %}</div>
+        {% if row.reminders %}<div class="muted">{% icon "bell" %} {% blocktrans count n=row.reminders|length %}{{ n }} reminder sent{% plural %}{{ n }} reminders sent{% endblocktrans %}{% for r in row.reminders %}{% if r.level == 3 %} · {% trans "escalated to Oversight" %}{% endif %}{% endfor %}</div>{% endif %}
+        {% if row.req.waived %}<div class="muted">{% trans "Waived" %}: {{ row.req.waived_reason }} ({{ row.req.waived_by.get_username }})</div>{% endif %}
+      </div>
+      <div>{% include "logistics/_req_state.html" with state=row.state days=row.days_overdue %}</div>
+      <div>
+        {% if row.current %}
+          <a href="{% url 'logistics:download' row.current.pk %}?view=1" target="_blank" rel="noopener">{% icon "file" %} {{ row.current.original_name }}</a>
+          <div class="versions">v{{ row.current.version }} · {{ row.current.uploaded_at|when }} · {{ row.current.uploaded_by.get_username }}{% if row.current.note %} · {{ row.current.note }}{% endif %}</div>
+          {% if row.versions|length > 1 %}
+          <details class="inline"><summary>{% blocktrans with n=row.versions|length %}All {{ n }} versions{% endblocktrans %}</summary>
+            <ul class="list">{% for d in row.versions %}<li><span>{% if d.is_archived %}<s>{% endif %}<a href="{% url 'logistics:download' d.pk %}">v{{ d.version }} · {{ d.original_name }}</a>{% if d.is_archived %}</s> <span class="muted">({% trans "archived" %}: {{ d.archive_reason }})</span>{% endif %}</span><span class="meta">{{ d.uploaded_at|day }}</span></li>{% endfor %}</ul>
+          </details>
+          {% endif %}
+        {% else %}<span class="muted">—</span>{% endif %}
+      </div>
+      <div class="actions">
+        {% if row.can_archive %}
+        <details class="inline"><summary class="btn small">{% icon "archive" %}{% trans "Archive" %}</summary>
+          <form method="post" action="{% url 'logistics:archive' row.current.pk %}" data-confirm="{% trans 'Archive this document? It stays in the history and audit log.' %}">{% csrf_token %}
+            <input type="text" name="reason" required maxlength="300" placeholder="{% trans 'Reason' %}"><button class="btn small danger" type="submit">{% trans "Archive" %}</button></form>
+        </details>
+        {% endif %}
+        {% if not row.current and not row.req.waived and can_manage %}
+        <details class="inline"><summary class="btn small">{% trans "Waive" %}</summary>
+          <form method="post" action="{% url 'logistics:waive' row.req.pk %}">{% csrf_token %}
+            <input type="text" name="reason" required maxlength="300" placeholder="{% trans 'Reason' %}"><button class="btn small" type="submit">{% trans "Waive" %}</button></form>
+        </details>
+        {% endif %}
+      </div>
+    </div>
+    {% empty %}<p class="empty">{% trans "No documents required." %}</p>{% endfor %}
+
+    {% if others %}
+    <h3 style="margin-top:1rem">{% trans "Other documents" %}</h3>
+    <ul class="list">{% for d in others %}
+      <li><span>{% if d.is_archived %}<s>{% endif %}<a href="{% url 'logistics:download' d.pk %}">{{ d.doc_type|localname }} v{{ d.version }} · {{ d.original_name }}</a>{% if d.is_archived %}</s>{% endif %}</span><span class="meta">{{ d.uploaded_at|when }} · {{ d.uploaded_by.get_username }}</span></li>
+    {% endfor %}</ul>
+    {% endif %}
+  </section>
+
+  <div class="grid" style="align-content:start">
+    {% if upload_form %}
+    <section class="card">
+      <h2>{% icon "upload" %} {% trans "Upload a document" %}</h2>
+      <p class="muted">{% blocktrans with mb=max_mb %}PDF, JPG, PNG, TIFF, Excel, Word, CSV or TXT, up to {{ mb }} MB. A new upload of the same document becomes the next version; older versions are kept.{% endblocktrans %}</p>
+      <form method="post" action="{% url 'logistics:upload' consignment.code %}" enctype="multipart/form-data">{% csrf_token %}
+        <div class="form-grid">{% include "_fields.html" with form=upload_form %}</div>
+        <div class="form-actions"><button class="btn primary" type="submit">{% icon "upload" %}{% trans "Upload" %}</button></div>
+      </form>
+    </section>
+    {% endif %}
+    {% if requirement_form %}
+    <section class="card">
+      <h2>{% trans "Require another document" %}</h2>
+      <p class="muted">{% trans "e.g. Certificate of Origin (Form P) for the China–Pakistan FTA duty preference, or an end-user NOC." %}</p>
+      <form method="post" action="{% url 'logistics:add_requirement' consignment.code %}">{% csrf_token %}
+        <div class="form-grid">{% include "_fields.html" with form=requirement_form %}</div>
+        <div class="form-actions"><button class="btn" type="submit">{% trans "Add" %}</button></div>
+      </form>
+    </section>
+    {% endif %}
+    <section class="card">
+      <h2>{% icon "lock" %} {% trans "How files are protected" %}</h2>
+      <ul class="list">
+        <li>{% trans "Only the Shipper, Receiver and Oversight of this consignment can open these files." %}</li>
+        <li>{% trans "Every upload gets a SHA-256 fingerprint, so any later change to a file can be detected." %}</li>
+        <li>{% trans "Every download is recorded in the audit log." %}</li>
+        <li>{% trans "Nothing is deleted: archived documents stay in the history." %}</li>
+      </ul>
+    </section>
+  </div>
+</div>
+{% endblock %}

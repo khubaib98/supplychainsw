@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "People" %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{% icon "user" %} {% trans "People" %}</h1>
+    <div class="sub">{% trans "Accounts for the Shipper, the Receiver and Oversight. Nobody is deleted: deactivate people who leave, so their history stays readable." %}</div></div>
+  <div class="actions"><a class="btn primary" href="{% url 'accounts:person_new' %}">{% icon "plus" %}{% trans "Add a person" %}</a></div>
+</div>
+<div class="grid grid-main">
+  <div>
+    {% for group in groups %}
+    <section class="card flush" style="margin-bottom:16px">
+      <div class="card-head">
+        <h2>{{ group.organization.name }}{% if group.organization.name_local %} <span class="muted">{{ group.organization.name_local }}</span>{% endif %}</h2>
+        <span class="actions"><span class="pill state-neutral">{{ group.organization.get_kind_display }}</span>
+          <a class="btn small" href="{% url 'accounts:person_new' %}?organization={{ group.organization.pk }}">{% icon "plus" %}{% trans "Add" %}</a></span>
+      </div>
+      <div class="table-wrap"><table class="data">
+        <thead><tr><th>{% trans "Name" %}</th><th>{% trans "Username" %}</th><th>{% trans "Access level" %}</th><th>{% trans "Language" %}</th><th>{% trans "Last sign-in" %}</th><th>{% trans "Two-factor authentication" %}</th><th></th></tr></thead>
+        <tbody>
+          {% for p in group.members %}
+          <tr{% if not p.user.is_active %} class="row-muted"{% endif %}>
+            <td>{{ p.user.get_full_name|default:"—" }}
+              {% if not p.user.is_active %}<span class="pill state-neutral">{% trans "Deactivated" %}</span>{% elif p.must_change_password %}<span class="pill state-warning">{% trans "Temporary password" %}</span>{% endif %}</td>
+            <td class="code">{{ p.user.username }}</td>
+            <td>{{ p.get_level_display }}</td>
+            <td>{{ p.language|lang_name }}</td>
+            <td>{% if p.user.last_login %}{{ p.user.last_login|when }}{% else %}<span class="muted">{% trans "Never" %}</span>{% endif %}</td>
+            <td>{% if p.totp_enabled %}<span class="pill state-good">{% icon "check" %}{% trans "On" %}</span>{% else %}<span class="muted">{% trans "Off" %}</span>{% endif %}</td>
+            <td class="nowrap"><a class="btn small" href="{% url 'accounts:person' p.user.pk %}">{% icon "edit" %}{% trans "Edit" %}</a></td>
+          </tr>
+          {% empty %}<tr><td colspan="7" class="empty">{% trans "Nobody yet." %}</td></tr>{% endfor %}
+        </tbody>
+      </table></div>
+    </section>
+    {% empty %}
+    <div class="card"><p class="empty">{% trans "There are no organisations yet. Create them in system administration first." %}</p></div>
+    {% endfor %}
+    {% if unassigned %}
+    <section class="card">
+      <h2>{% trans "Accounts without an organisation" %}</h2>
+      <p class="muted">{% trans "These accounts cannot see any consignments. Give them an organisation in system administration." %}</p>
+      <ul class="list">{% for u in unassigned %}<li><span class="code">{{ u.username }}</span><a class="btn small" href="{% url 'admin:auth_user_change' u.pk %}">{% icon "edit" %}{% trans "Edit" %}</a></li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+  </div>
+
+  <div>
+    <section class="card" style="margin-bottom:16px">
+      <h2>{% trans "How people connect" %}</h2>
+      <ul class="list">
+        {% for entry in urls %}
+        <li>
+          <div class="main"><div class="meta">{{ entry.label }}</div><a class="code wrap" href="{{ entry.url }}" dir="ltr">{{ entry.url }}</a></div>
+          {% if entry.qr %}<div style="width:92px;flex:none" title="{% trans 'Scan with a phone to open the portal' %}">{{ entry.qr }}</div>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% if desktop and not shareable %}
+      <div class="callout warn" style="margin-top:.75rem;margin-bottom:0">{% trans "At the moment only this computer can open the portal. Allow other computers in the office network below, or publish the portal through a tunnel for people in other places (see the guide)." %}</div>
+      {% endif %}
+    </section>
+
+    {% if desktop %}
+    <section class="card" style="margin-bottom:16px">
+      <h2>{% trans "This computer" %}</h2>
+      <dl class="kv">
+        <dt>{% trans "Data folder" %}</dt><dd class="code wrap" dir="ltr">{{ home }}</dd>
+        <dt>{% trans "Last backup" %}</dt><dd>{% if latest_backup %}<bdi dir="ltr" class="dt">{{ latest_backup|date:"Y-m-d H:i" }}</bdi>{% else %}{% trans "None yet" %}{% endif %}</dd>
+        <dt>{% trans "Backups folder" %}</dt><dd class="code wrap" dir="ltr">{{ backups_folder }}</dd>
+      </dl>
+      <form method="post" action="{% url 'accounts:backup_now' %}" style="margin-top:.6rem">{% csrf_token %}
+        <button class="btn small" type="submit">{% icon "archive" %}{% trans "Back up now" %}</button>
+      </form>
+      <form method="post" action="{% url 'accounts:computer' %}" style="margin-top:1rem" data-confirm="{% trans 'The portal restarts to apply the settings; people who are working need to reload their page. Continue?' %}">{% csrf_token %}
+        <div class="form-grid" style="grid-template-columns:minmax(0,1fr)">{% include "_fields.html" with form=computer_form %}</div>
+        <div class="form-actions"><button class="btn primary" type="submit">{% trans "Save and restart" %}</button></div>
+      </form>
+    </section>
+    {% endif %}
+
+    <section class="card">
+      <h2>{% trans "Administrators" %}</h2>
+      <p class="muted">{% trans "Administrators manage people and settings and can see everything, but they do not work on consignments. If you also ship or receive, give yourself a separate everyday account." %}</p>
+      <ul class="list">
+        {% for a in admins %}<li><span>{{ a.get_full_name|default:a.username }} <span class="code">{{ a.username }}</span></span><span class="meta">{% if a.last_login %}{{ a.last_login|when }}{% endif %}</span></li>{% endfor %}
+      </ul>
+      <p style="margin-top:.75rem"><a href="{% url 'admin:index' %}">{% icon "lock" %} {% trans "Organisations, document types and other settings: system administration" %}</a></p>
+    </section>
+  </div>
+</div>
+{% endblock %}

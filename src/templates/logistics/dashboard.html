@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+{% block body_attrs %}data-watch-since="{{ watch_since }}"{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>{% trans "Dashboard" %}</h1>
+    <div class="sub">{% blocktrans with now=today|day %}Status on {{ now }}. This page tells you when someone else changes something.{% endblocktrans %}</div>
+  </div>
+  <div class="actions">
+    {% if can_create %}<a class="btn primary" href="{% url 'logistics:consignment_new' %}">{% icon "plus" %}{% trans "New consignment" %}</a>{% endif %}
+    <a class="btn" href="{% url 'logistics:scan' %}">{% icon "scan" %}{% trans "Scan" %}</a>
+  </div>
+</div>
+
+<section class="kpis" aria-label="{% trans 'Key figures' %}">
+  <a class="kpi" href="{% url 'logistics:consignments' %}">
+    <span class="label">{% trans "Active consignments" %}</span>
+    <span class="value">{{ active|length }}</span>
+    <span class="detail">{% blocktrans with n=in_transit %}{{ n }} on the way{% endblocktrans %}</span>
+  </a>
+  <div class="kpi">
+    <span class="label">{% trans "Required documents on file" %}</span>
+    <span class="value">{% widthratio doc_uploaded doc_required|default:1 100 %}<small>%</small></span>
+    <div class="meter" role="img" aria-label="{% blocktrans with a=doc_uploaded b=doc_required %}{{ a }} of {{ b }}{% endblocktrans %}"><span style="width: {% widthratio doc_uploaded doc_required|default:1 100 %}%"></span></div>
+    <span class="detail">{% blocktrans with a=doc_uploaded b=doc_required %}{{ a }} of {{ b }} uploaded{% endblocktrans %}</span>
+  </div>
+  <div class="kpi{% if overdue %} alert{% endif %}">
+    <span class="label">{% trans "Overdue documents" %}</span>
+    <span class="value">{{ overdue|length }}</span>
+    <span class="detail">{% if overdue %}{% icon "alert" %}{% blocktrans with d=oldest_overdue %}Oldest: {{ d }} days late{% endblocktrans %}{% else %}{% icon "check" %}{% trans "None" %}{% endif %}</span>
+  </div>
+  <div class="kpi{% if issues %} caution{% endif %}">
+    <span class="label">{% trans "Open remarks and queries" %}</span>
+    <span class="value">{{ open_threads|length }}</span>
+    <span class="detail">{% if issues %}{% icon "alert" %}{% endif %}{% blocktrans with n=issues|length %}{{ n }} damage or discrepancy{% endblocktrans %}</span>
+  </div>
+  <div class="kpi{% if delayed %} caution{% endif %}">
+    <span class="label">{% trans "Delayed shipments" %}</span>
+    <span class="value">{{ delayed|length }}</span>
+    <span class="detail">{% if delayed %}{% icon "clock" %}{% endif %}{% trans "ETA passed, not yet arrived" %}</span>
+  </div>
+  <div class="kpi">
+    <span class="label">{% trans "Units received at destination" %}</span>
+    <span class="value">{{ received_units }}<small> / {{ total_units }}</small></span>
+    <div class="meter" role="img" aria-label="{% blocktrans with a=received_units b=total_units %}{{ a }} of {{ b }}{% endblocktrans %}"><span style="width: {% widthratio received_units total_units|default:1 100 %}%"></span></div>
+    <span class="detail">{% trans "Containers, pallets and cartons of arrived consignments" %}</span>
+  </div>
+</section>
+
+{% if my_documents or my_threads %}
+<section class="card" style="margin-bottom:16px">
+  <div class="card-head"><h2>{% icon "inbox" %} {% trans "Your to-do list" %}</h2><span class="muted">{% trans "Things waiting for your organisation" %}</span></div>
+  <div class="grid grid-2">
+    <div>
+      <h3>{% trans "Documents to upload" %}</h3>
+      {% if my_documents %}<ul class="list">{% for r in my_documents %}
+        <li><div class="main"><a href="{% url 'logistics:documents' r.consignment.code %}"><span class="code">{{ r.consignment.code }}</span> · {{ r.doc_type|localname }}</a>
+          <div class="meta">{% trans "Due" %} {{ r.due_date|day }}</div></div>
+          {% include "logistics/_req_state.html" with state=r.state days=r.days_overdue %}</li>{% endfor %}</ul>
+      {% else %}<p class="empty">{% trans "Nothing due." %}</p>{% endif %}
+    </div>
+    <div>
+      <h3>{% trans "Remarks and queries waiting for your reply" %}</h3>
+      {% if my_threads %}<ul class="list">{% for t in my_threads %}
+        <li><div class="main"><a href="{% url 'logistics:thread' t.pk %}">{% free_text t.subject t.subject_lang as s %}{{ s.text }}</a>
+          <div class="meta"><span class="code">{{ t.consignment.code }}</span> · {{ t.get_category_display }} · {{ t.updated_at|when }}</div></div>
+          <span class="pill state-{% if t.state == 'answered' %}good{% else %}warning{% endif %}">{{ t.get_state_display }}</span></li>{% endfor %}</ul>
+      {% else %}<p class="empty">{% trans "All answered." %}</p>{% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<div class="grid grid-main" style="margin-bottom:16px">
+  <section class="card">
+    <div class="card-head"><h2>{% trans "Active consignments by stage" %}</h2><span class="muted">{% trans "Select a stage to see the list" %}</span></div>
+    <table class="bars">
+      <caption class="visually-hidden">{% trans "Number of active consignments at each stage" %}</caption>
+      <tbody>
+      {% for row in pipeline %}
+        <tr>
+          <td class="label">{{ row.label }}</td>
+          <td><a class="bar-link" href="{% url 'logistics:consignments' %}?status={{ row.status }}" data-tip="{{ row.label }}: {{ row.count }}" aria-label="{{ row.label }}: {{ row.count }}">
+            <span class="bar-track"><span class="bar{% if not row.count %} zero{% endif %}" style="width: {% if row.count %}{% widthratio row.count pipeline_max 100 %}%{% else %}2px{% endif %}"></span></span></a></td>
+          <td class="value">{{ row.count }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>{% trans "Needs attention" %}</h2></div>
+    {% if not overdue and not delayed and not issues %}<p class="empty">{% icon "check" %} {% trans "Nothing needs attention right now." %}</p>{% endif %}
+    {% if overdue %}
+    <h3>{% trans "Overdue documents" %}</h3>
+    <ul class="list">{% for r in overdue|slice:":6" %}
+      <li><div class="main"><a href="{% url 'logistics:documents' r.consignment.code %}"><span class="code">{{ r.consignment.code }}</span> · {{ r.doc_type|localname }}</a>
+        <div class="meta">{% trans "Responsible" %}: {{ r.doc_type.responsible|party }} · {% blocktrans count n=r.reminders.count %}{{ n }} reminder sent{% plural %}{{ n }} reminders sent{% endblocktrans %}</div></div>
+        {% include "logistics/_req_state.html" with state="overdue" days=r.days_overdue %}</li>{% endfor %}</ul>
+    {% endif %}
+    {% if delayed %}
+    <h3 style="margin-top:.75rem">{% trans "Delayed shipments" %}</h3>
+    <ul class="list">{% for c in delayed %}
+      <li><div class="main"><a href="{% url 'logistics:consignment' c.code %}"><span class="code">{{ c.code }}</span> · {{ c.origin }} → {{ c.destination }}</a>
+        <div class="meta">{% trans "ETA" %} {{ c.eta|day }} · {{ c.get_status_display }}</div></div>
+        <span class="pill state-serious">{% icon "clock" %}{% trans "Delayed" %}</span></li>{% endfor %}</ul>
+    {% endif %}
+    {% if issues %}
+    <h3 style="margin-top:.75rem">{% trans "Open damage and discrepancy reports" %}</h3>
+    <ul class="list">{% for t in issues %}
+      <li><div class="main"><a href="{% url 'logistics:thread' t.pk %}">{% free_text t.subject t.subject_lang as s %}{{ s.text }}</a>
+        <div class="meta"><span class="code">{{ t.consignment.code }}</span> · {{ t.get_state_display }} · {{ t.created_at|when }}</div></div>
+        <span class="pill state-{% if t.category == 'damage' %}critical{% else %}serious{% endif %}">{% icon "alert" %}{{ t.get_category_display }}</span></li>{% endfor %}</ul>
+    {% endif %}
+  </section>
+</div>
+
+<section class="card flush" style="margin-bottom:16px">
+  <div class="card-head"><h2>{% trans "Active consignments" %}</h2><a href="{% url 'logistics:consignments' %}">{% trans "All consignments" %} →</a></div>
+  <div class="table-wrap">
+    <table class="data">
+      <thead><tr>
+        <th>{% trans "Consignment" %}</th><th>{% trans "Route" %}</th><th>{% trans "Stage" %}</th><th>{% trans "ETA" %}</th>
+        <th>{% trans "Documents" %}</th><th class="num">{% trans "Open queries" %}</th>
+      </tr></thead>
+      <tbody>
+      {% for row in rows %}
+        <tr>
+          <td><a class="code" href="{% url 'logistics:consignment' row.c.code %}">{{ row.c.code }}</a><div class="muted">{{ row.c.reference }}</div></td>
+          <td>{% icon row.c.transport_mode %} {{ row.c.origin }} → {{ row.c.destination }}</td>
+          <td>{% include "logistics/_status.html" with c=row.c %}</td>
+          <td class="nowrap">{{ row.c.eta|day|default:"—" }}</td>
+          <td style="min-width:140px">{{ row.docs_done }} / {{ row.docs_total }}{% if row.docs_overdue %} <span class="pill state-critical">{% icon "alert" %}{% blocktrans with n=row.docs_overdue %}{{ n }} overdue{% endblocktrans %}</span>{% endif %}
+            <div class="meter thin"><span style="width: {% widthratio row.docs_done row.docs_total|default:1 100 %}%"></span></div></td>
+          <td class="num">{{ row.open_threads }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="6" class="empty">{% trans "No active consignments." %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head"><h2>{% trans "Recent activity" %}</h2>{% if sees_audit %}<a href="{% url 'logistics:records_table' 'audit' %}">{% trans "Audit log" %} →</a>{% endif %}</div>
+  <ul class="list feed">
+    {% for a in activity %}
+    <li><div class="main"><strong>{{ a.username }}</strong> <span class="muted">({{ a.organization }})</span> {{ a.action|action_label }} <span class="code">{{ a.target_label|short }}</span>{% if a.consignment_code and a.target_label != a.consignment_code %} · <a class="code" href="{% url 'logistics:consignment' a.consignment_code %}">{{ a.consignment_code }}</a>{% endif %}</div>
+      <span class="meta nowrap">{{ a.at|when }}</span></li>
+    {% empty %}<li class="empty">{% trans "No activity yet." %}</li>{% endfor %}
+  </ul>
+</section>
+{% endblock %}

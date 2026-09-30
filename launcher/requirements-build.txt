@@ -1,0 +1,4 @@
+# Building the ready-made program (python launcher/build.py).
+-r requirements.txt
+pyinstaller==6.22.3
+polib==1.2.0

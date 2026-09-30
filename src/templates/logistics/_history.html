@@ -1,0 +1,20 @@
+{% load i18n portal %}
+<section class="card">
+  <h2>{% trans "History" %}</h2>
+  {% if history %}
+  <ul class="history">
+    {% for m in history %}
+    <li><span class="when">{{ m.at|when }}</span>
+      <span><strong>{{ m.get_action_display }}</strong>
+        {% if m.subject_code != current_code %}<span class="code">{{ m.subject_code|short }}</span>{% endif %}
+        {% if m.from_code %}{% trans "from" %} <a class="code" href="{% url 'logistics:unit' m.from_code %}">{{ m.from_code|short }}</a>{% endif %}
+        {% if m.to_code %}{% trans "into" %} <a class="code" href="{% url 'logistics:unit' m.to_code %}">{{ m.to_code|short }}</a>{% endif %}
+        {% if m.quantity > 1 %}× {{ m.quantity }}{% endif %}
+        {% if m.action == "receive" %}{% if m.reason == "damaged" %}<span class="pill state-critical">{% icon "alert" %}{% trans "Damaged" %}</span>{% elif m.reason == "good" %}<span class="pill state-good">{% icon "check" %}{% trans "Good" %}</span>{% endif %}{% elif m.reason %}<div class="muted">{{ m.reason }}</div>{% endif %}
+        {% if m.place %}<div class="muted">{% icon "pin" %} {{ m.place }}</div>{% endif %}
+        <span class="muted">· {{ m.by.get_full_name|default:m.by.get_username|default:"—" }}</span>
+      </span></li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="empty">{% trans "No history yet." %}</p>{% endif %}
+</section>

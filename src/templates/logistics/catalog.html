@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Catalogue" %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{% icon "tag" %} {% trans "Catalogue" %}</h1>
+    <div class="sub">{% trans "The item master (one code per product, names in three languages) and the document types. Codes are part of every item ID, so they are controlled here rather than typed freely." %}</div></div>
+  <div class="actions">
+    <a class="btn" href="{% url 'logistics:coding_help' %}">{% icon "info" %}{% trans "How the IDs work" %}</a>
+    {% if can_manage %}<a class="btn primary" href="{% url 'logistics:item_type_new' %}">{% icon "plus" %}{% trans "New item type" %}</a>{% endif %}
+  </div>
+</div>
+<section class="card flush" style="margin-bottom:16px">
+  <div class="card-head"><h2>{% trans "Item master" %}</h2></div>
+  <div class="table-wrap"><table class="data">
+    <thead><tr><th>{% trans "Code" %}</th><th>English</th><th>中文</th><th>اردو</th><th>{% trans "Tracking" %}</th><th>{% trans "HS code" %}</th><th>{% trans "Controlled" %}</th>{% if can_manage %}<th></th>{% endif %}</tr></thead>
+    <tbody>
+      {% for t in item_types %}
+      <tr{% if not t.is_active %} class="row-muted"{% endif %}>
+        <td class="code">{{ t.code }}</td><td>{{ t.name_en }}</td><td>{{ t.name_zh|default:"—" }}</td><td lang="ur" dir="rtl">{{ t.name_ur|default:"—" }}</td>
+        <td>{{ t.get_tracking_display }}</td><td>{{ t.hs_code|default:"—" }}</td>
+        <td>{% if t.controlled %}<span class="pill state-warning">{% icon "lock" %}{% trans "Yes" %}</span>{% else %}—{% endif %}</td>
+        {% if can_manage %}<td><a class="btn small" href="{% url 'logistics:item_type_edit' t.pk %}">{% icon "edit" %}{% trans "Edit" %}</a></td>{% endif %}
+      </tr>
+      {% empty %}<tr><td colspan="8" class="empty">{% trans "No item types yet." %}</td></tr>{% endfor %}
+    </tbody>
+  </table></div>
+</section>
+<div class="grid grid-main">
+  <section class="card flush">
+    <div class="card-head"><h2>{% trans "Document types" %}</h2><span class="muted">{% trans "Changed by the system administrator" %}</span></div>
+    <div class="table-wrap"><table class="data">
+      <thead><tr><th>{% trans "Code" %}</th><th>{% trans "Document" %}</th><th>{% trans "Uploaded by" %}</th><th>{% trans "Required by default" %}</th><th>{% trans "Due" %}</th></tr></thead>
+      <tbody>{% for d in doc_types %}
+        <tr><td class="code">{{ d.code }}</td><td>{{ d|localname }}</td><td>{{ d.get_responsible_display }}</td>
+          <td>{% if d.default_required %}{% trans "Yes" %}{% if d.modes %} ({{ d.modes }}){% endif %}{% else %}—{% endif %}</td>
+          <td>{{ d.get_due_status_display }}{% if d.due_offset_days %} + {{ d.due_offset_days }} {% trans "days" %}{% endif %}</td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+  </section>
+  <section class="card">
+    <h2>{% trans "Packaging codes" %}</h2>
+    <ul class="list">{% for label, prefix in unit_prefixes %}<li><span>{{ label }}</span><span class="code">{{ prefix }}</span></li>{% endfor %}</ul>
+  </section>
+</div>
+{% endblock %}

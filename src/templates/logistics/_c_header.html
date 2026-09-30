@@ -1,0 +1,28 @@
+{% load i18n portal %}
+<div class="c-head">
+  <div>
+    <div class="c-title">
+      <h1 class="code">{{ consignment.code }}</h1>
+      {% include "logistics/_status.html" with c=consignment %}
+      {% if consignment.is_archived %}<span class="pill state-neutral">{% icon "archive" %}{% trans "Archived" %}</span>{% endif %}
+    </div>
+    <div class="c-meta">
+      <span>{% icon consignment.transport_mode %}{{ consignment.get_transport_mode_display }}</span>
+      <span>{% icon "pin" %}{{ consignment.origin }} → {{ consignment.destination }}</span>
+      {% if consignment.reference %}<span>{% icon "file" %}{{ consignment.reference }}</span>{% endif %}
+      <span>{% icon "calendar" %}{% trans "ETD" %} {{ consignment.etd|day|default:"—" }} · {% trans "ETA" %} {{ consignment.eta|day|default:"—" }}</span>
+      <span>{% icon "user" %}{{ consignment.shipper }} → {{ consignment.receiver }}</span>
+    </div>
+  </div>
+  <div class="actions">
+    {% if can_edit_header %}<a class="btn" href="{% url 'logistics:consignment_edit' consignment.code %}">{% icon "edit" %}{% trans "Edit details" %}</a>{% endif %}
+    <a class="btn" href="{% url 'logistics:packing_list' consignment.code %}" target="_blank" rel="noopener">{% icon "print" %}{% trans "Packing list" %}</a>
+  </div>
+</div>
+<nav class="tabs" aria-label="{% trans 'Consignment sections' %}">
+  <a class="{% if active_tab == 'overview' %}active{% endif %}" href="{% url 'logistics:consignment' consignment.code %}">{% trans "Overview" %}</a>
+  <a class="{% if active_tab == 'packing' %}active{% endif %}" href="{% url 'logistics:packing' consignment.code %}">{% icon "carton" %}{% trans "Packing & traceability" %}</a>
+  <a class="{% if active_tab == 'documents' %}active{% endif %}" href="{% url 'logistics:documents' consignment.code %}">{% icon "file" %}{% trans "Documents" %}</a>
+  <a class="{% if active_tab == 'threads' %}active{% endif %}" href="{% url 'logistics:threads' consignment.code %}">{% icon "chat" %}{% trans "Remarks & queries" %}{% if open_threads %} <span class="count">{{ open_threads }}</span>{% endif %}</a>
+  <a class="{% if active_tab == 'receiving' %}active{% endif %}" href="{% url 'logistics:receiving' consignment.code %}">{% icon "check" %}{% trans "Receiving" %}</a>
+</nav>

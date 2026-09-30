@@ -1,0 +1,66 @@
+{% load i18n static portal %}<!doctype html>
+{% get_current_language as LANG %}{% get_current_language_bidi as RTL %}
+<html lang="{{ LANG }}" dir="{% if RTL %}rtl{% else %}ltr{% endif %}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{% block title %}{{ PORTAL_NAME }}{% endblock %} · {{ PORTAL_NAME }}</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{% static 'css/portal.css' %}">
+  {% block head %}{% endblock %}
+</head>
+<body data-changes-url="{% url 'logistics:changes' %}" {% block body_attrs %}{% endblock %}>
+{% include "_icons.html" %}
+{% if user.is_authenticated %}
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="{% url 'logistics:dashboard' %}">{% icon "logo" %}<span>{{ PORTAL_NAME }}</span></a>
+    <nav class="nav" aria-label="{% trans 'Main' %}">
+      <a class="{% nav_active 'dashboard' %}" href="{% url 'logistics:dashboard' %}">{% icon "dashboard" %}{% trans "Dashboard" %}</a>
+      <a class="{% nav_active 'consignments consignment consignment_new consignment_edit packing import documents threads thread receiving unit item' %}" href="{% url 'logistics:consignments' %}">{% icon "sea" %}{% trans "Consignments" %}</a>
+      <a class="{% nav_active 'scan' %}" href="{% url 'logistics:scan' %}">{% icon "scan" %}{% trans "Scan" %}</a>
+      <a class="{% nav_active 'catalog item_type_new item_type_edit coding_help' %}" href="{% url 'logistics:catalog' %}">{% icon "tag" %}{% trans "Catalogue" %}</a>
+      <a class="{% nav_active 'records records_table' %}" href="{% url 'logistics:records' %}">{% icon "table" %}{% trans "Records" %}</a>
+      {% if user.is_superuser %}<a class="{% nav_active 'people person person_new person_welcome' %}" href="{% url 'accounts:people' %}">{% icon "user" %}{% trans "People" %}</a>
+      <a href="{% url 'admin:index' %}">{% icon "lock" %}{% trans "Admin" %}</a>{% endif %}
+    </nav>
+    <div class="userbox">
+      <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <label class="visually-hidden" for="lang-select">{% trans "Language" %}</label>
+        <select id="lang-select" name="language" data-autosubmit>
+          {% get_available_languages as LANGUAGES %}
+          {% for code, name in LANGUAGES %}<option value="{{ code }}"{% if code == LANG %} selected{% endif %}>{{ name }}</option>{% endfor %}
+        </select>
+      </form>
+      <a class="bell" href="{% url 'logistics:notifications' %}" title="{% trans 'Notifications' %}">{% icon "bell" %}{% if unread_notifications %}<span class="count" data-unread>{{ unread_notifications }}</span>{% endif %}<span class="visually-hidden">{% trans "Notifications" %}</span></a>
+      <a class="who" href="{% url 'accounts:account' %}">
+        <strong>{{ user.get_full_name|default:user.get_username }}</strong>
+        <span>{% if my_profile %}{{ my_profile.organization.get_kind_display }} · {{ my_profile.get_level_display }}{% else %}{% trans "Administrator" %}{% endif %}</span>
+      </a>
+      <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button class="linkbtn" type="submit">{% trans "Sign out" %}</button></form>
+    </div>
+  </div>
+</header>
+{% endif %}
+<main class="page">
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}{% icon "x" %}{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}{% icon "check" %}{% else %}{% icon "info" %}{% endif %}<span>{{ message }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="site">{% trans "All times are shown in your time zone" %} ({% now "T" %}). {% trans "Every change is recorded in a tamper-evident audit log." %}</footer>
+<div class="banner" id="update-banner" role="status" aria-live="polite">
+  <span>{% trans "Someone else just updated this information." %}</span>
+  <button class="btn small" type="button" data-reload>{% trans "Refresh" %}</button>
+</div>
+<script src="{% static 'js/portal.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

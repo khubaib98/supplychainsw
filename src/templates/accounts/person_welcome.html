@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Sign-in details" %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{% icon "user" %} {% trans "Sign-in details" %}: {{ person.get_full_name|default:person.username }}</h1></div>
+</div>
+{% if password %}
+<div class="grid grid-2">
+  <section class="card">
+    <h2>{% trans "Send these details to the person" %}</h2>
+    <dl class="kv">
+      <dt>{% trans "Address" %}</dt><dd class="code wrap" dir="ltr">{{ url|default:"—" }}</dd>
+      <dt>{% trans "Username" %}</dt><dd class="code" dir="ltr">{{ person.username }}</dd>
+      <dt>{% trans "Temporary password" %}</dt><dd class="code" dir="ltr" id="temp-password">{{ password }}</dd>
+    </dl>
+    <p class="muted" style="margin-top:.75rem">{% trans "This password is shown only once. At the first sign-in the person chooses their own password." %}</p>
+    {% if not url %}<div class="callout warn" style="margin-top:.75rem;margin-bottom:0">{% trans "At the moment only this computer can open the portal. Allow other computers in the office network on the People page, or publish the portal through a tunnel for people in other places (see the guide)." %}</div>{% endif %}
+  </section>
+  <section class="card">
+    <h2>{% trans "Ready-to-send message" %}</h2>
+    <p class="muted">{% blocktrans with language=language|lang_name %}In {{ language }}, the person's language. Copy it into WeChat, WhatsApp or an e-mail.{% endblocktrans %}</p>
+    <label class="visually-hidden" for="welcome-message">{% trans "Ready-to-send message" %}</label>
+    <textarea id="welcome-message" readonly rows="9" dir="auto" data-select-all>{{ message }}</textarea>
+  </section>
+</div>
+{% else %}
+<div class="card"><p>{% trans "The temporary password is shown only once. If it was not passed on, reset the password to get a new one." %}</p></div>
+{% endif %}
+<div class="form-actions">
+  <a class="btn primary" href="{% url 'accounts:people' %}">{% trans "Back to People" %}</a>
+  <a class="btn" href="{% url 'accounts:person_new' %}">{% icon "plus" %}{% trans "Add another person" %}</a>
+</div>
+{% endblock %}

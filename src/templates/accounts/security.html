@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Two-factor authentication" %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{% trans "Two-factor authentication" %}</h1>
+  <div class="sub">{% trans "A code from your phone is needed at every sign-in, so a stolen password alone is not enough." %}</div></div></div>
+{% if required and not profile.totp_enabled %}
+<div class="callout warn">{% trans "This portal requires two-factor authentication. Please set it up to continue." %}</div>
+{% endif %}
+<div class="grid grid-2">
+  {% if profile.totp_enabled %}
+  <div class="card">
+    <h2><span class="pill state-good">{% icon "check" %}{% trans "On" %}</span></h2>
+    <p>{% trans "Two-factor authentication is active for your account." %}</p>
+    {% if not required %}
+    <form method="post" data-confirm="{% trans 'Turn off two-factor authentication?' %}">{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" %}</div>
+      <div class="form-actions"><button class="btn danger" type="submit">{% trans "Turn off" %}</button></div>
+    </form>
+    {% endif %}
+  </div>
+  {% else %}
+  <div class="card">
+    <h2>{% trans "1. Scan this code" %}</h2>
+    <p class="muted">{% trans "Use any authenticator app (for example Microsoft Authenticator, Google Authenticator, FreeOTP or the authenticator built into your password manager)." %}</p>
+    <div style="max-width:220px">{{ qr }}</div>
+    <p class="muted">{% trans "Or type this key:" %} <span class="code">{{ secret }}</span></p>
+  </div>
+  <div class="card">
+    <h2>{% trans "2. Enter the code it shows" %}</h2>
+    <form method="post">{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" %}</div>
+      <div class="form-actions"><button class="btn primary" type="submit">{% trans "Turn on" %}</button></div>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,119 @@
+# Production stack for one small cloud VM (2 vCPU / 4 GB RAM is plenty).
+#
+#   cd deploy && cp .env.example .env   # fill in the values
+#   docker compose up -d --build
+#   docker compose exec web python manage.py createsuperuser
+#
+# Optional extras (profiles):
+#   docker compose --profile translate up -d   # self-hosted LibreTranslate (needs ~4 GB extra RAM)
+#   docker compose --profile antivirus up -d   # ClamAV scanning of uploads (~1.5 GB extra RAM)
+
+name: cnpk-portal
+
+x-portal: &portal
+  image: cnpk-portal:latest
+  restart: unless-stopped
+  env_file: .env
+  environment:
+    DATABASE_URL: postgres://portal:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/portal
+  volumes:
+    - media:/data
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: portal
+      POSTGRES_USER: portal
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portal -d portal"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  web:
+    <<: *portal
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    command: ["web"]
+    expose: ["8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  scheduler:
+    <<: *portal
+    command: ["scheduler"]
+    healthcheck:
+      disable: true
+    depends_on:
+      web:
+        condition: service_healthy
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      PORTAL_DOMAIN: ${PORTAL_DOMAIN:?set PORTAL_DOMAIN in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      web:
+        condition: service_healthy
+
+  backup:
+    build: ./backup
+    restart: unless-stopped
+    environment:
+      PGHOST: db
+      PGUSER: portal
+      PGDATABASE: portal
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-14}
+      BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-86400}
+      BACKUP_PASSPHRASE: ${BACKUP_PASSPHRASE:-}
+      RCLONE_REMOTE: ${RCLONE_REMOTE:-}
+    volumes:
+      - media:/data:ro
+      - ./backups:/backups
+      - ./rclone:/config/rclone:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
+  libretranslate:
+    profiles: ["translate"]
+    image: libretranslate/libretranslate:latest
+    restart: unless-stopped
+    environment:
+      LT_LOAD_ONLY: en,zh,ur
+      LT_DISABLE_WEB_UI: "true"
+      LT_UPDATE_MODELS: "true"
+    volumes:
+      - lt-models:/home/libretranslate/.local
+
+  clamav:
+    profiles: ["antivirus"]
+    image: clamav/clamav:stable
+    restart: unless-stopped
+    volumes:
+      - clamav-db:/var/lib/clamav
+
+volumes:
+  db-data:
+  media:
+  caddy-data:
+  caddy-config:
+  lt-models:
+  clamav-db:

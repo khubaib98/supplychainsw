@@ -1,0 +1,31 @@
+{% load i18n portal %}<details class="unit k-{{ node.unit.kind }}{% if node.unit.code == highlight %} hl{% endif %}{% if node.unit.code in highlight_path %} on-path{% endif %}" id="{{ node.unit.code }}"{% if node.depth < 2 or node.unit.code in highlight_path or node.unit.code == highlight %} open{% endif %}>
+  <summary>
+    {% icon "chevron" "chev" %}{% icon node.unit.kind "kicon" %}
+    <a class="ucode" href="{% url 'logistics:unit' node.unit.code %}">{{ node.unit.short }}</a>
+    <span class="ukind">{{ node.unit.get_kind_display }}{% if node.unit.container_no %} · <span class="code">{{ node.unit.container_no }}</span>{% endif %}{% if node.unit.marks %} · {{ node.unit.marks }}{% endif %}</span>
+    <span class="ustats">
+      {% for item_type, items, total in node.item_groups %}<span class="code">{{ item_type.code }}×{{ total }}</span>{% endfor %}
+      {% if node.children %}<span>{% blocktrans with n=node.children|length %}{{ n }} inside{% endblocktrans %}</span><span>{% blocktrans with n=node.item_total %}{{ n }} pcs{% endblocktrans %}</span>{% endif %}
+      {% if node.unit.received_at %}<span class="mini-status good">{% icon "check" %}{% trans "received" %}</span>{% endif %}
+      {% if node.unit.condition == "damaged" %}<span class="mini-status critical">{% icon "alert" %}{% trans "damaged" %}</span>{% endif %}
+    </span>
+  </summary>
+  <div class="unit-body">
+    {% if node.items %}
+    <div class="groups">
+      {% for item_type, items, total in node.item_groups %}
+      <div>
+        <div class="group"><span class="gcode">{{ item_type.code }}</span><span class="muted">{{ item_type|localname }} · {{ total }} {{ item_type.uom }}</span></div>
+        {% if show_items %}<div class="chips">{% for item in items %}<a class="chip{% if item.received_at %} received{% endif %}{% if item.condition == 'damaged' %} damaged{% endif %}{% if item.uid == highlight %} hl{% endif %}" id="{{ item.uid }}" href="{% url 'logistics:item' item.uid %}" title="{{ item.uid }}{% if item.oem_serial %} · S/N {{ item.oem_serial }}{% endif %}">{{ item.short }}{% if item.quantity > 1 %} ×{{ item.quantity }}{% endif %}</a>{% endfor %}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if node.children %}
+    <div class="unit-children">
+      {% for child in node.children %}{% include "logistics/_unit_node.html" with node=child %}{% endfor %}
+    </div>
+    {% endif %}
+    {% if not node.items and not node.children %}<p class="empty" style="margin:0">{% trans "Empty" %}</p>{% endif %}
+  </div>
+</details>

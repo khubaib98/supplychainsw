@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% trans "Notifications" %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>{% trans "Notifications" %}</h1>
+  <form method="post" action="{% url 'logistics:notifications_read' %}">{% csrf_token %}<button class="btn" type="submit">{% trans "Mark all as read" %}</button></form>
+</div>
+<div class="card">
+  {% if items %}
+  <ul class="list">
+    {% for n in items %}
+    <li{% if not n.read_at %} style="font-weight:600"{% endif %}>
+      <div class="main"><a href="{% url 'logistics:notification' n.pk %}">{{ n.text }}</a>
+        <div class="meta">{{ n.created_at|when }}</div></div>
+      {% if not n.read_at %}<span class="pill state-warning">{% trans "New" %}</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="empty">{% trans "Nothing yet." %}</p>{% endif %}
+</div>
+{% endblock %}

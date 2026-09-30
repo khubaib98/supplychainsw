@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{% if creating %}{% trans "New consignment" %}{% else %}{{ consignment.code }}{% endif %}{% endblock %}
+{% block content %}
+{% if creating %}
+<div class="page-head"><div><h1>{% trans "New consignment" %}</h1>
+  <div class="sub">{% trans "The consignment number is assigned automatically when you save. Required documents are set up from the transport mode." %}</div></div></div>
+{% else %}
+{% include "logistics/_c_header.html" %}
+{% endif %}
+<div class="card">
+  <form method="post" novalidate>{% csrf_token %}
+    <div class="form-grid">{% include "_fields.html" %}</div>
+    <div class="form-actions">
+      <button class="btn primary" type="submit">{% if creating %}{% trans "Create consignment" %}{% else %}{% trans "Save" %}{% endif %}</button>
+      <a class="btn" href="{% if creating %}{% url 'logistics:consignments' %}{% else %}{% url 'logistics:consignment' consignment.code %}{% endif %}">{% trans "Cancel" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load i18n portal %}
+{% block title %}{{ consignment.code }}{% endblock %}
+{% block body_attrs %}data-watch-since="{{ watch_since }}" data-watch-consignment="{{ consignment.code }}"{% endblock %}
+{% block content %}
+{% include "logistics/_c_header.html" %}
+
+<section class="card" style="margin-bottom:16px">
+  <div class="card-head"><h2>{% trans "Milestones" %}</h2>
+    <span class="muted">{% trans "Shipper records milestones up to “in transit”; Receiver from arrival onwards." %}</span></div>
+  <ol class="timeline">
+    {% for step in timeline %}
+    <li class="{% if step.done %}done{% endif %}{% if step.current %} current{% endif %}">
+      {{ step.label }}
+      <span class="when">{% if step.event %}{{ step.event.at|day }}{% else %}&nbsp;{% endif %}</span>
+    </li>
+    {% endfor %}
+  </ol>
+  {% if status_form %}
+  <details class="inline" style="margin-top:1rem">
+    <summary>{% icon "plus" %} {% trans "Record the next milestone" %}</summary>
+    <form method="post" action="{% url 'logistics:consignment_status' consignment.code %}">{% csrf_token %}
+      <div class="form-grid">{% include "_fields.html" with form=status_form %}</div>
+      <div class="form-actions"><button class="btn primary" type="submit">{% trans "Record milestone" %}</button></div>
+    </form>
+  </details>
+  {% endif %}
+  {% if history %}
+  <details class="inline" style="margin-top:.75rem">
+    <summary>{% trans "Milestone history" %} ({{ history|length }})</summary>
+    <ul class="history">
+      {% for event in history %}
+      <li><span class="when">{{ event.at|when }}</span>
+        <span><strong>{{ event.get_status_display }}</strong>{% if event.note and event.note != "auto" %} — {{ event.note }}{% endif %}
+          <span class="muted">· {{ event.recorded_by.get_username|default:"—" }}</span></span></li>
+      {% endfor %}
+    </ul>
+  </details>
+  {% endif %}
+</section>
+
+<div class="grid grid-main">
+  <div class="grid" style="align-content:start">
+    <section class="card">
+      <div class="card-head"><h2>{% trans "Packing structure" %}</h2><a href="{% url 'logistics:packing' consignment.code %}">{% trans "Open the packing view" %} →</a></div>
+      {% if kind_totals or tree.item_total %}
+      <div class="legend">
+        {% for label, count in kind_totals %}<span>{{ label }}: <strong>{{ count }}</strong></span>{% endfor %}
+        <span>{% trans "Item IDs" %}: <strong>{{ consignment.items.count }}</strong></span>
+        <span>{% trans "Pieces" %}: <strong>{{ tree.item_total }}</strong></span>
+        {% if consignment.planned_packages %}<span>{% trans "Planned packages" %}: <strong>{{ consignment.planned_packages }}</strong></span>{% endif %}
+      </div>
+      {% for root in tree.roots %}
+        <div class="group">{% icon root.unit.kind %}<a class="gcode" href="{% url 'logistics:unit' root.unit.code %}">{{ root.unit.short }}</a>
+          <span class="muted">{{ root.unit.get_kind_display }}{% if root.unit.container_no %} · <span class="code">{{ root.unit.container_no }}</span>{% endif %} · {% blocktrans with u=root.unit_total i=root.item_total %}{{ u }} units inside, {{ i }} pieces{% endblocktrans %}</span></div>
+      {% endfor %}
+      {% else %}
+      <p class="empty">{% trans "Nothing packed yet." %}{% if can_edit_packing %} <a href="{% url 'logistics:packing' consignment.code %}">{% trans "Start packing" %}</a>{% endif %}</p>
+      {% endif %}
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>{% trans "Latest movements" %}</h2><a href="{% url 'logistics:records_table' 'movements' %}?consignment={{ consignment.code }}">{% trans "All" %} →</a></div>
+      {% if movements %}
+      <ul class="history">
+        {% for m in movements %}
+        <li><span class="when">{{ m.at|when }}</span>
+          <span><strong>{{ m.get_action_display }}</strong> <a class="code" href="{% if m.item_id %}{% url 'logistics:item' m.item.uid %}{% else %}{% url 'logistics:unit' m.unit.code %}{% endif %}">{{ m.subject_code|short }}</a>
+            {% if m.from_code %}<span class="code">{{ m.from_code|short }}</span> →{% endif %}{% if m.to_code %} <span class="code">{{ m.to_code|short }}</span>{% endif %}
+            {% if m.reason and m.action != "receive" %}<div class="muted">{{ m.reason }}</div>{% endif %}
+            <span class="muted">· {{ m.by.get_username|default:"—" }}</span></span></li>
+        {% endfor %}
+      </ul>
+      {% else %}<p class="empty">{% trans "No movements yet." %}</p>{% endif %}
+    </section>
+
+    {% if audit %}
+    <section class="card">
+      <div class="card-head"><h2>{% trans "Audit trail" %}</h2><a href="{% url 'logistics:records_table' 'audit' %}?consignment={{ consignment.code }}">{% trans "All" %} →</a></div>
+      <ul class="list feed">{% for a in audit %}
+        <li><div class="main"><strong>{{ a.username }}</strong> {{ a.action|action_label }} <span class="code">{{ a.target_label|short }}</span></div><span class="meta nowrap">{{ a.at|when }}</span></li>
+      {% endfor %}</ul>
+    </section>
+    {% endif %}
+  </div>
+
+  <div class="grid" style="align-content:start">
+    <section class="card">
+      <div class="card-head"><h2>{% trans "Required documents" %}</h2><a href="{% url 'logistics:documents' consignment.code %}">{% trans "Manage" %} →</a></div>
+      <ul class="list">
+        {% for req, state, due in requirements %}
+        <li><div class="main">{{ req.doc_type|localname }}<div class="meta">{{ req.doc_type.responsible|party }}{% if due %} · {% trans "due" %} {{ due|day }}{% endif %}</div></div>
+          {% include "logistics/_req_state.html" with state=state days=req.days_overdue %}</li>
+        {% empty %}<li class="empty">{% trans "No documents required." %}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    {% if reconciliation %}
+    <section class="card">
+      <div class="card-head"><h2>{% trans "Receiving check" %}</h2><a href="{% url 'logistics:receiving' consignment.code %}">{% trans "Details" %} →</a></div>
+      <dl class="kv">
+        <dt>{% trans "Packages / units received" %}</dt><dd>{{ reconciliation.units_received }} / {{ reconciliation.units_total }}</dd>
+        <dt>{% trans "Item IDs verified" %}</dt><dd>{{ reconciliation.items_received }} / {{ reconciliation.items_total }}</dd>
+        <dt>{% trans "Damaged" %}</dt><dd>{{ reconciliation.units_damaged|length }} {% trans "units" %}, {{ reconciliation.items_damaged|length }} {% trans "items" %}</dd>
+      </dl>
+      <div class="meter"><span style="width: {% widthratio reconciliation.units_received reconciliation.units_total|default:1 100 %}%"></span></div>
+    </section>
+    {% endif %}
+
+    <section class="card">
+      <div class="card-head"><h2>{% trans "Remarks & queries" %}</h2><a href="{% url 'logistics:threads' consignment.code %}">{% trans "All" %} →</a></div>
+      <ul class="list">
+        {% for t in threads %}
+        <li><div class="main"><a href="{% url 'logistics:thread' t.pk %}">{% free_text t.subject t.subject_lang as s %}{{ s.text }}</a>
+          <div class="meta">{{ t.get_category_display }} · {{ t.raised_by_party|party }} · {{ t.updated_at|when }}</div></div>
+          <span class="pill {% if t.state == 'resolved' %}state-good{% elif t.state == 'answered' %}state-neutral{% else %}state-warning{% endif %}">{{ t.get_state_display }}</span></li>
+        {% empty %}<li class="empty">{% trans "No remarks yet." %}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>{% trans "Details" %}</h2>
+      <dl class="kv">
+        <dt>{% trans "Incoterm" %}</dt><dd>{{ consignment.incoterm|default:"—" }}</dd>
+        <dt>{% trans "Carrier / forwarder" %}</dt><dd>{{ consignment.carrier|default:"—" }}</dd>
+        <dt>{% trans "B/L, AWB or truck no." %}</dt><dd><span class="code">{{ consignment.transport_ref|default:"—" }}</span></dd>
+        <dt>{% trans "Description" %}</dt><dd>{{ consignment.description|default:"—" }}</dd>
+        <dt>{% trans "Created" %}</dt><dd>{{ consignment.created_at|when }} · {{ consignment.created_by.get_username }}</dd>
+        {% if consignment.notes %}<dt>{% trans "Notes" %}</dt><dd>{{ consignment.notes|linebreaksbr }}</dd>{% endif %}
+      </dl>
+    </section>
+  </div>
+</div>
+{% endblock %}
