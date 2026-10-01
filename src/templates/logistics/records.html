@@ -21,7 +21,7 @@
     <table class="data">
       <thead><tr>{% for h in headers %}<th>{{ h }}</th>{% endfor %}</tr></thead>
       <tbody>
-        {% for row in rows %}<tr>{% for cell in row %}<td><bdi>{{ cell }}</bdi></td>{% endfor %}</tr>
+        {% for row in rows %}<tr>{% for cell, css in row %}<td{% if css %} class="{{ css }}"{% endif %}><bdi>{{ cell }}</bdi></td>{% endfor %}</tr>
         {% empty %}<tr><td colspan="{{ headers|length }}" class="empty">{% trans "No rows." %}</td></tr>{% endfor %}
       </tbody>
     </table>

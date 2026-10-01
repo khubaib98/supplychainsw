@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: consignment-portal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 21:52+0000\n"
+"POT-Creation-Date: 2026-10-01 05:31+0000\n"
 "PO-Revision-Date: 2026-09-29 18:00+0000\n"
 "Last-Translator: Initial machine-assisted draft - to be reviewed by native speakers\n"
 "Language-Team: Urdu\n"
@@ -374,6 +374,22 @@ msgstr "%(user)s نے %(code)s پر “%(subject)s” کو %(state)s قرار د
 msgid "%(code)s is now: %(status)s."
 msgstr "%(code)s اب: %(status)s۔"
 
+#, python-format
+msgid "%(user)s added a required document to %(code)s: %(doc)s."
+msgstr "%(user)s نے %(code)s کے لیے لازمی دستاویز شامل کی: %(doc)s۔"
+
+#, python-format
+msgid "%(user)s tagged %(code)s: %(tag)s. %(note)s"
+msgstr "%(user)s نے %(code)s پر ٹیگ لگایا: %(tag)s۔ %(note)s"
+
+#, python-format
+msgid "%(user)s removed the tag “%(tag)s” from %(code)s."
+msgstr "%(user)s نے %(code)s سے ٹیگ “%(tag)s” ہٹا دیا۔"
+
+#, python-format
+msgid "Status update on %(code)s from %(user)s: %(note)s"
+msgstr "%(code)s پر %(user)s کی صورتحال کی اپ ڈیٹ: %(note)s"
+
 msgid "Either party"
 msgstr "کوئی بھی فریق"
 
@@ -415,6 +431,15 @@ msgstr "نے ایک دستاویز آرکائیو کی"
 
 msgid "added a required document"
 msgstr "نے ایک لازمی دستاویز شامل کی"
+
+msgid "tagged the consignment"
+msgstr "نے کنسائنمنٹ پر ٹیگ لگایا"
+
+msgid "removed a tag"
+msgstr "نے ایک ٹیگ ہٹایا"
+
+msgid "posted a status update"
+msgstr "نے صورتحال کی اپ ڈیٹ لکھی"
 
 msgid "waived a document"
 msgstr "نے ایک دستاویز سے استثنیٰ دیا"
@@ -600,6 +625,17 @@ msgstr "فائل"
 msgid "Due date (optional)"
 msgstr "آخری تاریخ (اختیاری)"
 
+msgid "What happened"
+msgstr "کیا ہوا"
+
+msgid ""
+"For example: vessel missed the connection at Colombo; next sailing in 7 "
+"days."
+msgstr "مثلاً: جہاز کولمبو میں کنکشن سے رہ گیا؛ اگلی روانگی 7 دن بعد ہے۔"
+
+msgid "Revised ETA (delays only)"
+msgstr "نئی متوقع آمد (صرف تاخیر کے لیے)"
+
 msgid "Subject"
 msgstr "موضوع"
 
@@ -631,12 +667,20 @@ msgid "Row %(row)s: %(column)s must be a whole number ≥ 1."
 msgstr "سطر %(row)s: %(column)s ایک مکمل عدد ≥ 1 ہونا چاہیے۔"
 
 #, python-format
+msgid "Row %(row)s: %(column)s must be a positive number."
+msgstr "سطر %(row)s: %(column)s مثبت عدد ہونا چاہیے۔"
+
+#, python-format
 msgid "Missing column(s): %(cols)s"
 msgstr "غائب کالم: %(cols)s"
 
 #, python-format
 msgid "Row %(row)s: unknown item code “%(code)s”."
 msgstr "سطر %(row)s: نامعلوم آئٹم کوڈ “%(code)s”۔"
+
+#, python-format
+msgid "Row %(row)s: carton %(carton)s already has a different %(column)s."
+msgstr "سطر %(row)s: کارٹن %(carton)s کا %(column)s پہلے مختلف درج ہے۔"
 
 #, python-format
 msgid "Row %(row)s: a serial number needs quantity 1."
@@ -785,6 +829,33 @@ msgstr "آرکائیو شدہ"
 
 msgid "consignments"
 msgstr "کنسائنمنٹس"
+
+msgid "Delayed"
+msgstr "تاخیر"
+
+msgid "On hold"
+msgstr "روکا گیا"
+
+msgid "Priority"
+msgstr "ترجیحی"
+
+msgid "Status update"
+msgstr "صورتحال کی اپ ڈیٹ"
+
+msgid "tag"
+msgstr "ٹیگ"
+
+msgid "what happened"
+msgstr "کیا ہوا"
+
+msgid "revised ETA"
+msgstr "نئی متوقع آمد"
+
+msgid "tag or status update"
+msgstr "ٹیگ یا صورتحال کی اپ ڈیٹ"
+
+msgid "tags and status updates"
+msgstr "ٹیگز اور صورتحال کی اپ ڈیٹس"
 
 msgid "milestone"
 msgstr "مرحلہ"
@@ -1105,6 +1176,22 @@ msgstr "وائرس اسکینر نے فائل مسترد کر دی۔"
 msgid "Please give a reason."
 msgstr "براہ کرم وجہ لکھیں۔"
 
+msgid "Unknown tag."
+msgstr "نامعلوم ٹیگ۔"
+
+msgid "Please write what happened."
+msgstr "براہ کرم لکھیں کہ کیا ہوا۔"
+
+msgid ""
+"This consignment already has that tag. Post a status update, or remove the "
+"tag first."
+msgstr ""
+"اس کنسائنمنٹ پر یہ ٹیگ پہلے سے لگا ہے۔ صورتحال کی اپ ڈیٹ لکھیں، یا پہلے ٹیگ "
+"ہٹائیں۔"
+
+msgid "This tag has already been removed."
+msgstr "یہ ٹیگ پہلے ہی ہٹایا جا چکا ہے۔"
+
 msgid "Subject and message are required."
 msgstr "موضوع اور پیغام لازمی ہیں۔"
 
@@ -1124,13 +1211,19 @@ msgstr "مرحلہ درج ہو گیا۔"
 msgid "Please choose a milestone."
 msgstr "براہ کرم مرحلہ منتخب کریں۔"
 
-#, python-format
-msgid "%(doc)s uploaded as version %(version)s."
-msgstr "%(doc)s ورژن %(version)s کے طور پر اپ لوڈ ہو گئی۔"
+msgid "Saved. Both parties and Oversight can see it."
+msgstr "محفوظ ہو گیا۔ دونوں فریق اور نگران اسے دیکھ سکتے ہیں۔"
 
 #, python-format
 msgid "Please correct the form: %(errors)s"
 msgstr "براہ کرم فارم درست کریں: %(errors)s"
+
+msgid "Tag removed."
+msgstr "ٹیگ ہٹا دیا گیا۔"
+
+#, python-format
+msgid "%(doc)s uploaded as version %(version)s."
+msgstr "%(doc)s ورژن %(version)s کے طور پر اپ لوڈ ہو گئی۔"
 
 msgid "Document archived. It stays in the history and audit log."
 msgstr "دستاویز آرکائیو ہو گئی۔ یہ ہسٹری اور آڈٹ لاگ میں موجود رہے گی۔"
@@ -1259,6 +1352,21 @@ msgstr "کھولا گیا"
 
 msgid "Last update"
 msgstr "آخری تبدیلی"
+
+msgid "Tags & status updates"
+msgstr "ٹیگز اور صورتحال کی اپ ڈیٹس"
+
+msgid "Revised ETA"
+msgstr "نئی متوقع آمد"
+
+msgid "Added by"
+msgstr "شامل کرنے والا"
+
+msgid "Added"
+msgstr "شامل کیا گیا"
+
+msgid "Removed"
+msgstr "ہٹایا گیا"
 
 msgid "Audit log"
 msgstr "آڈٹ لاگ"
@@ -1878,9 +1986,6 @@ msgstr[1] "%(days)s دن تاخیر"
 msgid "Due now"
 msgstr "ابھی درکار"
 
-msgid "Delayed"
-msgstr "تاخیر"
-
 #, python-format
 msgid "%(n)s inside"
 msgstr "اندر %(n)s"
@@ -2110,6 +2215,21 @@ msgstr "ابھی کوئی نقل و حرکت نہیں۔"
 msgid "Audit trail"
 msgstr "آڈٹ ٹریل"
 
+msgid "Remove this tag? It stays in the history."
+msgstr "یہ ٹیگ ہٹائیں؟ یہ ہسٹری میں موجود رہے گا۔"
+
+msgid "Remove"
+msgstr "ہٹائیں"
+
+msgid "Status updates"
+msgstr "صورتحال کی اپ ڈیٹس"
+
+msgid "No tags or status updates yet."
+msgstr "ابھی کوئی ٹیگ یا صورتحال کی اپ ڈیٹ نہیں۔"
+
+msgid "Add a tag or status update"
+msgstr "ٹیگ یا صورتحال کی اپ ڈیٹ شامل کریں"
+
 msgid "Manage"
 msgstr "انتظام"
 
@@ -2238,8 +2358,8 @@ msgstr "%(n)s نقصان یا تضاد"
 msgid "Delayed shipments"
 msgstr "تاخیر شدہ شپمنٹس"
 
-msgid "ETA passed, not yet arrived"
-msgstr "ETA گزر گیا، ابھی نہیں پہنچا"
+msgid "ETA passed, or tagged as delayed"
+msgstr "متوقع آمد گزر گئی، یا تاخیر کا ٹیگ لگا ہے"
 
 msgid "Units received at destination"
 msgstr "منزل پر وصول شدہ یونٹس"
@@ -2424,6 +2544,12 @@ msgstr "مینوفیکچرر سیریل نمبر (مقدار 1)"
 
 msgid "Pallet number the carton is on"
 msgstr "وہ پیلیٹ نمبر جس پر کارٹن ہے"
+
+msgid "Carton gross weight in kg (optional)"
+msgstr "کارٹن کا مجموعی وزن کلوگرام میں (اختیاری)"
+
+msgid "Carton dimensions in cm (optional)"
+msgstr "کارٹن کی پیمائش سینٹی میٹر میں (اختیاری)"
 
 msgid "Example"
 msgstr "مثال"

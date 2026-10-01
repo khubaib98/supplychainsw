@@ -1,6 +1,7 @@
 import json
 import shutil
 import tempfile
+from datetime import date
 from pathlib import Path
 
 import polib
@@ -188,6 +189,15 @@ class ExportAndLanguageTests(Base):
         self.assertIn(self.item.uid, body)
         packing = self.client.get(reverse("logistics:packing_list", args=[self.c.code]) + "?format=csv")
         self.assertIn("双通道干扰模块", packing.content.decode("utf-8"))
+
+    def test_records_keep_ids_and_dates_on_one_line(self):
+        self.login(self.w.o_view)
+        page = self.client.get(reverse("logistics:records_table", args=["items"]))
+        self.assertContains(page, f'<td class="code"><bdi>{self.item.uid}</bdi></td>', html=True)
+        self.c.etd = date(2026, 10, 1)
+        self.c.save(update_fields=["etd"])
+        page = self.client.get(reverse("logistics:records_table", args=["consignments"]))
+        self.assertContains(page, '<td class="nowrap"><bdi>2026-10-01</bdi></td>', html=True)
 
     def test_pages_render_in_chinese_and_urdu(self):
         self.login(self.w.s_mgr)  # profile language zh-hans

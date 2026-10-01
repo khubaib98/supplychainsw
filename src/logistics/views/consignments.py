@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
@@ -9,8 +9,8 @@ from django.views.decorators.http import require_POST
 from core.models import AuditLog
 from logistics import permissions as perms
 from logistics import services
-from logistics.forms import ConsignmentForm, StatusForm
-from logistics.models import Consignment, DocumentRequirement, HandlingUnit
+from logistics.forms import ConsignmentForm, StatusForm, TagForm
+from logistics.models import Consignment, ConsignmentTag, DocumentRequirement, HandlingUnit
 from logistics.tree import build_tree
 from logistics.views.common import consignment_context, get_consignment, run
 from logistics.views.dashboard import latest_audit_id
@@ -19,7 +19,7 @@ from logistics.views.dashboard import latest_audit_id
 @login_required
 def consignment_list(request):
     queryset = perms.visible_consignments(request.user, include_archived=True).prefetch_related(
-        "milestones", "documents", "requirements", "threads"
+        "milestones", "documents", "requirements", "threads", "tags"
     )
     scope = request.GET.get("scope", "active")
     if scope == "active":
@@ -131,8 +131,14 @@ def consignment_detail(request, code):
         requirement.consignment = consignment
     statuses = perms.allowed_statuses(user, consignment)
     tree = build_tree(consignment)
+    tags = list(consignment.tags.select_related("added_by", "removed_by"))
     context = {
         **consignment_context(user, consignment, "overview"),
+        "active_tags": [tag for tag in tags if tag.is_active],
+        "updates": [tag for tag in tags if tag.is_update],
+        "can_tag": perms.can_tag(user, consignment),
+        # Prefixed: the milestone form on the same page also has a note field.
+        "tag_form": TagForm(prefix="tag") if perms.can_tag(user, consignment) else None,
         "timeline": timeline,
         "history": list(reversed(milestones)),
         "requirements": [(r, r.state(today), r.due_date()) for r in requirements],
@@ -168,3 +174,27 @@ def consignment_status(request, code):
     else:
         messages.error(request, _("Please choose a milestone."))
     return redirect("logistics:consignment", code=code)
+
+
+@login_required
+@require_POST
+def add_tag(request, code):
+    consignment = get_consignment(request.user, code)
+    perms.require(perms.can_tag(request.user, consignment))
+    form = TagForm(request.POST, prefix="tag")
+    if form.is_valid():
+        data = form.cleaned_data
+        run(request, services.add_tag, request.user, consignment, data["kind"], note=data["note"],
+            revised_eta=data["revised_eta"], request=request, success=_("Saved. Both parties and Oversight can see it."))
+    else:
+        messages.error(request, _("Please correct the form: %(errors)s") % {"errors": form.errors.as_text()})
+    return redirect("logistics:consignment", code=code)
+
+
+@login_required
+@require_POST
+def remove_tag(request, pk):
+    tag = get_object_or_404(ConsignmentTag.objects.select_related("consignment"), pk=pk)
+    consignment = get_consignment(request.user, tag.consignment.code)
+    run(request, services.remove_tag, request.user, tag, request=request, success=_("Tag removed."))
+    return redirect("logistics:consignment", code=consignment.code)

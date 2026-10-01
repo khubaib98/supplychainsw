@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from accounts.models import Organization
 from core.ids import iso6346_valid
-from logistics.models import Consignment, DocumentType, HandlingUnit, Item, ItemType, Thread
+from logistics.models import Consignment, ConsignmentTag, DocumentType, HandlingUnit, Item, ItemType, Thread
 
 
 class DateInput(forms.DateInput):
@@ -212,6 +212,15 @@ class ReasonForm(forms.Form):
 class RequirementForm(forms.Form):
     doc_type = forms.ModelChoiceField(label=_("Document"), queryset=DocumentType.objects.filter(is_active=True))
     due_override = forms.DateField(label=_("Due date (optional)"), required=False, widget=DateInput())
+
+
+class TagForm(forms.Form):
+    kind = forms.ChoiceField(label=_("Type"), choices=ConsignmentTag.Kind.choices, initial=ConsignmentTag.Kind.UPDATE)
+    note = forms.CharField(
+        label=_("What happened"), max_length=300, required=False, widget=forms.Textarea(attrs={"rows": 2}),
+        help_text=_("For example: vessel missed the connection at Colombo; next sailing in 7 days."),
+    )
+    revised_eta = forms.DateField(label=_("Revised ETA (delays only)"), required=False, widget=DateInput())
 
 
 class ThreadForm(forms.Form):

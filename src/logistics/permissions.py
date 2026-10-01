@@ -10,7 +10,9 @@ may act on which record:
     (Shipper until export clearance, Receiver from arrival, nobody in transit)
   * documents are uploaded by the party that owes them; only the uploading
     party's managers may archive them; nothing is ever hard-deleted
-  * Oversight is read-only everywhere
+  * Oversight changes no data. Its managers may request (or waive) documents,
+    and its managers and operators may tag consignments and post status
+    updates; Oversight viewers only read
 """
 from django.core.exceptions import PermissionDenied
 
@@ -133,8 +135,21 @@ def can_archive_document(user, document):
     return is_manager_of(user, document.consignment) and party_in(user, document.consignment) == document.uploaded_by_party
 
 
+def is_oversight(user, levels=(Profile.Level.MANAGER,)):
+    profile = profile_of(user)
+    return bool(profile and profile.party == OVERSIGHT and profile.level in levels)
+
+
 def can_manage_requirements(user, consignment):
-    return is_manager_of(user, consignment)
+    """Add or waive required documents: either party's managers, and Oversight managers."""
+    return is_manager_of(user, consignment) or is_oversight(user)
+
+
+def can_tag(user, consignment):
+    """Tags (Delayed, On hold, Priority) and status updates: managers and operators of both parties and Oversight."""
+    if consignment.is_archived:
+        return False
+    return can_edit(user, consignment) or is_oversight(user, (Profile.Level.MANAGER, Profile.Level.OPERATOR))
 
 
 def can_comment(user, consignment):

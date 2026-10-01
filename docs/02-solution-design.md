@@ -53,7 +53,7 @@ flowchart LR
 
 | Area | What it does | Code |
 |---|---|---|
-| Consignments | Automatic numbers (`CSG-2026-0042`), 11 milestones with owners, ETA-based delay flag, timeline | `logistics/models.py`, `views/consignments.py` |
+| Consignments | Automatic numbers (`CSG-2026-0042`), 11 milestones with owners, ETA-based delay flag, tags (Delayed with revised ETA, On hold, Priority) and status updates, timeline | `logistics/models.py`, `views/consignments.py` |
 | Packing & traceability | Containers/trucks, pallets, crates, cartons and inner boxes nested to any depth; serialised items and batch lines; moves, splits and receipts logged as events; layer-by-layer map; nested packing view | `services.py`, `tree.py`, `views/packing.py` |
 | Labels | 100×150 mm package labels and 50×30 mm item labels with QR codes, bilingual EN/中文, contents hidden by default | `templates/labels/labels.html`, `static/css/print.css` |
 | Packing list | Generated from the packing data (A4, EN/中文) plus a full item CSV with the location path of every item | `views/packing.py`, `reports.py` |
@@ -93,7 +93,8 @@ flowchart LR
 | Receive (scan in, mark damage) | – | – | ✓ | ✓ | – | – |
 | Upload documents | Shipper-owned types | same | Receiver-owned types | same | – | – |
 | Archive a document | own uploads | – | own uploads | – | – | – |
-| Add or waive required documents | ✓ | – | ✓ | – | – | – |
+| Add or waive required documents | ✓ | – | ✓ | – | managers | – |
+| Tag (Delayed, On hold, Priority), post status updates | ✓ | ✓ | ✓ | ✓ | managers, operators | – |
 | Raise / answer remarks | ✓ | ✓ | ✓ | ✓ | – | – |
 | Resolve a remark | if raised by own org | same | if raised by own org | same | – | – |
 | Item master | ✓ | – | ✓ | – | – | – |

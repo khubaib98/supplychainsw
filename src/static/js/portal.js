@@ -25,6 +25,16 @@
     });
   });
 
+  // A tab row wider than the screen scrolls sideways: keep the current tab in view.
+  document.querySelectorAll(".tabs").forEach(function (tabs) {
+    var active = tabs.querySelector(".active");
+    if (!active || tabs.scrollWidth <= tabs.clientWidth) { return; }
+    var row = tabs.getBoundingClientRect(), tab = active.getBoundingClientRect();
+    if (tab.left < row.left || tab.right > row.right) {
+      tabs.scrollLeft += tab.left < row.left ? tab.left - row.left - 16 : tab.right - row.right + 16;
+    }
+  });
+
   document.querySelectorAll("[data-reload]").forEach(function (button) {
     button.addEventListener("click", function () { window.location.reload(); });
   });

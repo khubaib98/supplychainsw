@@ -1,0 +1,72 @@
+[
+ {
+  "model": "logistics.itemtype",
+  "fields": {
+   "code": "DCJM",
+   "name_en": "Dual Channel Jamming Module",
+   "name_zh": "双通道干扰模块",
+   "name_ur": "ڈوئل چینل جیمنگ ماڈیول",
+   "hs_code": "8543.70",
+   "tracking": "serial",
+   "uom": "pcs",
+   "controlled": true,
+   "is_active": true
+  }
+ },
+ {
+  "model": "logistics.itemtype",
+  "fields": {
+   "code": "PSU",
+   "name_en": "Power Supply Unit 48 V",
+   "name_zh": "48V 电源模块",
+   "name_ur": "48 وولٹ پاور سپلائی یونٹ",
+   "hs_code": "8504.40",
+   "tracking": "serial",
+   "uom": "pcs",
+   "controlled": false,
+   "is_active": true
+  }
+ },
+ {
+  "model": "logistics.itemtype",
+  "fields": {
+   "code": "CTRL",
+   "name_en": "Control Unit",
+   "name_zh": "控制单元",
+   "name_ur": "کنٹرول یونٹ",
+   "hs_code": "8537.10",
+   "tracking": "serial",
+   "uom": "pcs",
+   "controlled": false,
+   "is_active": true
+  }
+ },
+ {
+  "model": "logistics.itemtype",
+  "fields": {
+   "code": "ANT",
+   "name_en": "Omni Antenna Set",
+   "name_zh": "全向天线套件",
+   "name_ur": "اومنی اینٹینا سیٹ",
+   "hs_code": "8529.10",
+   "tracking": "serial",
+   "uom": "set",
+   "controlled": false,
+   "is_active": true
+  }
+ },
+ {
+  "model": "logistics.itemtype",
+  "fields": {
+   "code": "CBL",
+   "name_en": "RF Cable 5 m",
+   "name_zh": "射频线缆 5 米",
+   "name_ur": "آر ایف کیبل 5 میٹر",
+   "hs_code": "8544.20",
+   "tracking": "batch",
+   "uom": "pcs",
+   "controlled": false,
+   "is_active": true
+  }
+ }
+]
