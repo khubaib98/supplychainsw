@@ -25,6 +25,7 @@ from logistics import permissions as perms
 from logistics.models import (
     Consignment,
     ConsignmentDocument,
+    ConsignmentTag,
     DocumentRequirement,
     DocumentType,
     HandlingUnit,
@@ -73,21 +74,25 @@ def other_party(party):
 
 
 def _inform(actor, consignment, kind, params, url, *, email_counterpart=True):
-    """Tell the other party (in-app + e-mail + WeCom) and Oversight (in-app) about a change."""
+    """
+    Tell the other party (in-app + e-mail + WeCom) and Oversight (in-app) about
+    a change. When Oversight acts, both parties are told.
+    """
     party = perms.party_in(actor, consignment)
     params = {"code": consignment.code, "user": actor.get_full_name() or actor.get_username(), **params}
-    if party:
-        counterpart = party_org(consignment, other_party(party))
+    told = [party_org(consignment, other_party(party))] if party else [consignment.shipper, consignment.receiver]
+    for organization in told:
         notify.notify(
-            [u for u in members(counterpart) if u.pk != actor.pk],
+            [u for u in members(organization) if u.pk != actor.pk],
             kind,
             params,
             consignment=consignment,
             url=url,
             email=email_counterpart,
-            organizations=[counterpart] if email_counterpart else (),
+            organizations=[organization] if email_counterpart else (),
         )
-    notify.notify(oversight_members(), kind, params, consignment=consignment, url=url, email=False)
+    notify.notify([u for u in oversight_members() if u.pk != actor.pk], kind, params, consignment=consignment,
+                  url=url, email=False)
 
 
 # ---------------------------------------------------------------------------
@@ -170,6 +175,11 @@ def set_status(user, consignment, status, *, at=None, note="", request=None, _sy
             del consignment._milestones
         audit.log(user, "consignment.status", consignment, request=request,
                   details={"from": previous, "to": status, "at": at.isoformat(), "note": note})
+        if consignment.status_reached(Consignment.Status.ARRIVED):
+            # Once the goods are there, a "Delayed" tag no longer describes them.
+            consignment.tags.filter(kind=ConsignmentTag.Kind.DELAY, removed_at__isnull=True).update(
+                removed_at=timezone.now(), removed_by=user
+            )
     if not _system:
         _inform(user, consignment, "status", {"status": status},
                 f"/consignments/{consignment.code}/")
@@ -639,6 +649,9 @@ def add_requirement(user, consignment, doc_type, due_override=None, request=None
         requirement.save(update_fields=["due_override"])
     audit.log(user, "document.required", consignment, request=request,
               details={"added": [doc_type.code], "due": str(due_override or "")})
+    if created:
+        _inform(user, consignment, "doc_required", {"doc_type": doc_type.code},
+                f"/consignments/{consignment.code}/documents/")
     return requirement
 
 
@@ -652,6 +665,49 @@ def waive_requirement(user, requirement, reason, request=None):
     requirement.save(update_fields=["waived", "waived_reason", "waived_by"])
     audit.log(user, "document.waived", requirement, consignment=requirement.consignment, request=request,
               details={"type": requirement.doc_type.code, "reason": reason})
+
+
+# ---------------------------------------------------------------------------
+# Tags and status updates
+# ---------------------------------------------------------------------------
+
+def add_tag(user, consignment, kind, *, note="", revised_eta=None, request=None):
+    """Tag a consignment (Delayed, On hold, Priority) or post a status update; both parties and Oversight see it."""
+    _require(perms.can_tag(user, consignment))
+    if kind not in ConsignmentTag.Kind.values:
+        raise ServiceError(_("Unknown tag."))
+    note = (note or "").strip()
+    if not note and kind != ConsignmentTag.Kind.PRIORITY:
+        raise ServiceError(_("Please write what happened."))
+    if kind != ConsignmentTag.Kind.DELAY:
+        revised_eta = None
+    if kind != ConsignmentTag.Kind.UPDATE and any(tag.kind == kind for tag in consignment.active_tags()):
+        raise ServiceError(_("This consignment already has that tag. Post a status update, or remove the tag first."))
+    party = perms.party_in(user, consignment) or user.profile.party
+    with transaction.atomic():
+        tag = ConsignmentTag.objects.create(
+            consignment=consignment, kind=kind, note=note, note_lang=detect_language(note) if note else "",
+            revised_eta=revised_eta, added_by=user, added_by_party=party,
+        )
+        audit.log(user, "tag.update" if tag.is_update else "tag.added", consignment, request=request,
+                  details={"tag": kind, "note": note, "revised_eta": str(revised_eta or "")})
+    if note:
+        _translate_later((note, tag.note_lang))
+    _inform(user, consignment, "status_update" if tag.is_update else "tag_added",
+            {"tag": kind, "note": note}, f"/consignments/{consignment.code}/")
+    return tag
+
+
+def remove_tag(user, tag, request=None):
+    consignment = tag.consignment
+    _require(perms.can_tag(user, consignment))
+    if not tag.is_active:
+        raise ServiceError(_("This tag has already been removed."))
+    tag.removed_at = timezone.now()
+    tag.removed_by = user
+    tag.save(update_fields=["removed_at", "removed_by"])
+    audit.log(user, "tag.removed", consignment, request=request, details={"tag": tag.kind, "tag_id": tag.pk})
+    _inform(user, consignment, "tag_removed", {"tag": tag.kind}, f"/consignments/{consignment.code}/")
 
 
 # ---------------------------------------------------------------------------

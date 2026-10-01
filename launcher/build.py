@@ -12,6 +12,7 @@ macOS and Linux versions (.github/workflows/desktop.yml).
 import os
 import platform
 import re
+import shutil
 import subprocess
 import sys
 import zipfile
@@ -53,6 +54,13 @@ DEMO
   {demo} opens a separate practice copy with sample data. Users
   shipper.manager, shipper.ops, receiver.manager, receiver.ops, oversight and
   admin all have the password Demo-Portal-2026.
+
+SOP DEMO DATA
+  The folder sop-demo holds the dataset of the SOP demo: item-master.json (five
+  products) and packing-list-12-cartons.csv (12 cartons on 2 pallets). To load
+  the products into a practice copy kept in its own folder:
+    CNPK-Portal --data-dir <folder> manage loaddata sop-demo/item-master.json
+  Then import the CSV on the consignment's "Packing & traceability" tab.
 
 MORE
   CNPK-Portal --help            all options
@@ -106,6 +114,7 @@ def add_extras(app, version, system):
     path = app / script_name
     path.write_text(script, encoding="utf-8", newline="")
     path.chmod(0o755)
+    shutil.copytree(ROOT / "docs" / "sop-demo", app / "sop-demo", dirs_exist_ok=True)
 
 
 def make_zip(folder, archive):

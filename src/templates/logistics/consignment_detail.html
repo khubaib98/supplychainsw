@@ -85,6 +85,40 @@
   </div>
 
   <div class="grid" style="align-content:start">
+    <section class="card" id="tags">
+      <div class="card-head"><h2>{% trans "Tags & status updates" %}</h2></div>
+      {% if active_tags %}
+      <ul class="list">
+        {% for tag in active_tags %}
+        <li><div class="main">{% include "logistics/_tag.html" %}
+            {% if tag.note %}{% free_text tag.note tag.note_lang as n %}<div style="margin-top:.25rem">{{ n.text }}</div>{% endif %}
+            <div class="meta">{{ tag.added_by_party|party }} · {{ tag.added_by.get_full_name|default:tag.added_by.get_username }} · {{ tag.added_at|when }}</div>
+            {% if can_tag %}<form method="post" action="{% url 'logistics:remove_tag' tag.pk %}" style="margin-top:.4rem" data-confirm="{% trans 'Remove this tag? It stays in the history.' %}">{% csrf_token %}
+              <button class="btn small" type="submit">{% icon "x" %}{% trans "Remove" %}</button></form>{% endif %}</div></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% if updates %}
+      <h3 style="margin-top:.75rem">{% trans "Status updates" %}</h3>
+      <ul class="list">
+        {% for update in updates|slice:":5" %}
+        <li><div class="main">{% free_text update.note update.note_lang as n %}{{ n.text }}
+            <div class="meta">{{ update.added_by_party|party }} · {{ update.added_by.get_full_name|default:update.added_by.get_username }} · {{ update.added_at|when }}</div></div></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% if not active_tags and not updates %}<p class="empty">{% trans "No tags or status updates yet." %}</p>{% endif %}
+      {% if tag_form %}
+      <details class="inline" style="margin-top:.75rem">
+        <summary>{% icon "plus" %} {% trans "Add a tag or status update" %}</summary>
+        <form method="post" action="{% url 'logistics:add_tag' consignment.code %}">{% csrf_token %}
+          <div class="form-grid">{% include "_fields.html" with form=tag_form %}</div>
+          <div class="form-actions"><button class="btn primary" type="submit">{% trans "Save" %}</button></div>
+        </form>
+      </details>
+      {% endif %}
+    </section>
+
     <section class="card">
       <div class="card-head"><h2>{% trans "Required documents" %}</h2><a href="{% url 'logistics:documents' consignment.code %}">{% trans "Manage" %} →</a></div>
       <ul class="list">

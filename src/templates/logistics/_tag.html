@@ -1,0 +1,1 @@
+{% load i18n portal %}<span class="pill {{ tag.css }}"{% if tag.note %} title="{{ tag.note }}"{% endif %}>{% icon tag.icon %}{{ tag.get_kind_display }}{% if tag.revised_eta %} · {% trans "ETA" %} {{ tag.revised_eta|day }}{% endif %}</span>

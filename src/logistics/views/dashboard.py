@@ -29,7 +29,7 @@ def dashboard(request):
     today = timezone.localdate()
     consignments = list(
         perms.visible_consignments(user).prefetch_related(
-            "milestones", "documents", "requirements__doc_type", "threads", "units"
+            "milestones", "documents", "requirements__doc_type", "threads", "units", "tags"
         )
     )
     active = [c for c in consignments if c.is_active]

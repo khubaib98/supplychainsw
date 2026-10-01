@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: consignment-portal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 21:52+0000\n"
+"POT-Creation-Date: 2026-10-01 05:31+0000\n"
 "PO-Revision-Date: 2026-09-29 18:00+0000\n"
 "Last-Translator: Initial machine-assisted draft - to be reviewed by native speakers\n"
 "Language-Team: Simplified Chinese\n"
@@ -362,6 +362,22 @@ msgstr "%(user)s 将 %(code)s 的“%(subject)s”标记为%(state)s。"
 msgid "%(code)s is now: %(status)s."
 msgstr "%(code)s 当前状态：%(status)s。"
 
+#, python-format
+msgid "%(user)s added a required document to %(code)s: %(doc)s."
+msgstr "%(user)s 为 %(code)s 添加了必需单据：%(doc)s。"
+
+#, python-format
+msgid "%(user)s tagged %(code)s: %(tag)s. %(note)s"
+msgstr "%(user)s 为 %(code)s 添加了标签：%(tag)s。%(note)s"
+
+#, python-format
+msgid "%(user)s removed the tag “%(tag)s” from %(code)s."
+msgstr "%(user)s 移除了 %(code)s 的标签“%(tag)s”。"
+
+#, python-format
+msgid "Status update on %(code)s from %(user)s: %(note)s"
+msgstr "%(user)s 发布了 %(code)s 的状态更新：%(note)s"
+
 msgid "Either party"
 msgstr "任一方"
 
@@ -403,6 +419,15 @@ msgstr "归档了一份单据"
 
 msgid "added a required document"
 msgstr "添加了一项必需单据"
+
+msgid "tagged the consignment"
+msgstr "为货运批次添加了标签"
+
+msgid "removed a tag"
+msgstr "移除了一个标签"
+
+msgid "posted a status update"
+msgstr "发布了状态更新"
 
 msgid "waived a document"
 msgstr "豁免了一份单据"
@@ -587,6 +612,17 @@ msgstr "文件"
 msgid "Due date (optional)"
 msgstr "截止日期（可选）"
 
+msgid "What happened"
+msgstr "情况说明"
+
+msgid ""
+"For example: vessel missed the connection at Colombo; next sailing in 7 "
+"days."
+msgstr "例如：船舶在科伦坡未赶上衔接航班，下一班 7 天后开航。"
+
+msgid "Revised ETA (delays only)"
+msgstr "修订后的预计到达日期（仅限延误）"
+
 msgid "Subject"
 msgstr "主题"
 
@@ -617,12 +653,20 @@ msgid "Row %(row)s: %(column)s must be a whole number ≥ 1."
 msgstr "第 %(row)s 行：%(column)s 必须是 ≥ 1 的整数。"
 
 #, python-format
+msgid "Row %(row)s: %(column)s must be a positive number."
+msgstr "第 %(row)s 行：%(column)s 必须是正数。"
+
+#, python-format
 msgid "Missing column(s): %(cols)s"
 msgstr "缺少列：%(cols)s"
 
 #, python-format
 msgid "Row %(row)s: unknown item code “%(code)s”."
 msgstr "第 %(row)s 行：未知的货物代码“%(code)s”。"
+
+#, python-format
+msgid "Row %(row)s: carton %(carton)s already has a different %(column)s."
+msgstr "第 %(row)s 行：箱号 %(carton)s 已填写了不同的 %(column)s。"
 
 #, python-format
 msgid "Row %(row)s: a serial number needs quantity 1."
@@ -771,6 +815,33 @@ msgstr "已归档"
 
 msgid "consignments"
 msgstr "货运批次"
+
+msgid "Delayed"
+msgstr "延误"
+
+msgid "On hold"
+msgstr "暂停"
+
+msgid "Priority"
+msgstr "优先"
+
+msgid "Status update"
+msgstr "状态更新"
+
+msgid "tag"
+msgstr "标签"
+
+msgid "what happened"
+msgstr "情况说明"
+
+msgid "revised ETA"
+msgstr "修订后的预计到达日期"
+
+msgid "tag or status update"
+msgstr "标签或状态更新"
+
+msgid "tags and status updates"
+msgstr "标签与状态更新"
 
 msgid "milestone"
 msgstr "节点"
@@ -1089,6 +1160,20 @@ msgstr "文件被病毒扫描拒绝。"
 msgid "Please give a reason."
 msgstr "请填写原因。"
 
+msgid "Unknown tag."
+msgstr "未知标签。"
+
+msgid "Please write what happened."
+msgstr "请填写情况说明。"
+
+msgid ""
+"This consignment already has that tag. Post a status update, or remove the "
+"tag first."
+msgstr "该货运批次已有此标签。请发布状态更新，或先移除该标签。"
+
+msgid "This tag has already been removed."
+msgstr "该标签已被移除。"
+
 msgid "Subject and message are required."
 msgstr "主题和内容为必填项。"
 
@@ -1108,13 +1193,19 @@ msgstr "节点已记录。"
 msgid "Please choose a milestone."
 msgstr "请选择一个节点。"
 
-#, python-format
-msgid "%(doc)s uploaded as version %(version)s."
-msgstr "%(doc)s已上传为第 %(version)s 版。"
+msgid "Saved. Both parties and Oversight can see it."
+msgstr "已保存。双方及监管方均可看到。"
 
 #, python-format
 msgid "Please correct the form: %(errors)s"
 msgstr "请修正表单：%(errors)s"
+
+msgid "Tag removed."
+msgstr "标签已移除。"
+
+#, python-format
+msgid "%(doc)s uploaded as version %(version)s."
+msgstr "%(doc)s已上传为第 %(version)s 版。"
 
 msgid "Document archived. It stays in the history and audit log."
 msgstr "单据已归档，仍保留在历史和审计日志中。"
@@ -1242,6 +1333,21 @@ msgstr "创建时间"
 
 msgid "Last update"
 msgstr "最近更新"
+
+msgid "Tags & status updates"
+msgstr "标签与状态更新"
+
+msgid "Revised ETA"
+msgstr "修订后的预计到达日期"
+
+msgid "Added by"
+msgstr "添加人"
+
+msgid "Added"
+msgstr "添加时间"
+
+msgid "Removed"
+msgstr "移除时间"
 
 msgid "Audit log"
 msgstr "审计日志"
@@ -1810,9 +1916,6 @@ msgstr[0] "逾期 %(days)s 天"
 msgid "Due now"
 msgstr "现已到期"
 
-msgid "Delayed"
-msgstr "延误"
-
 #, python-format
 msgid "%(n)s inside"
 msgstr "内含 %(n)s 个"
@@ -2022,6 +2125,21 @@ msgstr "暂无移动记录。"
 msgid "Audit trail"
 msgstr "审计轨迹"
 
+msgid "Remove this tag? It stays in the history."
+msgstr "确定移除此标签？它仍会保留在历史记录中。"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Status updates"
+msgstr "状态更新"
+
+msgid "No tags or status updates yet."
+msgstr "暂无标签或状态更新。"
+
+msgid "Add a tag or status update"
+msgstr "添加标签或状态更新"
+
 msgid "Manage"
 msgstr "管理"
 
@@ -2148,8 +2266,8 @@ msgstr "%(n)s 项破损或差异"
 msgid "Delayed shipments"
 msgstr "延误货运"
 
-msgid "ETA passed, not yet arrived"
-msgstr "已过预计到达时间，尚未到达"
+msgid "ETA passed, or tagged as delayed"
+msgstr "已过预计到达日期，或已标记为延误"
 
 msgid "Units received at destination"
 msgstr "目的地已收单元"
@@ -2325,6 +2443,12 @@ msgstr "厂家序列号（数量为 1）"
 
 msgid "Pallet number the carton is on"
 msgstr "纸箱所在托盘号"
+
+msgid "Carton gross weight in kg (optional)"
+msgstr "纸箱毛重，单位千克（可选）"
+
+msgid "Carton dimensions in cm (optional)"
+msgstr "纸箱尺寸，单位厘米（可选）"
 
 msgid "Example"
 msgstr "示例"

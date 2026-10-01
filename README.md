@@ -37,13 +37,17 @@ This repository contains:
   fingerprinted, and nothing is deleted.
 - **Reminders that escalate.** Missing documents trigger a reminder, a second reminder, then an
   escalation to Oversight, by e-mail, in-app and WeCom.
+- **Tags and status updates.** The Shipper, the Receiver and Oversight tag a consignment Delayed
+  (with a revised ETA), On hold or Priority, and post dated status updates. Tags show next to the
+  status on every list and dashboard; delay tags clear themselves when the goods arrive.
 - **Remarks and queries.** Either party raises damage, discrepancy, payment or document issues and
   follows them through open › answered › resolved. Remarks can be machine-translated, with the
   original always shown.
 - **Three languages.** The whole interface is translated (Urdu right-to-left with a Nastaliq font).
   Each user's own time zone is shown on every timestamp.
 - **Oversight.** Dashboard with KPIs, stage chart and a needs-attention list; read-only data tables
-  with CSV export; a hash-chained audit log.
+  with CSV export; a hash-chained audit log. Oversight managers can also require documents and tag
+  consignments.
 - **Security.** Organisation × access-level roles with ownership and custody rules, two-factor login,
   lock-out, strict security headers, and no third-party CDNs (important for access from China).
 
@@ -119,7 +123,8 @@ src/                 Django project
   templates/ static/ locale/   UI, CSS/JS (no CDNs), EN / 中文 / اردو catalogues
 launcher/            one-click desktop program: launcher, PyInstaller recipe, build script, smoke test
 deploy/              docker-compose, Caddy (HTTPS), backup job, .env template
-docs/                evaluation, design, delivery plan, deployment guide, desktop guide
+docs/                evaluation, design, delivery plan, deployment guide, desktop guide,
+                     SOP demo dataset (sop-demo/)
 ```
 
 ## Development

@@ -9,12 +9,15 @@ Columns (header row required, extra columns ignored):
     batch_no      batch / lot number
     pallet        pallet number the carton sits on
     container     container number (ISO 6346, e.g. MSKU1234565)
+    gross_kg      carton gross weight in kg (any row of that carton)
+    length_cm, width_cm, height_cm   carton dimensions in cm
 
 Excel on Chinese Windows saves CSV as GB18030/GBK, so both that and UTF-8
 are accepted. The import is all-or-nothing: any error and nothing is saved.
 """
 import csv
 import io
+from decimal import Decimal, InvalidOperation
 
 from django.db import transaction
 from django.utils.translation import gettext as _
@@ -25,6 +28,13 @@ from logistics.models import HandlingUnit, ItemType
 from logistics.services import ServiceError, add_items, ensure_unit
 
 REQUIRED = ("carton", "item_code", "quantity")
+# Optional carton measurements: column -> (largest value accepted, precision stored).
+MEASUREMENTS = {
+    "gross_kg": (Decimal("10000"), Decimal("0.01")),
+    "length_cm": (Decimal("1000"), Decimal("0.1")),
+    "width_cm": (Decimal("1000"), Decimal("0.1")),
+    "height_cm": (Decimal("1000"), Decimal("0.1")),
+}
 
 
 def decode(raw):
@@ -47,6 +57,18 @@ def _positive_int(value, row_number, column, errors):
         return None
 
 
+def _measurement(value, row_number, column, errors):
+    try:
+        largest, precision = MEASUREMENTS[column]
+        number = Decimal(str(value).strip().replace(",", "."))
+        if not Decimal("0") < number <= largest:
+            raise InvalidOperation
+        return number.quantize(precision)
+    except InvalidOperation:
+        errors.append(_("Row %(row)s: %(column)s must be a positive number.") % {"row": row_number, "column": column})
+        return None
+
+
 def parse(text):
     reader = csv.DictReader(io.StringIO(text))
     headers = [(h or "").strip().lower() for h in (reader.fieldnames or [])]
@@ -56,6 +78,7 @@ def parse(text):
     reader.fieldnames = headers
     types = {item_type.code: item_type for item_type in ItemType.objects.filter(is_active=True)}
     rows, errors = [], []
+    carton_specs = {}
     for row_number, raw in enumerate(reader, start=2):
         values = {key: (value or "").strip() for key, value in raw.items() if key}
         if not any(values.values()):
@@ -67,6 +90,20 @@ def parse(text):
         item_type = types.get(code)
         if item_type is None:
             errors.append(_("Row %(row)s: unknown item code “%(code)s”.") % {"row": row_number, "code": code})
+        specs = {
+            column: _measurement(values[column], row_number, column, errors)
+            for column in MEASUREMENTS
+            if values.get(column)
+        }
+        known = carton_specs.setdefault(carton, {})
+        for column, number in specs.items():
+            if number is not None and known.get(column, number) != number:
+                errors.append(
+                    _("Row %(row)s: carton %(carton)s already has a different %(column)s.")
+                    % {"row": row_number, "carton": carton, "column": column}
+                )
+            elif number is not None:
+                known[column] = number
         serial = values.get("oem_serial", "")
         if serial and item_type is not None and item_type.is_serial and quantity not in (None, 1):
             errors.append(_("Row %(row)s: a serial number needs quantity 1.") % {"row": row_number})
@@ -80,6 +117,7 @@ def parse(text):
                 "quantity": quantity,
                 "serial": serial,
                 "batch": values.get("batch_no", ""),
+                "specs": known,
             }
         )
     if not rows and not errors:
@@ -118,6 +156,11 @@ def import_packing_list(user, consignment, raw_bytes, request=None):
             carton = ensure_unit(
                 user, consignment, HandlingUnit.Kind.CARTON, row["carton"], parent=pallet or container
             )
+            changed = [column for column, number in row["specs"].items() if getattr(carton, column) != number]
+            if changed:
+                for column in changed:
+                    setattr(carton, column, row["specs"][column])
+                carton.save(update_fields=changed)
             summary["cartons"].add(carton.code)
             created = add_items(
                 user,

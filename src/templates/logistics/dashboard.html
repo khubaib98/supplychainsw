@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<section class="kpis" aria-label="{% trans 'Key figures' %}">
+<section class="kpis six" aria-label="{% trans 'Key figures' %}">
   <a class="kpi" href="{% url 'logistics:consignments' %}">
     <span class="label">{% trans "Active consignments" %}</span>
     <span class="value">{{ active|length }}</span>
@@ -39,7 +39,7 @@
   <div class="kpi{% if delayed %} caution{% endif %}">
     <span class="label">{% trans "Delayed shipments" %}</span>
     <span class="value">{{ delayed|length }}</span>
-    <span class="detail">{% if delayed %}{% icon "clock" %}{% endif %}{% trans "ETA passed, not yet arrived" %}</span>
+    <span class="detail">{% if delayed %}{% icon "clock" %}{% endif %}{% trans "ETA passed, or tagged as delayed" %}</span>
   </div>
   <div class="kpi">
     <span class="label">{% trans "Units received at destination" %}</span>
@@ -105,8 +105,9 @@
     <h3 style="margin-top:.75rem">{% trans "Delayed shipments" %}</h3>
     <ul class="list">{% for c in delayed %}
       <li><div class="main"><a href="{% url 'logistics:consignment' c.code %}"><span class="code">{{ c.code }}</span> · {{ c.origin }} → {{ c.destination }}</a>
-        <div class="meta">{% trans "ETA" %} {{ c.eta|day }} · {{ c.get_status_display }}</div></div>
-        <span class="pill state-serious">{% icon "clock" %}{% trans "Delayed" %}</span></li>{% endfor %}</ul>
+        <div class="meta">{% trans "ETA" %} {{ c.eta|day|default:"—" }} · {{ c.get_status_display }}</div>
+        {% with tag=c.delay_tag %}{% if tag.note %}{% free_text tag.note tag.note_lang as n %}<div class="meta">{{ n.text }}</div>{% endif %}{% endwith %}</div>
+        {% with tag=c.delay_tag %}{% if tag %}{% include "logistics/_tag.html" %}{% else %}<span class="pill state-serious">{% icon "clock" %}{% trans "Delayed" %}</span>{% endif %}{% endwith %}</li>{% endfor %}</ul>
     {% endif %}
     {% if issues %}
     <h3 style="margin-top:.75rem">{% trans "Open damage and discrepancy reports" %}</h3>

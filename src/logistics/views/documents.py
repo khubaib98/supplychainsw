@@ -51,7 +51,8 @@ def documents(request, code):
         "rows": rows,
         "others": others,
         "upload_form": UploadForm(doc_types=uploadable) if uploadable else None,
-        "requirement_form": RequirementForm() if perms.can_manage_requirements(user, consignment) else None,
+        # Prefixed: the upload form on the same page also has a doc_type field.
+        "requirement_form": RequirementForm(prefix="req") if perms.can_manage_requirements(user, consignment) else None,
         "can_manage": perms.can_manage_requirements(user, consignment),
         "max_mb": settings.PORTAL["UPLOAD_MAX_MB"],
     }
@@ -115,10 +116,12 @@ def archive(request, pk):
 @require_POST
 def add_requirement(request, code):
     consignment = get_consignment(request.user, code)
-    form = RequirementForm(request.POST)
+    form = RequirementForm(request.POST, prefix="req")
     if form.is_valid():
         run(request, services.add_requirement, request.user, consignment, form.cleaned_data["doc_type"],
             due_override=form.cleaned_data["due_override"], request=request, success=_("Requirement added."))
+    else:
+        messages.error(request, _("Please correct the form: %(errors)s") % {"errors": form.errors.as_text()})
     return redirect("logistics:documents", code=code)
 
 

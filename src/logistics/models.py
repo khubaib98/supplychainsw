@@ -23,6 +23,11 @@ PARTY_CHOICES = [
 ]
 
 
+class ItemTypeManager(models.Manager):
+    def get_by_natural_key(self, code):
+        return self.get(code=code)
+
+
 class ItemType(models.Model):
     """Item master: one row per product, with names in all three languages."""
 
@@ -50,6 +55,9 @@ class ItemType(models.Model):
     )
     is_active = models.BooleanField(_("active"), default=True)
 
+    # The code identifies an item type, so loading an item master file twice updates it instead of failing.
+    objects = ItemTypeManager()
+
     class Meta:
         ordering = ["code"]
         verbose_name = _("item type")
@@ -57,6 +65,9 @@ class ItemType(models.Model):
 
     def __str__(self):
         return f"{self.code} – {self.name_en}"
+
+    def natural_key(self):
+        return (self.code,)
 
     def name(self, lang=None):
         return localized_attr(self, "name", lang)
@@ -187,8 +198,15 @@ class Consignment(models.Model):
             self._milestones = list(self.milestones.all())
         return self._milestones
 
+    def active_tags(self):
+        """Tags shown next to the status (Delayed, On hold, Priority). Uses prefetched tags when present."""
+        return [tag for tag in self.tags.all() if tag.is_active]
+
+    def delay_tag(self):
+        return next((tag for tag in self.active_tags() if tag.kind == ConsignmentTag.Kind.DELAY), None)
+
     @property
-    def is_delayed(self):
+    def eta_passed(self):
         """ETA has passed and the goods have not arrived."""
         return bool(
             self.eta
@@ -197,8 +215,72 @@ class Consignment(models.Model):
         )
 
     @property
+    def is_delayed(self):
+        """The ETA has passed without arrival, or someone tagged the consignment as delayed."""
+        return self.eta_passed or self.delay_tag() is not None
+
+    @property
     def is_active(self):
         return not self.is_archived and self.status != self.Status.CLOSED
+
+
+class ConsignmentTag(models.Model):
+    """
+    A tag everyone sees next to a consignment's status (Delayed, On hold,
+    Priority) or a dated status update. Tags stay until someone removes them;
+    nothing is deleted, so the history stays readable.
+    """
+
+    class Kind(models.TextChoices):
+        DELAY = "delay", _("Delayed")
+        HOLD = "hold", _("On hold")
+        PRIORITY = "priority", _("Priority")
+        UPDATE = "update", _("Status update")
+
+    STYLE = {
+        Kind.DELAY: ("state-serious", "clock"),
+        Kind.HOLD: ("state-warning", "alert"),
+        Kind.PRIORITY: ("state-critical", "alert"),
+        Kind.UPDATE: ("state-neutral", "info"),
+    }
+
+    consignment = models.ForeignKey(Consignment, on_delete=models.CASCADE, related_name="tags")
+    kind = models.CharField(_("tag"), max_length=10, choices=Kind.choices)
+    note = models.CharField(_("what happened"), max_length=300, blank=True)
+    note_lang = models.CharField(max_length=10, blank=True)
+    revised_eta = models.DateField(_("revised ETA"), null=True, blank=True)
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
+    added_by_party = models.CharField(max_length=10, choices=Organization.Kind.choices)
+    added_at = models.DateTimeField(default=now)
+    removed_at = models.DateTimeField(null=True, blank=True)
+    removed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+    )
+
+    class Meta:
+        ordering = ["-added_at", "-id"]
+        verbose_name = _("tag or status update")
+        verbose_name_plural = _("tags and status updates")
+
+    def __str__(self):
+        return f"{self.consignment.code} {self.kind}"
+
+    @property
+    def is_update(self):
+        return self.kind == self.Kind.UPDATE
+
+    @property
+    def is_active(self):
+        """A tag (not a status update) that nobody has removed yet."""
+        return not self.is_update and self.removed_at is None
+
+    @property
+    def css(self):
+        return self.STYLE[self.kind][0]
+
+    @property
+    def icon(self):
+        return self.STYLE[self.kind][1]
 
 
 class MilestoneEvent(models.Model):

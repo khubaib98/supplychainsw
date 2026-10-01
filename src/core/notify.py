@@ -32,6 +32,10 @@ TEMPLATES = {
     "thread_reply": _("%(user)s replied on %(code)s: %(subject)s"),
     "thread_state": _("%(user)s marked “%(subject)s” on %(code)s as %(state)s."),
     "status": _("%(code)s is now: %(status)s."),
+    "doc_required": _("%(user)s added a required document to %(code)s: %(doc)s."),
+    "tag_added": _("%(user)s tagged %(code)s: %(tag)s. %(note)s"),
+    "tag_removed": _("%(user)s removed the tag “%(tag)s” from %(code)s."),
+    "status_update": _("Status update on %(code)s from %(user)s: %(note)s"),
 }
 
 
@@ -42,7 +46,7 @@ class _Params(dict):
 
 def render_notification(kind, params):
     """Render a notification in the currently active language."""
-    from logistics.models import Consignment, DocumentType, Thread
+    from logistics.models import Consignment, ConsignmentTag, DocumentType, Thread
 
     values = _Params(params or {})
     if values.get("doc_type"):
@@ -54,10 +58,12 @@ def render_notification(kind, params):
         values["category"] = dict(Thread.Category.choices).get(values["category"], values["category"])
     if values.get("state"):
         values["state"] = dict(Thread.State.choices).get(values["state"], values["state"])
+    if values.get("tag"):
+        values["tag"] = dict(ConsignmentTag.Kind.choices).get(values["tag"], values["tag"])
     template = TEMPLATES.get(kind)
     if template is None:
         return kind
-    return str(template) % values
+    return (str(template) % values).strip()
 
 
 def _user_language(user):
