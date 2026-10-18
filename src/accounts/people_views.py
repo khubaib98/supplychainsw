@@ -21,7 +21,7 @@ from django.views.decorators.http import require_POST
 from accounts import people
 from accounts.forms import ComputerSettingsForm, PersonForm, SetupForm
 from accounts.models import Organization, Profile
-from core import audit, desktop
+from core import audit, desktop, links
 from core.templatetags.portal import qr_svg
 from core.views import BOOT_ID
 
@@ -31,6 +31,14 @@ URL_LABELS = {
     "local": gettext_lazy("On this computer"),
     "network": gettext_lazy("In the office network"),
     "public": gettext_lazy("From anywhere (internet)"),
+    "temporary": gettext_lazy("From anywhere (temporary address)"),
+}
+TUNNEL_STATES = {
+    "starting": gettext_lazy("Cloudflare Tunnel is starting…"),
+    "downloading": gettext_lazy("Downloading Cloudflare's cloudflared program (only this once)…"),
+    "connecting": gettext_lazy("Cloudflare Tunnel is connecting…"),
+    "connected": gettext_lazy("Cloudflare Tunnel is connected."),
+    "failed": gettext_lazy("Cloudflare Tunnel is not working."),
 }
 
 
@@ -76,7 +84,7 @@ def setup_view(request):
 
 def _access_urls():
     rows = []
-    for entry in people.access_urls():
+    for entry in links.access_urls():
         rows.append({
             **entry,
             "label": URL_LABELS.get(entry["kind"], entry["kind"]),
@@ -102,7 +110,7 @@ def people_view(request):
         "admins": User.objects.filter(is_superuser=True).order_by("username"),
         "unassigned": User.objects.filter(is_superuser=False, profile__isnull=True).order_by("username"),
         "urls": _access_urls(),
-        "shareable": people.shareable_url(),
+        "shareable": links.shareable_url(),
         "desktop": settings.PORTAL["DESKTOP"],
     }
     if settings.PORTAL["DESKTOP"]:
@@ -113,15 +121,23 @@ def people_view(request):
             messages.error(request, str(exc))
             values = desktop.DEFAULTS
         latest = desktop.latest_backup(home)
+        tunnel = links.tunnel_status()
         context.update({
             "home": home,
             "backups_folder": desktop.backup_folder(home),
             "latest_backup": latest[0] if latest else None,
             "computer_form": ComputerSettingsForm(initial={
                 "network_access": values["network_access"],
+                "tunnel": values["tunnel"],
                 "public_url": values["public_url"],
                 "require_two_factor": values["require_two_factor"],
-            }),
+            }, has_token=bool(values["tunnel_token"])),
+            "tunnel": tunnel,
+            "tunnel_state": TUNNEL_STATES.get(tunnel.get("state", "")),
+            # Reachable from the internet without two-factor sign-in for everyone.
+            "suggest_two_factor": not settings.PORTAL["REQUIRE_2FA"] and any(
+                entry["kind"] in ("public", "temporary") for entry in context["urls"]
+            ),
         })
     return render(request, "accounts/people.html", context)
 
@@ -168,7 +184,7 @@ def person_edit(request, pk):
 def person_welcome(request, pk):
     person = _person(pk)
     password = request.session.pop(f"people:password:{pk}", None)
-    url = people.shareable_url()
+    url = links.shareable_url()
     profile = getattr(person, "profile", None)
     context = {
         "person": person,
@@ -218,19 +234,27 @@ def _desktop_home():
 @require_POST
 def computer_settings(request):
     home = _desktop_home()
-    form = ComputerSettingsForm(request.POST)
+    try:
+        saved = desktop.load_settings(home)
+    except desktop.SettingsError:
+        saved = desktop.DEFAULTS
+    form = ComputerSettingsForm(request.POST, has_token=bool(saved["tunnel_token"]))
     if not form.is_valid():
         for errors in form.errors.values():
             for error in errors:
                 messages.error(request, error)
         return redirect("accounts:people")
+    changes = form.changes()
     try:
-        desktop.update_settings(home, **form.cleaned_data)
+        desktop.update_settings(home, **changes)
     except desktop.SettingsError as exc:
         messages.error(request, str(exc))
         return redirect("accounts:people")
+    details = {key: value for key, value in changes.items() if key != "tunnel_token"}  # a secret
+    if "tunnel_token" in changes:
+        details["tunnel_token"] = "replaced"
     audit.log(request.user, "settings.computer", None, request=request, label=desktop.SETTINGS_FILE,
-              details=form.cleaned_data)
+              details=details)
     if desktop.request_restart():
         context = {"next": reverse("accounts:people"), "boot": BOOT_ID}
         return render(request, "accounts/restarting.html", context)

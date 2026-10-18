@@ -5,16 +5,18 @@ The launcher (launcher/portal_launcher.py, shipped as the CNPK-Portal program)
 keeps everything in one data folder, by default "CNPK-Portal" in the user's
 home folder:
 
-    settings.ini   port, network access, public address, e-mail, translation
+    settings.ini   port, network access, tunnel, e-mail, translation
     db.sqlite3     the database
     media/         uploaded documents
     backups/       one zip a day: database snapshot + documents
     outbox/        e-mails, saved here while no mail server is configured
-    logs/          portal.log
+    logs/          portal.log, tunnel.log
+    tools/         cloudflared, if the portal had to download it (see core/tunnel.py)
 
 This module holds what the launcher and the web interface (People page) share.
 It imports nothing from Django, so the launcher can use it before Django starts.
 """
+import base64
 import configparser
 import hashlib
 import json
@@ -48,6 +50,10 @@ RESTART_EXIT_CODE = 75
 BACKUP_PREFIX = "portal-backup-"
 BACKUP_KEEP_AT_LEAST = 7
 ENV_NAME = re.compile(r"^[A-Z][A-Z0-9_]*$")
+TUNNEL_MODES = ("off", "temporary", "token")
+TEMPORARY_HOSTS = ".trycloudflare.com"  # where temporary tunnel addresses live
+# Cloudflare tunnel tokens are base64 JSON, so they start with "eyJ" ('{"').
+TUNNEL_TOKEN = re.compile(r"eyJ[A-Za-z0-9+/=]{40,}")
 
 
 class SettingsError(Exception):
@@ -101,6 +107,8 @@ DEFAULTS = {
     "network_access": False,
     "public_url": "",
     "require_two_factor": False,
+    "tunnel": "off",
+    "tunnel_token": "",
     "keep_days": 30,
     "copy_to": "",
     "smtp_host": "",
@@ -117,6 +125,7 @@ DEFAULTS = {
 
 SECTIONS = {
     "portal": ("port", "network_access", "public_url", "require_two_factor"),
+    "tunnel": ("tunnel", "tunnel_token"),
     "backup": ("keep_days", "copy_to"),
     "email": ("smtp_host", "smtp_port", "smtp_user", "smtp_password", "smtp_tls", "from_address"),
     "translation": ("provider", "anthropic_api_key", "libretranslate_url"),
@@ -126,8 +135,8 @@ TEMPLATE = """\
 # CN-PK Consignment Portal - settings for this computer
 #
 # Change a value, save this file, then restart the portal (close its window
-# and start it again). Administrators can change network access, the public
-# address and two-factor sign-in on the People page instead.
+# and start it again). Administrators can change network access, the tunnel,
+# the public address and two-factor sign-in on the People page instead.
 
 [portal]
 # Port number of the portal. It is part of the address, e.g. http://192.168.1.20:{port}
@@ -138,13 +147,27 @@ port = {port}
 # yes = other computers in the same office network or VPN can open it too
 network_access = {network_access}
 
-# The HTTPS address people use from outside, if you publish the portal
-# through a tunnel such as Cloudflare Tunnel, e.g. https://portal.example.com
+# Your own HTTPS address for people outside, e.g. https://portal.example.com,
+# if the portal is published through your own Cloudflare tunnel (below) or
+# another tunnel. Not needed for a temporary tunnel address.
 public_url = {public_url}
 
 # yes = everyone must use an authenticator app when signing in
 # (recommended as soon as the portal can be reached from the internet)
 require_two_factor = {require_two_factor}
+
+[tunnel]
+# Share the portal over the internet through Cloudflare Tunnel. The portal
+# then runs Cloudflare's cloudflared program itself (and downloads it once
+# into the "tools" folder if it is not installed on this computer).
+# off       = no tunnel
+# temporary = a random address such as https://....trycloudflare.com; no
+#             Cloudflare account needed, but the address changes every time
+#             the portal starts (for trying it out)
+# token     = your own address: create a tunnel in the Cloudflare dashboard,
+#             paste its token below and enter the address as public_url above
+tunnel = {tunnel}
+tunnel_token = {tunnel_token}
 
 [backup]
 # Every day the database and all uploaded documents are saved as one zip
@@ -216,6 +239,24 @@ def normalize_public_url(text):
     return text
 
 
+def normalize_tunnel_token(text):
+    """
+    The token of a tunnel made in the Cloudflare dashboard. The whole install
+    command shown there may be pasted (cloudflared.exe service install eyJ...).
+    """
+    text = (text or "").strip().strip("'\"")
+    if not text:
+        return ""
+    found = max(TUNNEL_TOKEN.findall(text), key=len, default="")
+    try:
+        content = json.loads(base64.b64decode(found, validate=True))
+    except ValueError:  # not base64, or not JSON
+        content = None
+    if not isinstance(content, dict) or not content.get("t"):
+        raise SettingsError("This is not a Cloudflare tunnel token (it starts with eyJ).")
+    return found
+
+
 def _validate(values):
     values["port"] = _parse_int("port", str(values["port"]), 1, 65535)
     values["keep_days"] = _parse_int("keep_days", str(values["keep_days"]), 1, 3650)
@@ -224,6 +265,10 @@ def _validate(values):
     values["provider"] = values["provider"].strip().lower() or "none"
     if values["provider"] not in {"none", "anthropic", "libretranslate"}:
         raise SettingsError(f"{SETTINGS_FILE}: provider must be none, anthropic or libretranslate.")
+    values["tunnel"] = str(values["tunnel"]).strip().lower() or "off"
+    if values["tunnel"] not in TUNNEL_MODES:
+        raise SettingsError(f"{SETTINGS_FILE}: tunnel must be off, temporary or token (found {values['tunnel']!r}).")
+    values["tunnel_token"] = str(values["tunnel_token"]).strip()
     for key in values["advanced"]:
         if not ENV_NAME.match(key):
             raise SettingsError(f"{SETTINGS_FILE}: [advanced] setting names look like PORTAL_REMINDER_DAYS (found {key!r}).")
@@ -338,6 +383,9 @@ def django_environment(home, values, demo=False, addresses=None):
     hosts = ["localhost", "127.0.0.1", "[::1]"]
     if public:
         hosts.append(urlparse(public).hostname)
+    if values["tunnel"] == "temporary":
+        # A new random address at every start of cloudflared, also while the portal runs.
+        hosts.append(TEMPORARY_HOSTS)
     base_url = public or next((u["url"] for u in urls if u["kind"] == "network"), urls[0]["url"])
     env = {
         "DJANGO_SETTINGS_MODULE": "config.settings",
@@ -356,6 +404,7 @@ def django_environment(home, values, demo=False, addresses=None):
         "PORTAL_ACCESS_URLS": json.dumps(urls),
         "PORTAL_INSTANCE": instance_id(home),
         "PORTAL_REQUIRE_2FA": "1" if values["require_two_factor"] else "0",
+        "PORTAL_TUNNEL": values["tunnel"],
         "MT_PROVIDER": values["provider"],
     }
     if demo:
@@ -399,6 +448,30 @@ def request_restart(delay=1.0):
     timer.daemon = True
     timer.start()
     return True
+
+
+# --- tunnel state -----------------------------------------------------------------
+# The launcher runs cloudflared (core/tunnel.py) and reports how it is doing in
+# tunnel.json; the People page reads it. The session ties the file to the launcher
+# that started this portal process, so a file left behind by a crash is ignored.
+
+TUNNEL_STATE_FILE = "tunnel.json"
+TUNNEL_SESSION_ENV = "PORTAL_TUNNEL_SESSION"
+
+
+def write_tunnel_state(home, state):
+    _write_private(Path(home) / TUNNEL_STATE_FILE, json.dumps(state))
+
+
+def read_tunnel_state(home, session):
+    """{"state": "starting" | "downloading" | "connecting" | "connected" | "failed", "url": ..., "message": ...}"""
+    try:
+        state = json.loads((Path(home) / TUNNEL_STATE_FILE).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    if not session or not isinstance(state, dict) or state.get("session") != session:
+        return {}
+    return state
 
 
 # --- backups -------------------------------------------------------------------------

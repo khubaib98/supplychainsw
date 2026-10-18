@@ -1,3 +1,5 @@
+import base64
+import json
 import re
 import shutil
 import tempfile
@@ -12,7 +14,7 @@ from django.urls import reverse
 
 from accounts import people
 from accounts.models import Organization
-from core import desktop
+from core import desktop, links
 from core.models import AuditLog
 from logistics.tests.factories import PASSWORD, world
 
@@ -255,6 +257,73 @@ class ComputerSettingsTests(TestCase):
     def test_rejects_a_public_address_with_a_path(self):
         self.client.post(reverse("accounts:computer"), {"public_url": "https://example.com/portal"})
         self.assertEqual(desktop.load_settings(self.home)["public_url"], "")
+
+    def save(self, **data):
+        return self.client.post(reverse("accounts:computer"), data, follow=True)
+
+    def tunnel_token(self):
+        content = {"a": "0123456789abcdef0123456789abcdef", "t": "5e1f2a7b-9c3d-4e5f-8a6b-7c8d9e0f1a2b", "s": "c2VjcmV0"}
+        return base64.b64encode(json.dumps(content).encode()).decode()
+
+    def test_temporary_tunnel(self):
+        self.save(tunnel="temporary")
+        self.assertEqual(desktop.load_settings(self.home)["tunnel"], "temporary")
+        self.save()  # not sent means off, like the tick boxes
+        self.assertEqual(desktop.load_settings(self.home)["tunnel"], "off")
+
+    def test_own_address_needs_a_token_and_the_address(self):
+        page = self.save(tunnel="token")
+        self.assertContains(page, "Paste the tunnel token from the Cloudflare dashboard.")
+        self.assertContains(page, "Enter the address you gave the tunnel in Cloudflare.")
+        self.assertEqual(desktop.load_settings(self.home)["tunnel"], "off")
+        page = self.save(tunnel="token", tunnel_token="hello", public_url="https://portal.example.com")
+        self.assertContains(page, "This is not a tunnel token.")
+
+    def test_token_is_kept_but_never_shown_or_logged(self):
+        token = self.tunnel_token()
+        self.save(tunnel="token", tunnel_token=f"cloudflared.exe service install {token}",
+                  public_url="https://portal.example.com")
+        values = desktop.load_settings(self.home)
+        self.assertEqual((values["tunnel"], values["tunnel_token"]), ("token", token))
+        page = self.client.get(reverse("accounts:people"))
+        self.assertNotContains(page, token)
+        self.assertContains(page, "A token is saved.")
+        record = AuditLog.objects.get(action="settings.computer")
+        self.assertEqual(record.details["tunnel_token"], "replaced")
+        self.assertNotIn(token, json.dumps(record.details))
+        self.save(tunnel="token", tunnel_token="", public_url="https://portal.example.com")  # keeps the token
+        self.assertEqual(desktop.load_settings(self.home)["tunnel_token"], token)
+        self.assertNotIn("tunnel_token", AuditLog.objects.filter(action="settings.computer").first().details)
+
+    def tunnel_running(self, **state):
+        desktop.write_tunnel_state(self.home, {"session": "s1", "mode": "temporary", **state})
+        return self.settings(PORTAL={**settings.PORTAL, "DESKTOP": True, "TUNNEL": "temporary", "TUNNEL_SESSION": "s1",
+                                     "ACCESS_URLS": [{"kind": "local", "url": "http://127.0.0.1:8000"}]})
+
+    def test_people_page_shows_the_temporary_address(self):
+        with self.tunnel_running(state="connected", url="https://brave-otter-words.trycloudflare.com"):
+            page = self.client.get(reverse("accounts:people"))
+            self.assertEqual(links.absolute("/consignments/"), "https://brave-otter-words.trycloudflare.com/consignments/")
+        self.assertContains(page, "https://brave-otter-words.trycloudflare.com")
+        self.assertContains(page, "From anywhere (temporary address)")
+        self.assertContains(page, "Cloudflare Tunnel is connected.")
+        self.assertContains(page, "a password alone is not enough")
+        self.assertNotContains(page, "only this computer can open the portal")
+
+    def test_people_page_explains_a_problem(self):
+        with self.tunnel_running(state="failed", message="cloudflared could not be downloaded (timed out)."):
+            page = self.client.get(reverse("accounts:people"))
+        self.assertContains(page, "Cloudflare Tunnel is not working.")
+        self.assertContains(page, "cloudflared could not be downloaded (timed out).")
+
+    def test_state_of_an_earlier_launcher_is_ignored(self):
+        desktop.write_tunnel_state(self.home, {"session": "old", "state": "connected",
+                                               "url": "https://old-words.trycloudflare.com"})
+        with self.tunnel_running(state="connected", url="https://brave-otter-words.trycloudflare.com"):
+            desktop.write_tunnel_state(self.home, {"session": "old", "state": "connected",
+                                                   "url": "https://old-words.trycloudflare.com"})
+            page = self.client.get(reverse("accounts:people"))
+        self.assertNotContains(page, "old-words")
 
     def test_back_up_now(self):
         self.client.post(reverse("accounts:backup_now"))

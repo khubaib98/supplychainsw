@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: consignment-portal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 05:31+0000\n"
+"POT-Creation-Date: 2026-10-18 18:22+0000\n"
 "PO-Revision-Date: 2026-09-29 18:00+0000\n"
 "Last-Translator: Initial machine-assisted draft - to be reviewed by native speakers\n"
 "Language-Team: Simplified Chinese\n"
@@ -95,19 +95,58 @@ msgstr "该用户名已被使用。"
 msgid "Other computers in the office network may open the portal"
 msgstr "允许办公网络中的其他电脑打开平台"
 
+msgid "Share over the internet (Cloudflare Tunnel)"
+msgstr "通过互联网共享（Cloudflare 隧道）"
+
+msgid "No"
+msgstr "否"
+
+msgid "Temporary address (no account needed)"
+msgstr "临时地址（无需账号）"
+
+msgid "Own address (Cloudflare account)"
+msgstr "自有地址（需要 Cloudflare 账号）"
+
+msgid ""
+"A temporary address works at once but changes every time the portal starts. "
+"An own address needs a Cloudflare account and a domain."
+msgstr "临时地址可立即使用，但每次启动平台都会变化。自有地址需要 Cloudflare 账号和域名。"
+
+msgid "Tunnel token (own address)"
+msgstr "隧道令牌（自有地址）"
+
+msgid ""
+"From the Cloudflare dashboard, when you create the tunnel. You may paste the"
+" whole install command. Leave empty to keep the saved token."
+msgstr "在 Cloudflare 控制台创建隧道时获得。可以粘贴完整的安装命令。留空则保留已保存的令牌。"
+
 msgid "Public address (HTTPS tunnel)"
 msgstr "公网地址（HTTPS 隧道）"
 
 msgid ""
-"Only if the portal is published through a tunnel, e.g. "
-"https://portal.example.com"
-msgstr "仅在通过隧道对外发布平台时填写，例如 https://portal.example.com"
+"Your own address, e.g. https://portal.example.com. Not needed for a "
+"temporary address."
+msgstr "您自己的地址，例如 https://portal.example.com。使用临时地址时无需填写。"
 
 msgid "Everyone must use an authenticator app to sign in"
 msgstr "所有人登录时都必须使用验证器应用"
 
+msgid "A token is saved. Paste a new one only to replace it."
+msgstr "已保存令牌。仅在需要替换时才粘贴新令牌。"
+
+msgid ""
+"This is not a tunnel token. In the Cloudflare dashboard, copy the token (it "
+"starts with eyJ) or the whole install command."
+msgstr "这不是隧道令牌。请在 Cloudflare 控制台复制令牌（以 eyJ 开头）或完整的安装命令。"
+
 msgid "Enter an address like https://portal.example.com (without a path)."
 msgstr "请输入类似 https://portal.example.com 的地址（不带路径）。"
+
+msgid "Paste the tunnel token from the Cloudflare dashboard."
+msgstr "请粘贴 Cloudflare 控制台中的隧道令牌。"
+
+msgid "Enter the address you gave the tunnel in Cloudflare."
+msgstr "请输入您在 Cloudflare 中为隧道设置的地址。"
 
 msgid "China (Asia/Shanghai, UTC+8)"
 msgstr "中国（Asia/Shanghai，UTC+8）"
@@ -238,6 +277,24 @@ msgstr "在办公网络中"
 
 msgid "From anywhere (internet)"
 msgstr "任何地方（互联网）"
+
+msgid "From anywhere (temporary address)"
+msgstr "任何地方（临时地址）"
+
+msgid "Cloudflare Tunnel is starting…"
+msgstr "Cloudflare 隧道正在启动…"
+
+msgid "Downloading Cloudflare's cloudflared program (only this once)…"
+msgstr "正在下载 Cloudflare 的 cloudflared 程序（仅此一次）…"
+
+msgid "Cloudflare Tunnel is connecting…"
+msgstr "Cloudflare 隧道正在连接…"
+
+msgid "Cloudflare Tunnel is connected."
+msgstr "Cloudflare 隧道已连接。"
+
+msgid "Cloudflare Tunnel is not working."
+msgstr "Cloudflare 隧道未能正常工作。"
 
 msgid "The portal is ready. Now add the people who will use it."
 msgstr "平台已准备就绪。现在请添加将使用平台的人员。"
@@ -1569,14 +1626,25 @@ msgstr "这些账号看不到任何货运批次。请在系统管理后台中为
 msgid "How people connect"
 msgstr "如何访问平台"
 
+msgid "Changes every time the portal starts."
+msgstr "每次启动平台时都会变化。"
+
 msgid "Scan with a phone to open the portal"
 msgstr "用手机扫码打开平台"
 
+msgid "Refresh"
+msgstr "刷新"
+
 msgid ""
 "At the moment only this computer can open the portal. Allow other computers "
-"in the office network below, or publish the portal through a tunnel for "
-"people in other places (see the guide)."
-msgstr "目前只有这台电脑可以打开平台。可在下方允许办公网络中的其他电脑访问，或通过隧道对外发布平台，供其他地点的人员使用（见使用指南）。"
+"in the office network below, or share the portal over the internet with "
+"Cloudflare Tunnel."
+msgstr "目前只有这台电脑可以打开平台。可在下方允许办公网络中的其他电脑访问，或通过 Cloudflare 隧道在互联网上共享平台。"
+
+msgid ""
+"The portal can be opened from the internet. Below, tick “Everyone must use "
+"an authenticator app to sign in”, so that a password alone is not enough."
+msgstr "平台可以从互联网打开。请在下方勾选“所有人登录时都必须使用验证器应用”，这样仅凭密码无法登录。"
 
 msgid "This computer"
 msgstr "本机"
@@ -1819,9 +1887,6 @@ msgstr "所有更改都记录在防篡改的审计日志中。"
 
 msgid "Someone else just updated this information."
 msgstr "其他人刚刚更新了此信息。"
-
-msgid "Refresh"
-msgstr "刷新"
 
 msgid "Mark all as read"
 msgstr "全部标为已读"

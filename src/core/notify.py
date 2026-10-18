@@ -19,6 +19,7 @@ from django.core.mail import EmailMessage, get_connection
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
+from core.links import absolute
 from core.models import Notification
 
 logger = logging.getLogger(__name__)
@@ -69,12 +70,6 @@ def render_notification(kind, params):
 def _user_language(user):
     profile = getattr(user, "profile", None)
     return profile.language if profile else settings.LANGUAGE_CODE
-
-
-def absolute(url):
-    if not url or url.startswith("http"):
-        return url
-    return settings.PORTAL["BASE_URL"].rstrip("/") + url
 
 
 def notify(users, kind, params, *, consignment=None, url="", email=True, organizations=()):

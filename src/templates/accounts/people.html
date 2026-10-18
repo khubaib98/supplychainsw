@@ -52,13 +52,23 @@
       <ul class="list">
         {% for entry in urls %}
         <li>
-          <div class="main"><div class="meta">{{ entry.label }}</div><a class="code wrap" href="{{ entry.url }}" dir="ltr">{{ entry.url }}</a></div>
+          <div class="main"><div class="meta">{{ entry.label }}</div><a class="code wrap" href="{{ entry.url }}" dir="ltr">{{ entry.url }}</a>
+            {% if entry.kind == "temporary" %}<div class="meta">{% trans "Changes every time the portal starts." %}</div>{% endif %}</div>
           {% if entry.qr %}<div style="width:92px;flex:none" title="{% trans 'Scan with a phone to open the portal' %}">{{ entry.qr }}</div>{% endif %}
         </li>
         {% endfor %}
       </ul>
-      {% if desktop and not shareable %}
-      <div class="callout warn" style="margin-top:.75rem;margin-bottom:0">{% trans "At the moment only this computer can open the portal. Allow other computers in the office network below, or publish the portal through a tunnel for people in other places (see the guide)." %}</div>
+      {% if tunnel %}
+      <div class="callout{% if tunnel.state == 'failed' or tunnel.message %} warn{% endif %}" style="margin-top:.75rem;margin-bottom:0">
+        <strong>{{ tunnel_state }}</strong>
+        {% if tunnel.state != "connected" and tunnel.state != "failed" %}<a href="{% url 'accounts:people' %}">{% trans "Refresh" %}</a>{% endif %}
+        {% if tunnel.message %}<div class="wrap" dir="ltr" style="margin-top:.35rem">{{ tunnel.message }}</div>{% endif %}
+      </div>
+      {% elif desktop and not shareable %}
+      <div class="callout warn" style="margin-top:.75rem;margin-bottom:0">{% trans "At the moment only this computer can open the portal. Allow other computers in the office network below, or share the portal over the internet with Cloudflare Tunnel." %}</div>
+      {% endif %}
+      {% if suggest_two_factor %}
+      <div class="callout warn" style="margin-top:.75rem;margin-bottom:0">{% trans "The portal can be opened from the internet. Below, tick “Everyone must use an authenticator app to sign in”, so that a password alone is not enough." %}</div>
       {% endif %}
     </section>
 

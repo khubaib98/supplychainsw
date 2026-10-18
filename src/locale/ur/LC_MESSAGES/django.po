@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: consignment-portal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 05:31+0000\n"
+"POT-Creation-Date: 2026-10-18 18:22+0000\n"
 "PO-Revision-Date: 2026-09-29 18:00+0000\n"
 "Last-Translator: Initial machine-assisted draft - to be reviewed by native speakers\n"
 "Language-Team: Urdu\n"
@@ -95,21 +95,66 @@ msgstr "یہ یوزر نیم پہلے سے استعمال میں ہے۔"
 msgid "Other computers in the office network may open the portal"
 msgstr "دفتر کے نیٹ ورک کے دوسرے کمپیوٹر بھی پورٹل کھول سکیں"
 
+msgid "Share over the internet (Cloudflare Tunnel)"
+msgstr "انٹرنیٹ پر شیئر کریں (Cloudflare ٹنل)"
+
+msgid "No"
+msgstr "نہیں"
+
+msgid "Temporary address (no account needed)"
+msgstr "عارضی پتا (اکاؤنٹ کی ضرورت نہیں)"
+
+msgid "Own address (Cloudflare account)"
+msgstr "اپنا پتا (Cloudflare اکاؤنٹ)"
+
+msgid ""
+"A temporary address works at once but changes every time the portal starts. "
+"An own address needs a Cloudflare account and a domain."
+msgstr ""
+"عارضی پتا فوراً کام کرتا ہے لیکن پورٹل کے ہر بار شروع ہونے پر بدل جاتا ہے۔ "
+"اپنے پتے کے لیے Cloudflare اکاؤنٹ اور ڈومین درکار ہے۔"
+
+msgid "Tunnel token (own address)"
+msgstr "ٹنل ٹوکن (اپنا پتا)"
+
+msgid ""
+"From the Cloudflare dashboard, when you create the tunnel. You may paste the"
+" whole install command. Leave empty to keep the saved token."
+msgstr ""
+"یہ Cloudflare ڈیش بورڈ میں ٹنل بناتے وقت ملتا ہے۔ آپ پوری انسٹال کمانڈ پیسٹ "
+"کر سکتے ہیں۔ محفوظ ٹوکن رکھنے کے لیے خالی چھوڑ دیں۔"
+
 msgid "Public address (HTTPS tunnel)"
 msgstr "عوامی پتا (HTTPS ٹنل)"
 
 msgid ""
-"Only if the portal is published through a tunnel, e.g. "
-"https://portal.example.com"
+"Your own address, e.g. https://portal.example.com. Not needed for a "
+"temporary address."
 msgstr ""
-"صرف اس صورت میں جب پورٹل ٹنل کے ذریعے شائع کیا گیا ہو، مثلاً "
-"https://portal.example.com"
+"آپ کا اپنا پتا، مثلاً https://portal.example.com — عارضی پتے کے لیے اس کی "
+"ضرورت نہیں۔"
 
 msgid "Everyone must use an authenticator app to sign in"
 msgstr "سب کے لیے سائن ان کرتے وقت آتھنٹیکیٹر ایپ استعمال کرنا لازمی ہو"
 
+msgid "A token is saved. Paste a new one only to replace it."
+msgstr "ایک ٹوکن محفوظ ہے۔ نیا ٹوکن صرف اسے بدلنے کے لیے پیسٹ کریں۔"
+
+msgid ""
+"This is not a tunnel token. In the Cloudflare dashboard, copy the token (it "
+"starts with eyJ) or the whole install command."
+msgstr ""
+"یہ ٹنل ٹوکن نہیں ہے۔ Cloudflare ڈیش بورڈ میں ٹوکن (جو eyJ سے شروع ہوتا ہے) "
+"یا پوری انسٹال کمانڈ کاپی کریں۔"
+
 msgid "Enter an address like https://portal.example.com (without a path)."
 msgstr "https://portal.example.com جیسا پتا درج کریں (بغیر پاتھ کے)۔"
+
+msgid "Paste the tunnel token from the Cloudflare dashboard."
+msgstr "Cloudflare ڈیش بورڈ سے ٹنل ٹوکن پیسٹ کریں۔"
+
+msgid "Enter the address you gave the tunnel in Cloudflare."
+msgstr "وہ پتا درج کریں جو آپ نے Cloudflare میں ٹنل کو دیا ہے۔"
 
 msgid "China (Asia/Shanghai, UTC+8)"
 msgstr "چین (Asia/Shanghai، UTC+8)"
@@ -245,6 +290,25 @@ msgstr "دفتر کے نیٹ ورک میں"
 
 msgid "From anywhere (internet)"
 msgstr "کہیں سے بھی (انٹرنیٹ)"
+
+msgid "From anywhere (temporary address)"
+msgstr "کہیں سے بھی (عارضی پتا)"
+
+msgid "Cloudflare Tunnel is starting…"
+msgstr "Cloudflare ٹنل شروع ہو رہا ہے…"
+
+msgid "Downloading Cloudflare's cloudflared program (only this once)…"
+msgstr ""
+"Cloudflare کا cloudflared پروگرام ڈاؤن لوڈ ہو رہا ہے (صرف اس ایک بار)…"
+
+msgid "Cloudflare Tunnel is connecting…"
+msgstr "Cloudflare ٹنل جڑ رہا ہے…"
+
+msgid "Cloudflare Tunnel is connected."
+msgstr "Cloudflare ٹنل جڑ گیا ہے۔"
+
+msgid "Cloudflare Tunnel is not working."
+msgstr "Cloudflare ٹنل کام نہیں کر رہا۔"
 
 msgid "The portal is ready. Now add the people who will use it."
 msgstr "پورٹل تیار ہے۔ اب ان لوگوں کو شامل کریں جو اسے استعمال کریں گے۔"
@@ -1601,17 +1665,31 @@ msgstr ""
 msgid "How people connect"
 msgstr "لوگ پورٹل تک کیسے پہنچیں"
 
+msgid "Changes every time the portal starts."
+msgstr "پورٹل ہر بار شروع ہونے پر یہ بدل جاتا ہے۔"
+
 msgid "Scan with a phone to open the portal"
 msgstr "پورٹل کھولنے کے لیے فون سے اسکین کریں"
 
+msgid "Refresh"
+msgstr "ریفریش"
+
 msgid ""
 "At the moment only this computer can open the portal. Allow other computers "
-"in the office network below, or publish the portal through a tunnel for "
-"people in other places (see the guide)."
+"in the office network below, or share the portal over the internet with "
+"Cloudflare Tunnel."
 msgstr ""
 "اس وقت صرف یہی کمپیوٹر پورٹل کھول سکتا ہے۔ نیچے دفتر کے نیٹ ورک کے دوسرے "
-"کمپیوٹرز کو اجازت دیں، یا دوسری جگہوں کے لوگوں کے لیے پورٹل کو ٹنل کے ذریعے "
-"شائع کریں (گائیڈ دیکھیں)۔"
+"کمپیوٹرز کو اجازت دیں، یا Cloudflare ٹنل کے ذریعے پورٹل کو انٹرنیٹ پر شیئر "
+"کریں۔"
+
+msgid ""
+"The portal can be opened from the internet. Below, tick “Everyone must use "
+"an authenticator app to sign in”, so that a password alone is not enough."
+msgstr ""
+"پورٹل انٹرنیٹ سے کھولا جا سکتا ہے۔ نیچے “سب کے لیے سائن ان کرتے وقت "
+"آتھنٹیکیٹر ایپ استعمال کرنا لازمی ہو” پر نشان لگائیں، تاکہ صرف پاس ورڈ کافی "
+"نہ ہو۔"
 
 msgid "This computer"
 msgstr "یہ کمپیوٹر"
@@ -1886,9 +1964,6 @@ msgstr "ہر تبدیلی چھیڑ چھاڑ ظاہر کرنے والے آڈٹ ل
 
 msgid "Someone else just updated this information."
 msgstr "کسی اور نے ابھی یہ معلومات اپ ڈیٹ کی ہیں۔"
-
-msgid "Refresh"
-msgstr "ریفریش"
 
 msgid "Mark all as read"
 msgstr "سب کو پڑھا ہوا قرار دیں"

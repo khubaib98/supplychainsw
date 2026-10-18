@@ -6,7 +6,8 @@ This guide answers three questions:
    it and double-click it. You need no Python, no Docker and no installer.
 2. **Can I host it on my computer and give the Shipper and Receiver access?** Yes:
    - colleagues in the same office connect through the office network;
-   - people in other cities or countries connect through a secure tunnel (Cloudflare Tunnel).
+   - people in other cities or countries connect through a secure tunnel (Cloudflare Tunnel,
+     built into the program).
 
    There is one real limit. A computer in an office is less reliable than a small cloud server,
    and access from mainland China through a tunnel can be slow. Test it from the Shipper's
@@ -19,7 +20,7 @@ This guide answers three questions:
 flowchart LR
   subgraph PC["Your computer (for example at the Oversight office)"]
     P[CNPK-Portal program<br/>portal + database + daily backup]
-    T[cloudflared<br/>optional tunnel]
+    T[cloudflared<br/>tunnel, started by the program]
   end
   O[Colleagues in the same office] -- "http://192.168.x.x:8000" --> P
   S[Shipper - China] -- HTTPS --> CF((Cloudflare))
@@ -43,7 +44,7 @@ The program is built automatically by GitHub every time the code changes:
    click **OK**. This avoids a security prompt for every file.
 4. Unzip it to a simple place, for example `C:\CNPK-Portal`.
 
-Artifacts are deleted after 30 days. For a permanent download page, publish a release:
+Artifacts are deleted after 7 days (30 for a release). For a permanent download page, publish a release:
 
 1. On GitHub, open **Releases › Draft a new release**.
 2. Under **Choose a tag**, type `v1.2.0` and pick **Create new tag**.
@@ -130,7 +131,7 @@ the 57-carton example on port 8001. Your real data is not touched.
 | Who needs access | How | Effort | Notes |
 |---|---|---|---|
 | People in the **same office or building** | Turn on network access | 2 minutes | Plain HTTP inside the office network. Fine on a private office network with strong passwords; never on public Wi-Fi. |
-| People in **other cities or countries** (Shipper in China, Receiver's warehouse) | **Cloudflare Tunnel** | 30 minutes; needs a domain name (about US$10 a year) | HTTPS; no open ports on your router; your office IP address stays private; works behind the carrier-grade NAT common on Pakistani connections. |
+| People in **other cities or countries** (Shipper in China, Receiver's warehouse) | **Cloudflare Tunnel**, built into the program | 1 minute with a temporary address; 30 minutes for your own address (needs a domain name, about US$10 a year) | HTTPS; no open ports on your router; your office IP address stays private; works behind the carrier-grade NAT common on Pakistani connections. |
 | A few trusted people with laptops | Tailscale (private network) | 10 minutes per person | Encrypted, no domain needed, but every user installs an app, and it is often unreliable from mainland China. |
 | Anyone | Port forwarding on the router | Not recommended | Exposes the computer directly to the internet and needs your own HTTPS set-up. Many connections in Pakistan cannot receive incoming connections at all. |
 
@@ -149,45 +150,94 @@ the 57-carton example on port 8001. Your real data is not touched.
 4. Ask whoever manages the router to give this computer a **fixed address** (a *DHCP reservation*).
    Otherwise the address can change after a restart.
 
-### B. From anywhere, with Cloudflare Tunnel (recommended)
+### B. From anywhere, with Cloudflare Tunnel (built in)
 
-The tunnel is a small Cloudflare program (`cloudflared`) on your computer. It connects
-*out* to Cloudflare, and Cloudflare serves `https://portal.yourcompany.com` to the world with a
-valid certificate. Nothing on your router has to change.
+The program runs Cloudflare's tunnel program, **cloudflared**, by itself. cloudflared connects
+*out* to Cloudflare, and Cloudflare serves the portal over HTTPS to people anywhere. Nothing on your
+router has to change, and the address of your office stays private. If cloudflared is not
+installed on the computer, the portal downloads it the first time (about 55 MB, Cloudflare's own
+release on GitHub) into the `tools` folder of the data folder, and checks its checksum.
+
+There are two ways:
+
+| | Temporary address | Own address |
+|---|---|---|
+| Address | random, e.g. `https://brave-otter-sample-words.trycloudflare.com` | yours, e.g. `https://portal.yourcompany.com` |
+| Changes | every time the portal starts | never |
+| Needs | nothing | a free Cloudflare account and a domain (about US$10 a year) |
+| Good for | trying it out with the Shipper and the Receiver | everyday use |
+
+Cloudflare offers temporary addresses for testing: there is no uptime guarantee, and at most 200
+requests can be under way at once.
+
+#### B1. A temporary address (1 minute)
+
+1. Go to **People › This computer**:
+   - set **Share over the internet (Cloudflare Tunnel)** to **Temporary address**;
+   - tick **Everyone must use an authenticator app to sign in**;
+   - click **Save and restart**.
+
+   You can also start the program once with `CNPK-Portal --tunnel`; the setting is remembered.
+2. After a few seconds **People › How people connect** shows the address with a QR code. The
+   portal window shows it too:
+
+   ```text
+   From the internet:  https://brave-otter-sample-words.trycloudflare.com
+                       (temporary: a new address every time the portal starts)
+   ```
+
+   ![People page with a temporary address through Cloudflare Tunnel](img/desktop-people.png)
+3. Send the address to the people who should open the portal. The sign-in messages on the People
+   page use it.
+
+The address changes whenever the portal or the computer restarts. Send the new one each time, or
+set up your own address (B2).
+
+#### B2. Your own address (30 minutes)
 
 1. Buy a domain, or use one you have, and add it to a free Cloudflare account.
 2. In the Cloudflare dashboard open **Zero Trust › Networks › Tunnels**, click **Create a tunnel**,
    choose **Cloudflared** and name it `cnpk-portal`.
-3. Choose **Windows**, then:
-   - download and install `cloudflared`;
-   - run the `cloudflared.exe service install …` command shown on the page, in a Command Prompt
-     opened with **Run as administrator**.
-
-   The tunnel now runs as a Windows service and starts with Windows.
+3. Cloudflare shows an install command with a long token that starts with `eyJ`. Copy the command,
+   or only the token. You do not need to run it: the portal runs cloudflared itself.
 4. Add a **public hostname**:
    - subdomain `portal`, your domain;
    - service **HTTP**, URL **`127.0.0.1:8000`**.
 5. In the portal, go to **People › This computer**:
+   - set **Share over the internet** to **Own address**;
+   - paste the token, or the whole command, into **Tunnel token**;
    - enter **Public address** `https://portal.yourcompany.com`;
    - tick **Everyone must use an authenticator app to sign in**;
    - click **Save and restart**.
+6. **People › How people connect** shows *Cloudflare Tunnel is connected.* If the public hostname in
+   Cloudflare points somewhere else, it says what to change.
 
-   Network access can stay off; the tunnel does not need it.
-6. Test from a phone on **mobile data** (not the office Wi-Fi): open `https://portal.yourcompany.com`.
-7. **Test from the Shipper's office in China** for a week, at their busy hours: sign in, open a
-   consignment, upload a document. If it is slow or fails, see
-   [When to move to a cloud server](#when-to-move-to-a-cloud-server).
+Network access can stay off for both ways; the tunnel does not need it.
 
-To try this before buying a domain:
+The token is kept in `settings.ini`, which only your user account and the computer's administrators
+can read. It is never shown in
+the browser and never written to the audit log. Anyone with the token can connect a computer to
+your tunnel, so keep it like a password. If it leaks, refresh it in the Cloudflare dashboard and
+paste the new one.
 
-1. Run `cloudflared tunnel --url http://127.0.0.1:8000`. It prints a temporary
-   `https://….trycloudflare.com` address.
-2. Enter that address as the **Public address** in the portal.
+You can instead run cloudflared as a Windows service, so that the tunnel also runs while the
+portal is closed. Run Cloudflare's install command in a Command Prompt opened with **Run as
+administrator**. In the portal, leave **Share over the internet** on **No** and enter only the
+**Public address**.
 
-This temporary address is for testing only: it changes every time and has no uptime guarantee.
+#### Test from China and from a phone
+
+1. Test from a phone on **mobile data** (not the office Wi-Fi): open the address and sign in.
+2. **Test from the Shipper's office in China** for a week, at their busy hours: sign in, open a
+   consignment, upload a document.
+
+Without Cloudflare's China Network (an Enterprise plan that needs a Chinese ICP licence), visitors
+in mainland China reach Cloudflare through data centres outside the country. Pages can therefore be
+slow there, especially in the evening. If they are too slow or do not open, see
+[When to move to a cloud server](#when-to-move-to-a-cloud-server).
 
 The portal trusts the tunnel's *"this visitor used HTTPS"* header only when it comes from this
-computer itself (where `cloudflared` runs). The same header from anywhere else is removed.
+computer itself (where cloudflared runs). The same header from anywhere else is removed.
 
 ### C. Tailscale (alternative for a few people)
 
@@ -286,6 +336,8 @@ All data lives in one folder, **`CNPK-Portal` in your home folder** (for example
 - [ ] Windows is kept up to date, and the portal is updated when a new version comes out.
 - [ ] Network access is only used on a private office network, never on public Wi-Fi.
 - [ ] Leavers are deactivated on the People page the same day.
+- [ ] The tunnel token (own address) is kept like a password, and a temporary address is sent only
+      to the people who need it.
 - [ ] Backups are copied off the computer (USB disk kept elsewhere, or a trusted cloud folder).
 
 ---
@@ -305,12 +357,14 @@ first (`…-before-upgrade.zip`) and then upgrades the database.
 ## 7. Settings (`settings.ini`)
 
 Open `settings.ini` in the data folder with Notepad, change a value, save it, and restart the portal.
-Administrators can change the first three settings from the People page.
+Administrators can change the first five settings from the People page.
 
 | Setting | Meaning |
 |---|---|
 | `network_access` | `yes`: other computers in the office network may connect. `no`: only this computer (and the tunnel). |
-| `public_url` | The HTTPS address of your tunnel, e.g. `https://portal.yourcompany.com`. Links in reminder e-mails use it. |
+| `tunnel` | Cloudflare Tunnel: `off`, `temporary` (a temporary trycloudflare.com address) or `token` (your own address). |
+| `tunnel_token` | The token of your own tunnel, from the Cloudflare dashboard. |
+| `public_url` | Your own HTTPS address, e.g. `https://portal.yourcompany.com`. Links in reminder e-mails use it. |
 | `require_two_factor` | `yes`: everyone must use an authenticator app. |
 | `port` | Default `8000` (the demo uses `8001`). Change it only if another program uses the port. |
 | `keep_days`, `copy_to` | How long backups are kept, and a second folder that receives a copy of each backup. |
@@ -329,6 +383,7 @@ Run these in a Command Prompt, in the program folder. On Windows, `CNPK-Portal` 
 |---|---|
 | `CNPK-Portal` | start the portal and open the browser |
 | `CNPK-Portal --network` / `--local` | allow / stop access from the office network (remembered) |
+| `CNPK-Portal --tunnel` | share the portal over the internet with a temporary address (remembered; `--tunnel token` for your own address, `--tunnel off` to stop) |
 | `CNPK-Portal --port 8080` | use another port (remembered) |
 | `CNPK-Portal --no-browser` | start without opening the browser |
 | `CNPK-Portal --demo` | the practice copy with demo data (`--fresh` starts it again from scratch) |
@@ -349,6 +404,9 @@ Run these in a Command Prompt, in the program folder. On Windows, `CNPK-Portal` 
 | *"The portal is already running"* | The browser opens the running portal. Its window may be minimised on the taskbar. |
 | Colleagues cannot connect over the office network | Check that network access is on (People › This computer). Check that Windows Firewall allows the program on *Private* networks, and that the network is marked Private. Check the address on People › How people connect. |
 | *"Bad Request (400)"* through the tunnel | Enter the tunnel's address as **Public address** on the People page. |
+| People › How people connect says *Cloudflare Tunnel is not working.* | The reason is shown below it. Common ones: no internet connection; a firewall that blocks outgoing connections to port 7844 (cloudflared needs it, UDP or TCP); a token that was refreshed in Cloudflare. Details are in `logs\tunnel.log` in the data folder. |
+| cloudflared cannot be downloaded | Download `cloudflared-windows-amd64.exe` from Cloudflare's releases on GitHub (github.com/cloudflare/cloudflared/releases) yourself, rename it to `cloudflared.exe` and put it in the program folder. |
+| Antivirus or company security software warns about cloudflared | cloudflared is Cloudflare's own program, signed by Cloudflare, Inc. Some security software warns about it because attackers misuse tunnels too. Allow it, or ask your IT staff to. |
 | Forgot the administrator password | `CNPK-Portal manage changepassword admin` (use your administrator's username). |
 | Someone is locked out after wrong passwords | Wait 15 minutes, or restart the portal. |
 | Someone lost the phone with the authenticator app | People › the person › **Reset two-factor authentication**. |
@@ -417,5 +475,11 @@ and the macOS version for tags.
   corrupt the database.
 - A background thread sends reminders every 15 minutes and makes the daily backup.
 - Before a database upgrade the launcher makes a backup.
+- With a tunnel, the launcher also runs **cloudflared** (`src/core/tunnel.py`). It uses an
+  installed cloudflared, or downloads the pinned release once and checks its SHA-256 (to move to a
+  newer cloudflared, change `VERSION` and the checksums there). It starts cloudflared again if it
+  stops and reports its state in `tunnel.json`, which the People page reads. The token reaches
+  cloudflared through its environment, never its command line. `CNPK_CLOUDFLARED` names another
+  cloudflared to use.
 - The code shared with the web interface (settings file, backups, addresses) is in
   `src/core/desktop.py`.

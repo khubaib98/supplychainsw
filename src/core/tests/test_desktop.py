@@ -1,3 +1,4 @@
+import base64
 import json
 import os
 import shutil
@@ -70,6 +71,44 @@ class SettingsFileTests(DesktopTestCase):
             self.assertEqual((self.home / "secret.key").stat().st_mode & 0o777, 0o600)
 
 
+class TunnelSettingsTests(DesktopTestCase):
+    def token(self):
+        content = {"a": "0123456789abcdef0123456789abcdef", "t": "5e1f2a7b-9c3d-4e5f-8a6b-7c8d9e0f1a2b", "s": "c2VjcmV0"}
+        return base64.b64encode(json.dumps(content).encode()).decode()
+
+    def test_saved_and_read(self):
+        desktop.update_settings(self.home, tunnel="token", tunnel_token=self.token())
+        text = (self.home / "settings.ini").read_text(encoding="utf-8")
+        self.assertIn("[tunnel]\n", text)
+        self.assertIn("tunnel = token\n", text)
+        values = desktop.load_settings(self.home)
+        self.assertEqual((values["tunnel"], values["tunnel_token"]), ("token", self.token()))
+
+    def test_settings_files_of_older_versions(self):
+        (self.home / "settings.ini").write_text("[portal]\nport = 8000\n", encoding="utf-8")
+        values = desktop.load_settings(self.home)
+        self.assertEqual((values["tunnel"], values["tunnel_token"]), ("off", ""))
+
+    def test_bad_mode(self):
+        desktop.load_settings(self.home)
+        path = self.home / "settings.ini"
+        path.write_text(path.read_text(encoding="utf-8").replace("tunnel = off", "tunnel = always"), encoding="utf-8")
+        with self.assertRaisesMessage(desktop.SettingsError, "tunnel must be off, temporary or token"):
+            desktop.load_settings(self.home)
+
+    def test_token_from_what_cloudflare_shows(self):
+        token = self.token()
+        for pasted in (token, f"  {token}\n", f"cloudflared.exe service install {token}",
+                       f"sudo cloudflared service install {token}",
+                       f"docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token {token}"):
+            with self.subTest(pasted=pasted):
+                self.assertEqual(desktop.normalize_tunnel_token(pasted), token)
+        self.assertEqual(desktop.normalize_tunnel_token(""), "")
+        for bad in ("hello", "https://portal.example.com", "eyJ" + "A" * 60, token[:-8]):
+            with self.subTest(bad=bad), self.assertRaises(desktop.SettingsError):
+                desktop.normalize_tunnel_token(bad)
+
+
 class EnvironmentTests(DesktopTestCase):
     def test_local_only(self):
         values = desktop.update_settings(self.home, public_url="https://portal.example.com")
@@ -88,6 +127,14 @@ class EnvironmentTests(DesktopTestCase):
         self.assertEqual(env["PORTAL_BASE_URL"], "http://192.168.1.20:8000")
         self.assertEqual(env["DJANGO_COOKIE_PREFIX"], "demo_")
         self.assertEqual(env["SMTP_HOST"], "mail.example.com")
+
+    def test_temporary_tunnel_addresses(self):
+        values = desktop.update_settings(self.home, tunnel="temporary")
+        env = desktop.django_environment(self.home, values, addresses=[])
+        self.assertEqual(env["DJANGO_ALLOWED_HOSTS"], "localhost,127.0.0.1,[::1],.trycloudflare.com")
+        self.assertEqual(env["DJANGO_CSRF_TRUSTED_ORIGINS"], "")  # requests come from their own origin
+        self.assertEqual(env["PORTAL_TUNNEL"], "temporary")
+        self.assertEqual(env["PORTAL_BASE_URL"], "http://127.0.0.1:8000")
 
     def test_restart_needs_the_launcher(self):
         with mock.patch.dict(os.environ, {desktop.SUPERVISED_ENV: ""}):

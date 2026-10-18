@@ -7,6 +7,16 @@
     select.addEventListener("change", function () { select.form.submit(); });
   });
 
+  // People › This computer: the tunnel token is only asked for with an own address.
+  var tunnelMode = document.getElementById("id_tunnel");
+  var tunnelToken = document.getElementById("id_tunnel_token");
+  if (tunnelMode && tunnelToken) {
+    var tokenField = tunnelToken.closest(".field");
+    var showToken = function () { tokenField.hidden = tunnelMode.value !== "token"; };
+    tunnelMode.addEventListener("change", showToken);
+    showToken();
+  }
+
   // Confirmation for irreversible-looking actions (archiving, waiving…).
   document.querySelectorAll("form[data-confirm]").forEach(function (form) {
     form.addEventListener("submit", function (event) {
