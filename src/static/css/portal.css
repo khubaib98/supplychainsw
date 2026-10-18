@@ -285,6 +285,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 1rem 0; }
 .field .help { font-size: 0.8rem; color: var(--ink-3); }
 .field .errors { color: var(--critical-ink); font-size: 0.82rem; margin: 0; padding: 0; list-style: none; }
 .field.checkbox { flex-direction: row; align-items: center; gap: 0.5rem; }
+.field[hidden] { display: none; }
 input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"],
 input[type="datetime-local"], input[type="search"], input[type="file"], select, textarea {
   font: inherit;

@@ -36,21 +36,6 @@ def default_timezone(organization):
     return COUNTRY_TIMEZONES.get((organization.country or "").upper(), "UTC")
 
 
-def access_urls():
-    """Where people open the portal: the launcher's addresses, or the configured public address."""
-    return settings.PORTAL["ACCESS_URLS"] or [{"kind": "public", "url": settings.PORTAL["BASE_URL"]}]
-
-
-def shareable_url():
-    """The address to send to someone who is not sitting at this computer (None if there is none)."""
-    urls = access_urls()
-    for kind in ("public", "network"):
-        for entry in urls:
-            if entry["kind"] == kind:
-                return entry["url"]
-    return None
-
-
 @transaction.atomic
 def create_person(admin, data, request=None):
     """Create a login + profile. Returns (user, temporary password)."""

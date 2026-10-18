@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import TIMEZONES, Organization, Profile
-from core.desktop import SettingsError, normalize_public_url
+from core.desktop import SettingsError, normalize_public_url, normalize_tunnel_token
 
 
 class OneTimeCodeForm(forms.Form):
@@ -124,18 +124,69 @@ class ComputerSettingsForm(forms.Form):
     network_access = forms.BooleanField(
         label=_("Other computers in the office network may open the portal"), required=False
     )
+    tunnel = forms.ChoiceField(
+        label=_("Share over the internet (Cloudflare Tunnel)"),
+        choices=[
+            ("off", _("No")),
+            ("temporary", _("Temporary address (no account needed)")),
+            ("token", _("Own address (Cloudflare account)")),
+        ],
+        initial="off",
+        required=False,  # like the tick boxes: not sent means off
+        help_text=_("A temporary address works at once but changes every time the portal starts. "
+                    "An own address needs a Cloudflare account and a domain."),
+    )
+    tunnel_token = forms.CharField(
+        label=_("Tunnel token (own address)"),
+        required=False,
+        help_text=_("From the Cloudflare dashboard, when you create the tunnel. You may paste the whole "
+                    "install command. Leave empty to keep the saved token."),
+        widget=forms.PasswordInput(attrs={"autocomplete": "off", "dir": "ltr", "spellcheck": "false"}),
+    )
     public_url = forms.CharField(
         label=_("Public address (HTTPS tunnel)"),
         required=False,
-        help_text=_("Only if the portal is published through a tunnel, e.g. https://portal.example.com"),
+        help_text=_("Your own address, e.g. https://portal.example.com. Not needed for a temporary address."),
         widget=forms.TextInput(attrs={"placeholder": "https://portal.example.com", "dir": "ltr"}),
     )
     require_two_factor = forms.BooleanField(
         label=_("Everyone must use an authenticator app to sign in"), required=False
     )
 
+    def __init__(self, *args, has_token=False, **kwargs):
+        self.has_token = has_token
+        super().__init__(*args, **kwargs)
+        if has_token:
+            self.fields["tunnel_token"].help_text = _("A token is saved. Paste a new one only to replace it.")
+
+    def clean_tunnel(self):
+        return self.cleaned_data["tunnel"] or "off"
+
+    def clean_tunnel_token(self):
+        try:
+            return normalize_tunnel_token(self.cleaned_data["tunnel_token"])
+        except SettingsError as exc:
+            raise ValidationError(_("This is not a tunnel token. In the Cloudflare dashboard, copy the token "
+                                    "(it starts with eyJ) or the whole install command.")) from exc
+
     def clean_public_url(self):
         try:
             return normalize_public_url(self.cleaned_data["public_url"])
         except SettingsError as exc:
             raise ValidationError(_("Enter an address like https://portal.example.com (without a path).")) from exc
+
+    def clean(self):
+        data = super().clean()
+        if data.get("tunnel") == "token":
+            if "tunnel_token" in data and not (data["tunnel_token"] or self.has_token):
+                self.add_error("tunnel_token", _("Paste the tunnel token from the Cloudflare dashboard."))
+            if "public_url" in data and not data["public_url"]:
+                self.add_error("public_url", _("Enter the address you gave the tunnel in Cloudflare."))
+        return data
+
+    def changes(self):
+        """The new settings; an empty token field keeps the saved token."""
+        data = dict(self.cleaned_data)
+        if not data["tunnel_token"]:
+            del data["tunnel_token"]
+        return data

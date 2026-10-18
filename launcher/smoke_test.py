@@ -7,15 +7,17 @@ End-to-end check of the desktop edition, run by CI on every build:
 With a temporary data folder it: completes the first-run set-up like a
 browser would, adds a person who signs in and chooses a password, checks
 static files, translations, time zones and HTTPS-tunnel headers, changes a
-setting (the portal restarts itself), makes a backup while the portal runs,
-stops it, restores the backup, starts again, and finally runs the demo.
-Only the standard library is used.
+setting (the portal restarts itself), opens a temporary internet address
+through Cloudflare Tunnel (with a stand-in for cloudflared; not on Windows),
+makes a backup while the portal runs, stops it, restores the backup, starts
+again, and finally runs the demo. Only the standard library is used.
 """
 import http.cookiejar
 import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
@@ -30,6 +32,18 @@ PORT = 8765
 DEMO_PORT = 8766
 PASSWORD = "Harbour-Lantern-2026"
 DIRECT = urllib.request.ProxyHandler({})  # never send local requests through a proxy
+# A stand-in for cloudflared: says what the real one says when it opens a temporary address.
+FAKE_CLOUDFLARED = """\
+import os, sys, time
+from pathlib import Path
+here = Path(__file__).resolve().parent
+run = len(list(here.glob("run-*"))) + 1
+(here / f"run-{run}").write_text(" ".join(sys.argv[1:]))
+(here / "pid").write_text(str(os.getpid()))
+print(f"2026-10-18T10:00:00Z INF |  https://smoke-test-run-{run}.trycloudflare.com  |", file=sys.stderr, flush=True)
+print("2026-10-18T10:00:01Z INF Registered tunnel connection connIndex=0 location=khi01", file=sys.stderr, flush=True)
+time.sleep(3600)
+"""
 
 
 class SmokeTestFailure(Exception):
@@ -212,19 +226,12 @@ def exercise(portal):
     check(tunnel.sign_in("ahmed.raza", PASSWORD, headers=headers) == "/", "sign-in through the tunnel failed")
 
     step("changing a setting restarts the portal")
-    before = health(PORT)["boot"]
-    admin.get("/people/")
-    admin.post("/people/computer/", {"network_access": "on", "public_url": ""}, expect=200)
-    deadline = time.monotonic() + 120
-    while time.monotonic() < deadline:
-        answer = health(PORT)
-        if answer and answer["boot"] != before:
-            break
-        time.sleep(1)
-    else:
-        raise SmokeTestFailure("the portal did not come back after the settings change")
+    change_settings(admin, {"network_access": "on", "public_url": ""})
     check("network_access = yes" in (portal.home / "settings.ini").read_text(encoding="utf-8"), "setting not saved")
     admin.get("/people/")
+
+    if os.environ.get("CNPK_CLOUDFLARED"):
+        temporary_address(portal, admin)
 
     step("backup while the portal runs")
     saved = re.search(r"Backup saved: (.+\.zip)", portal.run("backup"))
@@ -252,6 +259,80 @@ def exercise(portal):
     portal.stop()
 
 
+def change_settings(admin, fields):
+    """Save the settings of this computer on the People page; the portal restarts."""
+    before = health(PORT)["boot"]
+    admin.get("/people/")
+    admin.post("/people/computer/", fields, expect=200)
+    deadline = time.monotonic() + 120
+    while time.monotonic() < deadline:
+        answer = health(PORT)
+        if answer and answer["boot"] != before:
+            return
+        time.sleep(1)
+    raise SmokeTestFailure("the portal did not come back after the settings change")
+
+
+def tunnel_state(portal, condition, what):
+    deadline = time.monotonic() + 90
+    while time.monotonic() < deadline:
+        try:
+            state = json.loads((portal.home / "tunnel.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            state = {}
+        if condition(state):
+            return state
+        time.sleep(0.5)
+    raise SmokeTestFailure(f"Cloudflare Tunnel: {what} (tunnel.json: {state})")
+
+
+def sign_in_through(host):
+    visitor = Browser(PORT)
+    headers = {"Host": host, "X-Forwarded-Proto": "https", "X-Forwarded-For": "203.0.113.7", "Origin": f"https://{host}"}
+    check(visitor.sign_in("ahmed.raza", PASSWORD, headers=headers) == "/", f"sign-in through {host} failed")
+
+
+def temporary_address(portal, admin):
+    step("temporary internet address through Cloudflare Tunnel (a stand-in for cloudflared)")
+    fake = Path(os.environ["CNPK_CLOUDFLARED"]).parent
+    change_settings(admin, {"tunnel": "temporary", "public_url": ""})  # and no office network
+    first = tunnel_state(portal, lambda state: state.get("state") == "connected", "not connected")
+    check(first["url"] in portal.launcher_output(), "the launcher did not print the temporary address")
+    check("--url http://127.0.0.1:%d" % PORT in (fake / "run-1").read_text(), "cloudflared got the wrong port")
+    people = admin.get("/people/")
+    check(first["url"] in people and "Cloudflare Tunnel is connected." in people, "People page without the address")
+    sign_in_through(urllib.parse.urlparse(first["url"]).hostname)
+    status, _location, _text = Browser(PORT).request("/login/", headers={"Host": "portal.attacker.example"})
+    check(status == 400, f"a request for another host name was answered ({status})")
+
+    step("cloudflared stops: the launcher starts it again, with a new address")
+    os.kill(int((fake / "pid").read_text()), signal.SIGTERM)
+    second = tunnel_state(portal, lambda state: state.get("state") == "connected" and state.get("url") != first["url"],
+                          "not started again")
+    sign_in_through(urllib.parse.urlparse(second["url"]).hostname)  # without restarting the portal
+
+    step("tunnel off")
+    pid = int((fake / "pid").read_text())
+    change_settings(admin, {"tunnel": "off", "public_url": ""})
+    check(not (portal.home / "tunnel.json").exists(), "tunnel.json is still there")
+    deadline = time.monotonic() + 30
+    while time.monotonic() < deadline and running(pid):
+        time.sleep(0.5)
+    check(not running(pid), "cloudflared still runs after the tunnel was turned off")
+
+
+def running(pid):
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        return False
+    try:  # a finished child of another process can linger as a zombie until it is reaped
+        with open(f"/proc/{pid}/stat", encoding="ascii") as stat:
+            return stat.read().split(")")[-1].split()[0] != "Z"
+    except OSError:
+        return True
+
+
 def demo_portal(command, work):
     step("demo")
     demo = Portal(command, work / "demo", DEMO_PORT, demo=True)
@@ -274,6 +355,12 @@ def demo_portal(command, work):
 def main(command):
     work = Path(tempfile.mkdtemp(prefix="cnpk-smoke-"))
     portals = []
+    if os.name != "nt":
+        fake = work / "fake-cloudflared" / "cloudflared"
+        fake.parent.mkdir()
+        fake.write_text(f"#!{sys.executable}\n{FAKE_CLOUDFLARED}", encoding="utf-8")
+        fake.chmod(0o755)
+        os.environ["CNPK_CLOUDFLARED"] = str(fake)
     try:
         portals.append(Portal(command, work / "data", PORT))
         real_portal(command, work)

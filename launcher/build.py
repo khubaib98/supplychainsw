@@ -47,7 +47,12 @@ YOUR DATA
 LETTING OTHER PEOPLE CONNECT
   Same office network: tick "Other computers in the office network may open
   the portal" on the People page (or start with: CNPK-Portal --network).
-  Other cities and countries: publish the portal through Cloudflare Tunnel.
+  Other cities and countries: on the People page, choose "Share over the
+  internet (Cloudflare Tunnel)" (or start with: CNPK-Portal --tunnel).
+  "Temporary address" works at once and needs no Cloudflare account, but the
+  address changes at every start. "Own address" keeps one address and needs a
+  Cloudflare account and a domain. The first time, the portal downloads
+  Cloudflare's cloudflared program (about 55 MB) into its data folder.
   Step-by-step guide: docs/05-run-on-your-computer.md in the project.
 
 DEMO

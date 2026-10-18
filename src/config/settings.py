@@ -260,6 +260,10 @@ PORTAL = {
     # how people reach this computer: [{"kind": "local" | "network" | "public", "url": ...}]
     "ACCESS_URLS": json.loads(env("PORTAL_ACCESS_URLS", "") or "[]"),
     "INSTANCE": env("PORTAL_INSTANCE", ""),
+    # Cloudflare Tunnel run by the launcher: off | temporary | token. How it is doing is in
+    # tunnel.json in the data folder, written by the launcher with this session (core/links.py).
+    "TUNNEL": env("PORTAL_TUNNEL", "off"),
+    "TUNNEL_SESSION": env("PORTAL_TUNNEL_SESSION", ""),
 }
 
 # Machine translation of free text (comments/remarks). The user interface

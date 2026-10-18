@@ -31,6 +31,8 @@ class SecurityHeadersMiddleware:
         # Camera is needed for QR scanning on phones; nothing else.
         response.headers.setdefault("Permissions-Policy", "camera=(self), microphone=(), geolocation=()")
         response.headers.setdefault("Cross-Origin-Opener-Policy", "same-origin")
+        # Addresses of tunnels get around; search engines must not list anything of the portal.
+        response.headers.setdefault("X-Robots-Tag", "noindex, nofollow")
         return response
 
 

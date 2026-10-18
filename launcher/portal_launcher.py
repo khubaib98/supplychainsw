@@ -10,8 +10,9 @@ Double-click the CNPK-Portal program built from this file, or run
   3. starts the portal and opens it in your browser;
   4. sends reminders every 15 minutes and makes a backup every day.
 
-Colleagues connect through the office network or a tunnel; see
-docs/05-run-on-your-computer.md. `CNPK-Portal --help` lists every option.
+Colleagues connect through the office network or through Cloudflare Tunnel,
+which the launcher runs itself (`--tunnel`, see core/tunnel.py and
+docs/05-run-on-your-computer.md). `CNPK-Portal --help` lists every option.
 
 There are two processes: this launcher, which shows the console window and
 watches over the portal, and the portal itself (the hidden `_serve`
@@ -46,12 +47,15 @@ if not FROZEN:
 
 from config import VERSION  # noqa: E402
 from core import desktop  # noqa: E402
+from core.tunnel import Tunnel  # noqa: E402
 
 NAME = "CN-PK Consignment Portal"
 PROGRAM = "CNPK-Portal"
 CONFIG_ERROR = 2
 DEMO_PASSWORD = "Demo-Portal-2026"
 DEMO_MARKER = "DEMO-DATA.txt"
+# Where the program is; IT staff may put cloudflared next to it.
+PROGRAM_DIR = Path(sys.executable).resolve().parent if FROZEN else Path(__file__).resolve().parent
 # Local health checks must never go through a proxy configured on the computer.
 LOCAL = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
@@ -119,6 +123,10 @@ def open_browser(url):
                 os.environ.pop("LD_LIBRARY_PATH", None)
             else:
                 os.environ["LD_LIBRARY_PATH"] = saved
+
+
+def say(text):
+    print(text, flush=True)
 
 
 def pause_before_closing():
@@ -217,6 +225,8 @@ def apply_command_line_settings(args, home):
         changes["network_access"] = True
     if args.local:
         changes["network_access"] = False
+    if args.tunnel:
+        changes["tunnel"] = args.tunnel
     if changes:
         values = desktop.update_settings(home, **changes)
     return values
@@ -230,15 +240,33 @@ def reset_demo_data(home):
     desktop.prepare_home(home)
 
 
-def print_banner(home, values, token, demo):
-    labels = {"local": "On this computer", "network": "Office network", "public": "From the internet"}
+def portal_urls(values, tunnel):
     urls = desktop.access_urls(values)
+    if tunnel.url:
+        urls.append({"kind": "public", "url": tunnel.url})
+    return urls
+
+
+def print_banner(home, values, token, demo, tunnel):
+    labels = {"local": "On this computer", "network": "Office network", "public": "From the internet"}
+    urls = portal_urls(values, tunnel)
     lines = [f"{NAME}{' - DEMO' if demo else ''}   (version {VERSION})", ""]
     for entry in urls:
         lines.append(f"  {labels[entry['kind']] + ':':20}{entry['url']}")
+    if tunnel.mode == "temporary" and tunnel.url:
+        lines.append(f"  {'':20}(temporary: a new address every time the portal starts)")
+    elif tunnel.mode == "temporary":
+        lines.append(f"  {'From the internet:':20}" + ("Cloudflare Tunnel is not working yet (see above)"
+                                                       if tunnel.state.get("state") == "failed"
+                                                       else "Cloudflare Tunnel is starting (the address follows)"))
+    elif tunnel.mode == "token" and not values["public_url"]:
+        lines.append(f"  {'From the internet:':20}enter the address of the tunnel as public address on the People page")
     lines += ["", f"  Data folder:        {home}"]
-    if not values["network_access"] and not values["public_url"]:
-        lines.append("  Only this computer can open the portal (start with --network to allow the office network).")
+    if not values["network_access"] and not values["public_url"] and tunnel.mode == "off":
+        lines += ["  Only this computer can open the portal. Start with --network for the office network,",
+                  "  or with --tunnel for people anywhere (see the guide)."]
+    elif (values["public_url"] or tunnel.mode != "off") and not values["require_two_factor"]:
+        lines.append("  The portal can be opened from the internet: on the People page, require two-factor sign-in.")
     if token:
         lines += ["", "  FIRST START: open this link to set up the portal (it works only once):",
                   f"  {urls[0]['url']}/setup/?token={token}"]
@@ -304,7 +332,7 @@ def start(args, home):
     if not lock.acquire():
         url = lock.read_info().get("url") or f"http://127.0.0.1:{desktop.load_settings(home, demo=args.demo)['port']}"
         print(f"The portal is already running: {url}")
-        if args.port or args.network or args.local or args.fresh:
+        if args.port or args.network or args.local or args.fresh or args.tunnel:
             print("It keeps its current settings. Stop it first (close its window) to start it differently.")
         if not args.no_browser:
             open_browser(url)
@@ -332,15 +360,30 @@ def supervise(args, home, lock, values):
     local_url = f"http://127.0.0.1:{port}"
     lock.write_info(pid=os.getpid(), port=port, url=local_url, version=VERSION)
     set_window_title(f"{NAME}{' (DEMO)' if args.demo else ''} - {local_url}")
-    print_banner(home, values, token, args.demo)
+    tunnel = Tunnel(home, PROGRAM_DIR, report=say)
+    try:
+        tunnel.announce = False
+        tunnel.apply(values)
+        if tunnel.mode == "temporary":
+            tunnel.wait_ready(20)  # a few seconds as a rule; what comes later is printed when it comes
+        print_banner(home, values, token, args.demo, tunnel)
+        tunnel.announce = True
+        return run_portal(args, home, lock, values, token, instance, tunnel)
+    finally:
+        tunnel.stop()
+
+
+def run_portal(args, home, lock, values, token, instance, tunnel):
     if hasattr(signal, "SIGTERM"):
         signal.signal(signal.SIGTERM, _stop_on_sigterm)
-
+    port = values["port"]
+    local_url = f"http://127.0.0.1:{port}"
     command = [*self_command(), "--data-dir", str(home), *(["--demo"] if args.demo else []), "_serve"]
     crashes = deque(maxlen=5)
     first_start = True
     while True:
-        env = dict(os.environ, **{desktop.SUPERVISED_ENV: "1", "PORTAL_SETUP_TOKEN": token})
+        env = dict(os.environ, **{desktop.SUPERVISED_ENV: "1", "PORTAL_SETUP_TOKEN": token,
+                                  desktop.TUNNEL_SESSION_ENV: tunnel.session})
         process = subprocess.Popen(command, env=env)
         try:
             if wait_until_ready(port, process, instance) and first_start:
@@ -349,6 +392,7 @@ def supervise(args, home, lock, values):
                     open_browser(f"{local_url}/setup/?token={token}" if token else f"{local_url}/")
             code = wait_for(process)
         except (KeyboardInterrupt, StopRequested) as reason:
+            tunnel.stop()
             stop_child(process, grace=0 if isinstance(reason, StopRequested) else 3)
             print("\nThe portal has stopped.", flush=True)
             return 0
@@ -362,8 +406,9 @@ def supervise(args, home, lock, values):
             port, token = values["port"], ""
             local_url = f"http://127.0.0.1:{port}"
             lock.write_info(pid=os.getpid(), port=port, url=local_url, version=VERSION)
+            tunnel.apply(values)
             print("\nRestarting with the new settings. The portal can now be opened at:", flush=True)
-            for entry in desktop.access_urls(values):
+            for entry in portal_urls(values, tunnel):
                 print(f"  {entry['url']}", flush=True)
             continue
         crashes.append(time.monotonic())
@@ -625,6 +670,10 @@ def build_parser():
     access.add_argument("--network", action="store_true",
                         help="let other computers in the office network open the portal (remembered)")
     access.add_argument("--local", action="store_true", help="only this computer may open the portal (remembered)")
+    parser.add_argument("--tunnel", nargs="?", const="temporary", choices=desktop.TUNNEL_MODES,
+                        help="share the portal over the internet with Cloudflare Tunnel (remembered): temporary "
+                             "(the default; a random address, no account needed), token (your own address, set up "
+                             "on the People page) or off")
     parser.add_argument("--no-browser", action="store_true", help="do not open the browser")
     parser.add_argument("--fresh", action="store_true", help="with --demo: start again from fresh demo data")
 

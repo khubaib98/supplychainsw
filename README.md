@@ -65,7 +65,8 @@ name the three organisations. On the **People** page you then add people; each o
 ready-to-send sign-in message in their own language.
 
 - **Colleagues in the same office:** tick one box to let them connect.
-- **The Shipper and Receiver elsewhere:** connect them through Cloudflare Tunnel.
+- **The Shipper and Receiver elsewhere:** share the portal over the internet with Cloudflare Tunnel,
+  which the program runs itself: a temporary address in one click, or your own address.
 - **The demo:** `Start demo` opens the 57-carton example on a separate practice copy.
 
 The steps, backups, security checklist and the limits of hosting on a PC are in
