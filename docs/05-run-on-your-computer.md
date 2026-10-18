@@ -294,10 +294,23 @@ All data lives in one folder, **`CNPK-Portal` in your home folder** (for example
 | `db.sqlite3` | the database |
 | `media\` | uploaded documents |
 | `backups\` | a zip made every day, holding the database and all documents. Kept 30 days; the newest 7 are always kept. |
-| `settings.ini` | port, network access, public address, e-mail, translation (open with Notepad) |
-| `logs\portal.log` | what happened, for troubleshooting |
+| `settings.ini` | port, network access, tunnel, public address, e-mail, translation (open with Notepad) |
+| `logs\` | `portal.log` (what happened, for troubleshooting) and `tunnel.log` (Cloudflare Tunnel) |
 | `outbox\` | reminder e-mails, saved here while no mail server is set up |
+| `tools\` | cloudflared, if the portal had to download it for Cloudflare Tunnel (about 55 MB) |
 
+- **Disk space.** Every daily backup holds the database and *all* documents, and about 30 are
+  kept. The backups therefore need roughly 30 times the space of the documents. If that is too
+  much for drive C:, lower `keep_days` in `settings.ini`, or keep the data on another drive.
+- **On another drive**, for example D:
+  1. Close the portal window and move the `CNPK-Portal` folder to `D:\`.
+  2. In a Command Prompt run `setx CNPK_PORTAL_HOME D:\CNPK-Portal` once. From then on the program
+     and all its commands use that folder (the demo uses `D:\CNPK-Portal-Demo`).
+  3. If the portal starts automatically, open a new Command Prompt and run
+     `CNPK-Portal autostart on` again. For the Task Scheduler start-up, add
+     `--data-dir D:\CNPK-Portal` to its arguments.
+
+  Instead of step 2 you can add `--data-dir D:\CNPK-Portal` to every command.
 - **Back up now:** click **People › This computer › Back up now**, or run `CNPK-Portal backup`.
   Backups are safe to make while people are working.
 - **Keep a copy somewhere else.** A backup on the same disk does not survive a disk failure or a
