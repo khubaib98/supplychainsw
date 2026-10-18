@@ -44,7 +44,7 @@ The program is built automatically by GitHub every time the code changes:
    click **OK**. This avoids a security prompt for every file.
 4. Unzip it to a simple place, for example `C:\CNPK-Portal`.
 
-Artifacts are deleted after 30 days. For a permanent download page, publish a release:
+Artifacts are deleted after 7 days (30 for a release). For a permanent download page, publish a release:
 
 1. On GitHub, open **Releases › Draft a new release**.
 2. Under **Choose a tag**, type `v1.2.0` and pick **Create new tag**.
