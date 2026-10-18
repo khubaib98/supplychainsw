@@ -305,6 +305,13 @@ class Tunnel:
             config.write_text("# Used by the CN-PK Consignment Portal.\nno-autoupdate: true\n", encoding="utf-8")
         command = [str(program), "--config", str(config), "tunnel", "--no-autoupdate"]
         env = {name: value for name, value in os.environ.items() if not name.upper().startswith("TUNNEL_")}
+        if getattr(sys, "frozen", False) and sys.platform.startswith("linux"):
+            # Not the libraries bundled with the portal program (PyInstaller keeps the original value).
+            original = env.pop("LD_LIBRARY_PATH_ORIG", None)
+            if original is None:
+                env.pop("LD_LIBRARY_PATH", None)
+            else:
+                env["LD_LIBRARY_PATH"] = original
         if mode == "temporary":
             command += ["--url", f"http://127.0.0.1:{port}"]
         else:
