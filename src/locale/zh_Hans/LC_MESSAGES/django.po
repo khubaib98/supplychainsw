@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: consignment-portal 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 18:22+0000\n"
+"POT-Creation-Date: 2026-10-18 21:02+0000\n"
 "PO-Revision-Date: 2026-09-29 18:00+0000\n"
 "Last-Translator: Initial machine-assisted draft - to be reviewed by native speakers\n"
 "Language-Team: Simplified Chinese\n"
@@ -141,6 +141,13 @@ msgstr "这不是隧道令牌。请在 Cloudflare 控制台复制令牌（以 ey
 
 msgid "Enter an address like https://portal.example.com (without a path)."
 msgstr "请输入类似 https://portal.example.com 的地址（不带路径）。"
+
+msgid ""
+"This is the address of this computer. Enter the address people open, the "
+"public hostname of the tunnel in Cloudflare, e.g. "
+"https://portal.example.com."
+msgstr ""
+"这是本机的地址。请输入别人打开的地址，即 Cloudflare 中隧道的公共主机名，例如 https://portal.example.com。"
 
 msgid "Paste the tunnel token from the Cloudflare dashboard."
 msgstr "请粘贴 Cloudflare 控制台中的隧道令牌。"

@@ -358,7 +358,8 @@ class Tunnel:
                        f"until then the portal turns visitors away.")
         elif wanted_host not in hosts:
             problem = (f"The tunnel serves {', '.join(hosts)}, but the public address of the portal is "
-                       f"{self.public_url}. Make them the same.")
+                       f"{self.public_url}. Enter https://{hosts[0]} as the public address on the People "
+                       f"page (This computer).")
         self._update(stop, hostnames=hosts, message=problem)
         if problem:
             self.report(f"\nCloudflare Tunnel: {problem}")

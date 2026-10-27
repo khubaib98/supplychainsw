@@ -134,6 +134,10 @@ def main():
     sys.path.insert(0, str(ROOT / "src"))
     from config import VERSION
 
+    # A release tag must match the version in the program, or v1.3.0 would ship 1.2.0 zips.
+    if os.environ.get("GITHUB_REF_TYPE") == "tag" and os.environ.get("GITHUB_REF_NAME") != f"v{VERSION}":
+        sys.exit(f"The tag {os.environ['GITHUB_REF_NAME']} does not match the program version {VERSION} "
+                 f"(src/config/__init__.py). Change one so that they match.")
     check_pins()
     subprocess.run([sys.executable, str(ROOT / "deploy" / "compile_po.py"), str(ROOT / "src" / "locale")], check=True)
     subprocess.run(

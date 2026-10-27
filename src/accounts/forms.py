@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model, password_validation
@@ -6,7 +8,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import TIMEZONES, Organization, Profile
-from core.desktop import SettingsError, normalize_public_url, normalize_tunnel_token
+from core.desktop import SettingsError, is_this_computer, normalize_public_url, normalize_tunnel_token
 
 
 class OneTimeCodeForm(forms.Form):
@@ -171,9 +173,14 @@ class ComputerSettingsForm(forms.Form):
 
     def clean_public_url(self):
         try:
-            return normalize_public_url(self.cleaned_data["public_url"])
+            public_url = normalize_public_url(self.cleaned_data["public_url"])
         except SettingsError as exc:
             raise ValidationError(_("Enter an address like https://portal.example.com (without a path).")) from exc
+        if public_url and is_this_computer(urlparse(public_url).hostname):
+            # The tunnel would bring visitors with the real address, which the portal then turns away.
+            raise ValidationError(_("This is the address of this computer. Enter the address people open, "
+                                    "the public hostname of the tunnel in Cloudflare, e.g. https://portal.example.com."))
+        return public_url
 
     def clean(self):
         data = super().clean()

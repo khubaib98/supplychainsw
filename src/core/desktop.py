@@ -19,6 +19,7 @@ It imports nothing from Django, so the launcher can use it before Django starts.
 import base64
 import configparser
 import hashlib
+import ipaddress
 import json
 import logging
 import os
@@ -237,6 +238,17 @@ def normalize_public_url(text):
             f"public_url must look like https://portal.example.com, without a path (found {text!r})."
         )
     return text
+
+
+def is_this_computer(hostname):
+    """localhost, 127.x.x.x and ::1 (never the address other people open)."""
+    hostname = (hostname or "").strip("[]").lower()
+    if hostname == "localhost" or hostname.endswith(".localhost"):
+        return True
+    try:
+        return ipaddress.ip_address(hostname).is_loopback
+    except ValueError:
+        return False
 
 
 def normalize_tunnel_token(text):

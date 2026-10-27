@@ -258,6 +258,12 @@ class ComputerSettingsTests(TestCase):
         self.client.post(reverse("accounts:computer"), {"public_url": "https://example.com/portal"})
         self.assertEqual(desktop.load_settings(self.home)["public_url"], "")
 
+    def test_rejects_the_address_of_this_computer(self):
+        for address in ("https://127.0.0.1:8000", "http://localhost:8000", "https://[::1]"):
+            page = self.save(public_url=address)
+            self.assertContains(page, "This is the address of this computer.")
+            self.assertEqual(desktop.load_settings(self.home)["public_url"], "")
+
     def save(self, **data):
         return self.client.post(reverse("accounts:computer"), data, follow=True)
 
