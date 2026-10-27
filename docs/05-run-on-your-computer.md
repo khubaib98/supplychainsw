@@ -38,7 +38,7 @@ The program is built automatically by GitHub every time the code changes:
 
 1. Open the repository on GitHub, then **Actions**, then **Desktop app**, and click the latest run with a
    green tick.
-2. Under **Artifacts**, download **`CNPK-Portal-1.2.0-windows-x64`**. On a Mac or Linux PC,
+2. Under **Artifacts**, download **`CNPK-Portal-1.3.0-windows-x64`**. On a Mac or Linux PC,
    download the matching `package-…` file instead.
 3. On Windows, first right-click the downloaded zip, choose **Properties**, tick **Unblock** and
    click **OK**. This avoids a security prompt for every file.
@@ -47,7 +47,9 @@ The program is built automatically by GitHub every time the code changes:
 Artifacts are deleted after 7 days (30 for a release). For a permanent download page, publish a release:
 
 1. On GitHub, open **Releases › Draft a new release**.
-2. Under **Choose a tag**, type `v1.2.0` and pick **Create new tag**.
+2. Under **Choose a tag**, type `v1.3.0` and pick **Create new tag**. Keep **Target** on `main`.
+   The tag must be `v` plus the `VERSION` in `src/config/__init__.py`; otherwise the build stops.
+   For the next version, change `VERSION` first (for example to `1.4.0`) and merge that into `main`.
 3. Click **Publish release**.
 
 A few minutes later, zips for Windows, macOS and Linux are attached to the release. The macOS
@@ -64,7 +66,7 @@ version is only built for releases, or when you start the **Desktop app** workfl
 
    ```
    ============================================================================
-   CN-PK Consignment Portal   (version 1.2.0)
+   CN-PK Consignment Portal   (version 1.3.0)
 
      On this computer:   http://127.0.0.1:8000
 

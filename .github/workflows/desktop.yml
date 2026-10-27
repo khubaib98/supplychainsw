@@ -3,7 +3,7 @@ name: Desktop app
 # Builds the ready-made CNPK-Portal program and tests the built program end to
 # end (launcher/smoke_test.py). Windows and Linux on every change to the app;
 # macOS (billed at 10x on private repositories) only for version tags or when
-# started by hand. A tag such as v1.2.0 also publishes a GitHub release.
+# started by hand. A tag such as v1.3.0 also publishes a GitHub release.
 
 on:
   push:
